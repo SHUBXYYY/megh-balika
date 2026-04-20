@@ -1,0 +1,4 @@
+project_id = "hgphlzxkacbadwdshulp"
+
+[functions.saree-expert]
+verify_jwt = false
