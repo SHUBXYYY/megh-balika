@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Trash2, Edit3, X, Eye, EyeOff } from "lucide-react";
+import { Plus, Trash2, Edit3, X, Eye, EyeOff, Upload, Loader2 } from "lucide-react";
 import AdminHeader from "./AdminHeader";
 
 type Collection = {
@@ -20,6 +20,36 @@ export default function AdminCollections() {
   const [items, setItems] = useState<Collection[]>([]);
   const [editing, setEditing] = useState<Partial<Collection> | null>(null);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleUpload = async (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please choose an image file.");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      toast.error("Image must be under 8 MB.");
+      return;
+    }
+    setUploading(true);
+    try {
+      const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+      const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("collection-images")
+        .upload(path, file, { contentType: file.type, upsert: false });
+      if (upErr) throw upErr;
+      const { data } = supabase.storage.from("collection-images").getPublicUrl(path);
+      setEditing((cur) => ({ ...(cur ?? {}), image_url: data.publicUrl }));
+      toast.success("Image uploaded");
+    } catch (e: any) {
+      toast.error(e.message ?? "Upload failed");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
 
   const load = async () => {
     setLoading(true);
@@ -143,7 +173,60 @@ export default function AdminCollections() {
               <Input label="Slug *" value={editing.slug ?? ""} onChange={(v) => setEditing({ ...editing, slug: v })} placeholder="banarasi" />
               <Input label="Fabric" value={editing.fabric ?? ""} onChange={(v) => setEditing({ ...editing, fabric: v })} />
               <Input label="Origin" value={editing.origin ?? ""} onChange={(v) => setEditing({ ...editing, origin: v })} />
-              <Input label="Image URL" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} placeholder="https://…" />
+
+              {/* Image upload + preview */}
+              <div>
+                <label className="block text-xs uppercase tracking-[0.3em] text-muted-foreground mb-2">
+                  Saree image
+                </label>
+                <div className="flex gap-4 items-start">
+                  <div className="w-28 h-28 bg-secondary border border-border shrink-0 overflow-hidden flex items-center justify-center">
+                    {editing.image_url ? (
+                      <img src={editing.image_url} alt="preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-[10px] uppercase tracking-widest text-muted-foreground">no image</span>
+                    )}
+                  </div>
+                  <div className="flex-1 space-y-2">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        if (f) handleUpload(f);
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={uploading}
+                      className="btn-luxe-outline !py-2 !px-4 !text-xs gap-2 disabled:opacity-50"
+                    >
+                      {uploading ? (
+                        <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Uploading…</>
+                      ) : (
+                        <><Upload className="h-3.5 w-3.5" /> {editing.image_url ? "Replace image" : "Upload image"}</>
+                      )}
+                    </button>
+                    {editing.image_url && (
+                      <button
+                        type="button"
+                        onClick={() => setEditing({ ...editing, image_url: "" })}
+                        className="block text-[11px] uppercase tracking-widest text-muted-foreground hover:text-destructive transition"
+                      >
+                        Remove image
+                      </button>
+                    )}
+                    <p className="text-[11px] text-muted-foreground leading-relaxed">
+                      JPG / PNG / WebP · max 8 MB. Or paste a direct URL below.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Input label="Image URL (optional)" value={editing.image_url ?? ""} onChange={(v) => setEditing({ ...editing, image_url: v })} placeholder="https://…" />
               <Input label="Sort order" type="number" value={String(editing.sort_order ?? 0)} onChange={(v) => setEditing({ ...editing, sort_order: Number(v) })} />
               <div>
                 <label className="block text-xs uppercase tracking-[0.3em] text-muted-foreground mb-2">Description</label>
