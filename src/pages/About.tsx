@@ -5,9 +5,15 @@ import MenuTrigger from "@/components/MenuTrigger";
 import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
+import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
 
 const About = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { get } = useSiteContent();
+  const email = get("contact_email", SITE_DEFAULTS.contact_email);
+  const phone = get("contact_phone", SITE_DEFAULTS.contact_phone);
+  const aboutIntro = get("about_intro", "");
+
   return (
     <main className="bg-background">
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
@@ -27,11 +33,16 @@ const About = () => {
 
       <section className="py-20 md:py-28">
         <div className="container px-6 md:px-12 max-w-3xl">
-          <p className="font-serif text-2xl md:text-3xl leading-relaxed text-balance mb-10">
-            Megh Balika began in a one-room weaving studio in Shantiniketan, where four artisans
-            answered the question — "what does a cloud feel like, in silk?"
-          </p>
+          {aboutIntro && (
+            <p className="font-serif text-2xl md:text-3xl leading-relaxed text-balance mb-10">
+              {aboutIntro}
+            </p>
+          )}
           <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
+            <p>
+              Megh Balika began in a one-room weaving studio in Shantiniketan, where four artisans
+              answered the question — "what does a cloud feel like, in silk?"
+            </p>
             <p>
               Today the atelier represents <em>more than 200 master weavers</em> across Bengal,
               Banaras and Kanchipuram. Every saree is hand-loomed, certified for authenticity, and
@@ -46,6 +57,22 @@ const About = () => {
               <em className="text-foreground">Megh Balika</em> means <em className="text-foreground">Cloud Maiden</em> —
               for the lightness, the drape, the play of light — and for the care with which each piece is born.
             </p>
+          </div>
+
+          {/* Contact card */}
+          <div className="mt-16 border-t border-gold-deep/20 pt-10 grid sm:grid-cols-2 gap-8">
+            <div>
+              <div className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-3">Direct line</div>
+              <a href={`tel:${phone.replace(/\s/g, "")}`} className="font-serif text-2xl link-edit hover:text-gold transition">
+                {phone}
+              </a>
+            </div>
+            <div>
+              <div className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-3">Atelier email</div>
+              <a href={`mailto:${email}`} className="font-serif text-2xl link-edit hover:text-gold transition break-all">
+                {email}
+              </a>
+            </div>
           </div>
         </div>
       </section>
