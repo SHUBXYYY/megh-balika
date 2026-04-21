@@ -11,6 +11,7 @@ import Contact from "./pages/Contact.tsx";
 import Auth from "./pages/Auth.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import WhatsAppFab from "./components/WhatsAppFab";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <WhatsAppFab />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
 
 export default function Footer() {
+  const { get } = useSiteContent();
+  const email = get("contact_email", SITE_DEFAULTS.contact_email);
+  const phone = get("contact_phone", SITE_DEFAULTS.contact_phone);
+
   return (
     <footer className="bg-ink text-ink-foreground">
       <div className="container px-6 md:px-12 py-20 md:py-28">
@@ -37,8 +42,8 @@ export default function Footer() {
           <div className="md:col-span-3">
             <div className="text-xs uppercase tracking-[0.3em] text-gold mb-4">Reach us</div>
             <ul className="space-y-2 text-ink-foreground/70">
-              <li>hello@meghbalika.in</li>
-              <li>WhatsApp · +91 · Business</li>
+              <li><a href={`mailto:${email}`} className="link-edit hover:text-gold break-all">{email}</a></li>
+              <li><a href={`tel:${phone.replace(/\s/g,"")}`} className="link-edit hover:text-gold">{phone}</a></li>
               <li>Kolkata · West Bengal · India</li>
             </ul>
           </div>
