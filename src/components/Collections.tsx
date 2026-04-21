@@ -75,15 +75,15 @@ export default function Collections() {
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className={`md:col-span-7 group ${isOdd ? "md:col-start-6" : "md:col-start-1"}`}
               >
-                <div className="relative overflow-hidden">
-                  <div className="aspect-[4/5] md:aspect-[3/4] overflow-hidden">
+                <div className="relative overflow-hidden gold-sweep">
+                  <div className="aspect-[4/5] md:aspect-[3/4] overflow-hidden img-zoom">
                     <img
                       src={c.img}
                       alt={`${c.name} saree weave detail`}
                       loading="lazy"
                       width={1024}
                       height={1280}
-                      className="w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-[1.06]"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="absolute top-4 left-4 md:top-6 md:left-6 font-serif text-xs tracking-[0.3em] text-ink-foreground/80 bg-ink/40 backdrop-blur-sm px-3 py-1.5">

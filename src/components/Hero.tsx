@@ -22,6 +22,16 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-background/30 via-transparent to-background/30" />
       </motion.div>
 
+      {/* Ambient floating gold orbs */}
+      <div
+        className="absolute top-[15%] right-[10%] w-[28rem] h-[28rem] rounded-full pointer-events-none animate-float-slow"
+        style={{ background: "radial-gradient(circle, hsl(var(--gold) / 0.18), transparent 65%)", filter: "blur(40px)" }}
+      />
+      <div
+        className="absolute bottom-[5%] left-[5%] w-[22rem] h-[22rem] rounded-full pointer-events-none animate-float-slow"
+        style={{ background: "radial-gradient(circle, hsl(var(--gold-light) / 0.22), transparent 65%)", filter: "blur(50px)", animationDelay: "-7s" }}
+      />
+
       {/* Top brand mark */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
