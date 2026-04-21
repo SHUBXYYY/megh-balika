@@ -34,6 +34,7 @@ export default function Footer() {
             <ul className="space-y-2 text-ink-foreground/70">
               <li><a href="#expert" className="link-edit hover:text-gold">Catalogue</a></li>
               <li><Link to="/export" className="link-edit hover:text-gold">MOQ & Pricing</Link></li>
+              <li><Link to="/certifications" className="link-edit hover:text-gold">Certifications</Link></li>
               <li><Link to="/contact" className="link-edit hover:text-gold">Contact</Link></li>
               <li><Link to="/auth" className="link-edit hover:text-gold">Admin</Link></li>
             </ul>
