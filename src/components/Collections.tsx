@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import banarasi from "@/assets/collection-banarasi.jpg";
 import tussar from "@/assets/collection-tussar.jpg";
 import kantha from "@/assets/collection-kantha.jpg";
@@ -8,6 +9,7 @@ const collections = [
   {
     n: "01",
     name: "Banarasi",
+    slug: "banarasi",
     tag: "Banaras · Silk & Zari",
     desc: "Royal brocades with real silver-gilt zari motifs. The empress of Indian silk.",
     img: banarasi,
@@ -15,6 +17,7 @@ const collections = [
   {
     n: "02",
     name: "Tussar",
+    slug: "tussar",
     tag: "Bhagalpur · Wild Silk",
     desc: "Sun-warm wild silk with a tactile, textured hand-feel. Earthy and effortless.",
     img: tussar,
@@ -22,6 +25,7 @@ const collections = [
   {
     n: "03",
     name: "Kantha",
+    slug: "kantha",
     tag: "Bengal · Hand Embroidery",
     desc: "Generations of running stitches retell folktales across cotton and silk.",
     img: kantha,
@@ -29,6 +33,7 @@ const collections = [
   {
     n: "04",
     name: "Batik",
+    slug: "batik",
     tag: "Shantiniketan · Wax-Resist",
     desc: "Dye and wax converse — each piece an unrepeatable studio composition.",
     img: batik,
@@ -95,9 +100,9 @@ export default function Collections() {
                   <div className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-3">{c.tag}</div>
                   <h3 className="font-serif text-4xl md:text-5xl mb-4">{c.name}</h3>
                   <p className="text-muted-foreground max-w-md leading-relaxed mb-5">{c.desc}</p>
-                  <a href="#expert" className="link-edit font-serif italic text-foreground/80 hover:text-gold transition-colors">
-                    Inquire about {c.name} ⟶
-                  </a>
+                  <Link to={`/sarees/${c.slug}`} className="link-edit font-serif italic text-foreground/80 hover:text-gold transition-colors">
+                    Explore {c.name} ⟶
+                  </Link>
                 </div>
               </motion.article>
             );
