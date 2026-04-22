@@ -11,6 +11,7 @@ import AdminBookings from "@/components/admin/AdminBookings";
 import AdminChats from "@/components/admin/AdminChats";
 import AdminCollections from "@/components/admin/AdminCollections";
 import AdminContent from "@/components/admin/AdminContent";
+import AdminMegh from "@/components/admin/AdminMegh";
 
 const Admin = () => {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
@@ -134,6 +135,9 @@ const Admin = () => {
           <Route path="content" element={<AdminContent />} />
         </Routes>
       </section>
+
+      {/* Floating Megh concierge — only visible to authenticated admins */}
+      <AdminMegh />
     </main>
   );
 };

@@ -107,8 +107,10 @@ export type Database = {
           fabric: string | null
           id: string
           image_url: string | null
+          images: Json
           name: string
           origin: string | null
+          primary_image_index: number
           published: boolean
           slug: string
           sort_order: number
@@ -120,8 +122,10 @@ export type Database = {
           fabric?: string | null
           id?: string
           image_url?: string | null
+          images?: Json
           name: string
           origin?: string | null
+          primary_image_index?: number
           published?: boolean
           slug: string
           sort_order?: number
@@ -133,8 +137,10 @@ export type Database = {
           fabric?: string | null
           id?: string
           image_url?: string | null
+          images?: Json
           name?: string
           origin?: string | null
+          primary_image_index?: number
           published?: boolean
           slug?: string
           sort_order?: number
