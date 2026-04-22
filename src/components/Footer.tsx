@@ -45,15 +45,18 @@ export default function Footer() {
             <ul className="space-y-2 text-ink-foreground/70">
               <li><a href={`mailto:${email}`} className="link-edit hover:text-gold break-all">{email}</a></li>
               <li><a href={`tel:${phone.replace(/\s/g,"")}`} className="link-edit hover:text-gold">{phone}</a></li>
-              <li>Kolkata · West Bengal · India</li>
+              <li className="leading-relaxed">Esplanade East,<br />Kolkata, West Bengal 700069<br />India</li>
             </ul>
           </div>
         </div>
 
         <div className="hairline mt-16 mb-6" />
         <div className="flex flex-col md:flex-row justify-between gap-3 text-xs text-ink-foreground/40 uppercase tracking-widest">
-          <div>© {new Date().getFullYear()} Megh Balika. Hand-loomed in India.</div>
+          <div>© {new Date().getFullYear()} Megh Balika · Founded by Reshmi Pradhan · Hand-loomed in India.</div>
           <div>Silk Mark · GI Certified · Export-ready</div>
+        </div>
+        <div className="mt-4 text-center text-[10px] uppercase tracking-[0.4em] text-ink-foreground/30">
+          Developed by <span className="text-gold-shimmer">Shubhamm</span>
         </div>
       </div>
     </footer>

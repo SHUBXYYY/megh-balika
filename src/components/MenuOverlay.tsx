@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
 
 const links = [
   { label: "Home", to: "/", subtitle: "The atelier" },
   { label: "Collections", to: "/#collections", subtitle: "Weaves & wonders" },
+  { label: "Sarees", to: "/sarees", subtitle: "The full library" },
   { label: "Export Hub", to: "/export", subtitle: "For global buyers" },
   { label: "AI Saree Expert", to: "/#expert", subtitle: "Speak with Megh" },
   { label: "Book a Tour", to: "/book", subtitle: "Virtual showroom" },
@@ -20,6 +22,9 @@ interface Props {
 
 export default function MenuOverlay({ open, onClose }: Props) {
   const [hovered, setHovered] = useState<number | null>(null);
+  const { get } = useSiteContent();
+  const email = get("contact_email", SITE_DEFAULTS.contact_email);
+  const phone = get("contact_phone", SITE_DEFAULTS.contact_phone);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -155,19 +160,25 @@ export default function MenuOverlay({ open, onClose }: Props) {
             >
               <div>
                 <div className="text-gold mb-2">Atelier</div>
-                Kolkata · Banaras · Kanchipuram
+                <span className="normal-case tracking-normal text-ink-foreground/80">
+                  Esplanade East,<br />Kolkata, West Bengal 700069
+                </span>
               </div>
               <div>
-                <div className="text-gold mb-2">Export</div>
-                72+ countries
-              </div>
-              <div>
-                <div className="text-gold mb-2">WhatsApp</div>
-                +91 · Business
+                <div className="text-gold mb-2">Phone</div>
+                <a href={`tel:${phone.replace(/\s/g,"")}`} className="hover:text-gold transition normal-case tracking-normal">
+                  {phone}
+                </a>
               </div>
               <div>
                 <div className="text-gold mb-2">Email</div>
-                hello@meghbalika.in
+                <a href={`mailto:${email}`} className="hover:text-gold transition break-all normal-case tracking-normal">
+                  {email}
+                </a>
+              </div>
+              <div>
+                <div className="text-gold mb-2">Export</div>
+                72+ countries served
               </div>
             </motion.div>
           </motion.div>
