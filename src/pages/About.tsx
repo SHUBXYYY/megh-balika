@@ -44,9 +44,11 @@ const About = () => {
               answered the question — "what does a cloud feel like, in silk?"
             </p>
             <p>
-              Today the atelier represents <em>more than 200 master weavers</em> across Bengal,
-              Banaras and Kanchipuram. Every saree is hand-loomed, certified for authenticity, and
-              shipped under our private label or yours.
+              The atelier was founded by <em className="text-foreground not-italic font-medium text-gold-shimmer">Reshmi Pradhan</em> —
+              a Bengali textile custodian whose grandmother's Jamdani trousseau lit the first spark.
+              Today, under her watch, Megh Balika represents <em>more than 200 master weavers</em> across
+              Bengal, Banaras, Kanchipuram and Bhuj. Every saree is hand-loomed, certified for authenticity,
+              and shipped under our private label or yours.
             </p>
             <p>
               We believe heritage is best preserved when it travels — so we make it our work to
@@ -57,6 +59,16 @@ const About = () => {
               <em className="text-foreground">Megh Balika</em> means <em className="text-foreground">Cloud Maiden</em> —
               for the lightness, the drape, the play of light — and for the care with which each piece is born.
             </p>
+          </div>
+
+          {/* Founder card */}
+          <div className="mt-14 p-8 border border-gold-deep/20 bg-card">
+            <div className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-3">Founder</div>
+            <div className="font-serif text-3xl mb-2">Reshmi Pradhan</div>
+            <div className="text-sm text-muted-foreground leading-relaxed">
+              Custodian, curator and weaver-whisperer. Reshmi leads the atelier from Esplanade East,
+              Kolkata — bridging looms in Bengal villages with boutiques across 72+ countries.
+            </div>
           </div>
 
           {/* Contact card */}

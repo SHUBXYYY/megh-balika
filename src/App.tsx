@@ -9,6 +9,8 @@ import Book from "./pages/Book.tsx";
 import About from "./pages/About.tsx";
 import Contact from "./pages/Contact.tsx";
 import Certifications from "./pages/Certifications.tsx";
+import Sarees from "./pages/Sarees.tsx";
+import SareeDetail from "./pages/SareeDetail.tsx";
 import Auth from "./pages/Auth.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -29,6 +31,8 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/certifications" element={<Certifications />} />
+          <Route path="/sarees" element={<Sarees />} />
+          <Route path="/sarees/:slug" element={<SareeDetail />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin/*" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
