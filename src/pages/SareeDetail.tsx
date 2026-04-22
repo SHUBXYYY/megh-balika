@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, Mail, ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import MenuTrigger from "@/components/MenuTrigger";
@@ -17,6 +17,8 @@ type Collection = {
   origin: string | null;
   description: string | null;
   image_url: string | null;
+  images: string[];
+  primary_image_index: number;
 };
 
 const SareeDetail = () => {
@@ -25,6 +27,7 @@ const SareeDetail = () => {
   const [item, setItem] = useState<Collection | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(0);
 
   const { get } = useSiteContent();
   const email = get("contact_email", SITE_DEFAULTS.contact_email);
@@ -40,11 +43,28 @@ const SareeDetail = () => {
         .eq("slug", slug)
         .eq("published", true)
         .maybeSingle();
-      if (!data) setNotFound(true);
-      else setItem(data as Collection);
+      if (!data) {
+        setNotFound(true);
+      } else {
+        const normalized = {
+          ...(data as any),
+          images: Array.isArray((data as any).images) ? (data as any).images : [],
+          primary_image_index: (data as any).primary_image_index ?? 0,
+        } as Collection;
+        setItem(normalized);
+        setActiveIdx(normalized.primary_image_index ?? 0);
+      }
       setLoading(false);
     })();
   }, [slug]);
+
+  // Build display gallery: prefer images[], fall back to image_url
+  const gallery = (() => {
+    if (!item) return [] as string[];
+    if (item.images && item.images.length > 0) return item.images;
+    if (item.image_url) return [item.image_url];
+    return [];
+  })();
 
   const waMsg = item
     ? `Namaste! I'd like to enquire about your ${item.name} sarees for wholesale.`
@@ -88,19 +108,49 @@ const SareeDetail = () => {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-7 relative"
             >
-              <div className="aspect-[4/5] overflow-hidden bg-secondary gold-sweep">
-                {item.image_url ? (
-                  <img
-                    src={item.image_url}
-                    alt={`${item.name} saree from Megh Balika`}
-                    className="w-full h-full object-cover"
-                  />
+              <div className="aspect-[4/5] overflow-hidden bg-secondary gold-sweep relative">
+                {gallery.length > 0 ? (
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={gallery[activeIdx]}
+                      src={gallery[activeIdx]}
+                      alt={`${item.name} saree from Megh Balika — view ${activeIdx + 1}`}
+                      className="w-full h-full object-cover absolute inset-0"
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    />
+                  </AnimatePresence>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                     Photograph coming soon
                   </div>
                 )}
               </div>
+
+              {gallery.length > 1 && (
+                <div className="mt-4 grid grid-cols-5 gap-2">
+                  {gallery.map((url, idx) => (
+                    <button
+                      key={url + idx}
+                      type="button"
+                      onClick={() => setActiveIdx(idx)}
+                      className={`aspect-square overflow-hidden bg-secondary border-2 transition ${
+                        idx === activeIdx ? "border-gold" : "border-transparent hover:border-gold/40"
+                      }`}
+                      aria-label={`View photo ${idx + 1}`}
+                    >
+                      <img
+                        src={url}
+                        alt={`${item.name} thumbnail ${idx + 1}`}
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </motion.div>
 
             <motion.div
@@ -127,7 +177,6 @@ const SareeDetail = () => {
                 </p>
               )}
 
-              {/* Spec table */}
               <dl className="border-t border-gold-deep/20 divide-y divide-gold-deep/15 mb-10">
                 <Row k="Fabric" v={item.fabric ?? "On request"} />
                 <Row k="Origin" v={item.origin ?? "India"} />
