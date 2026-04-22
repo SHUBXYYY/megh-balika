@@ -87,7 +87,7 @@ export default function NamaskarSplash() {
             className="relative mb-10"
           >
             <div className="absolute inset-0 blur-3xl bg-gold/30 rounded-full scale-150" />
-            <div className="relative text-7xl md:text-8xl select-none animate-[pulse-gold_3s_ease-in-out_infinite]">
+            <div className="relative text-7xl md:text-8xl select-none pulse-gold">
               🙏
             </div>
           </motion.div>
