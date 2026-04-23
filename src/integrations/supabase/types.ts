@@ -148,6 +148,39 @@ export type Database = {
         }
         Relationships: []
       }
+      inquiries: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          message: string
+          phone: string | null
+          status: string
+          subject: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          message: string
+          phone?: string | null
+          status?: string
+          subject?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          message?: string
+          phone?: string | null
+          status?: string
+          subject?: string | null
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           company: string | null
@@ -184,6 +217,104 @@ export type Database = {
           order_volume?: string | null
           phone?: string | null
           source?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          collection_id: string | null
+          color: string | null
+          created_at: string
+          description: string | null
+          fabric: string | null
+          id: string
+          images: Json
+          name: string
+          origin: string | null
+          price_inr: number | null
+          primary_image_index: number
+          published: boolean
+          sku: string | null
+          slug: string
+          sort_order: number
+          stock: number
+          updated_at: string
+        }
+        Insert: {
+          collection_id?: string | null
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          fabric?: string | null
+          id?: string
+          images?: Json
+          name: string
+          origin?: string | null
+          price_inr?: number | null
+          primary_image_index?: number
+          published?: boolean
+          sku?: string | null
+          slug: string
+          sort_order?: number
+          stock?: number
+          updated_at?: string
+        }
+        Update: {
+          collection_id?: string | null
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          fabric?: string | null
+          id?: string
+          images?: Json
+          name?: string
+          origin?: string | null
+          price_inr?: number | null
+          primary_image_index?: number
+          published?: boolean
+          sku?: string | null
+          slug?: string
+          sort_order?: number
+          stock?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "collections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
