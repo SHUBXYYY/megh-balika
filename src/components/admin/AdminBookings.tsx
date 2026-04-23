@@ -50,12 +50,12 @@ export default function AdminBookings() {
         subtitle="Atelier tours, virtual showings, business calls."
         count={appts.length}
       />
-      <div className="px-10 py-6 flex gap-2 border-b border-border">
+      <div className="px-5 sm:px-8 lg:px-10 py-4 sm:py-6 flex gap-1 sm:gap-2 border-b border-border overflow-x-auto">
         {(["all", "pending", "confirmed", "cancelled"] as const).map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`text-xs uppercase tracking-[0.25em] px-3 py-2 transition ${
+            className={`text-[10px] sm:text-xs uppercase tracking-[0.25em] px-2.5 sm:px-3 py-2 transition whitespace-nowrap ${
               filter === f
                 ? "bg-gold/15 text-gold-deep"
                 : "text-muted-foreground hover:text-foreground"
@@ -65,16 +65,16 @@ export default function AdminBookings() {
           </button>
         ))}
       </div>
-      <div className="px-10 py-8 space-y-3">
+      <div className="px-5 sm:px-8 lg:px-10 py-6 sm:py-8 space-y-3">
         {loading ? (
           <div className="text-center py-20 text-muted-foreground">Loading…</div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">No bookings.</div>
         ) : filtered.map((a) => (
-          <div key={a.id} className="bg-card border border-border p-5 group">
+          <div key={a.id} className="bg-card border border-border p-4 sm:p-5 group">
             <div className="flex justify-between gap-4 flex-wrap">
-              <div className="min-w-0">
-                <div className="font-serif text-xl">
+              <div className="min-w-0 flex-1">
+                <div className="font-serif text-lg sm:text-xl">
                   {a.full_name}
                   {a.company && <span className="text-muted-foreground"> · {a.company}</span>}
                 </div>
@@ -96,7 +96,7 @@ export default function AdminBookings() {
                     <button onClick={() => update(a.id, "confirmed")} className="link-edit text-gold-deep">Confirm</button>}
                   {a.status !== "cancelled" &&
                     <button onClick={() => update(a.id, "cancelled")} className="link-edit text-destructive">Cancel</button>}
-                  <button onClick={() => remove(a.id)} className="text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition">
+                  <button onClick={() => remove(a.id)} className="text-muted-foreground hover:text-destructive sm:opacity-0 sm:group-hover:opacity-100 transition">
                     <Trash2 className="h-4 w-4" />
                   </button>
                 </div>

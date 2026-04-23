@@ -172,12 +172,12 @@ export default function AdminCollections() {
         subtitle="Saree weaves shown across the website."
         count={items.length}
         action={
-          <button onClick={() => setEditing(empty)} className="btn-luxe-primary !py-3 !px-5 !text-sm gap-2">
+          <button onClick={() => setEditing(empty)} className="btn-luxe-primary !py-2.5 !px-4 sm:!py-3 sm:!px-5 !text-xs sm:!text-sm gap-2">
             <Plus className="h-4 w-4" /> New collection
           </button>
         }
       />
-      <div className="px-10 py-8 space-y-3">
+      <div className="px-5 sm:px-8 lg:px-10 py-6 sm:py-8 space-y-3">
         {loading ? (
           <div className="text-center py-20 text-muted-foreground">Loading…</div>
         ) : items.length === 0 ? (
@@ -185,17 +185,17 @@ export default function AdminCollections() {
         ) : items.map((c) => {
           const cover = c.images?.[c.primary_image_index] || c.image_url;
           return (
-            <div key={c.id} className="bg-card border border-border p-5 flex gap-5 items-start">
+            <div key={c.id} className="bg-card border border-border p-4 sm:p-5 flex gap-4 items-start">
               {cover ? (
-                <img src={cover} alt={c.name} className="w-24 h-24 object-cover shrink-0" />
+                <img src={cover} alt={c.name} className="w-16 h-16 sm:w-24 sm:h-24 object-cover shrink-0" />
               ) : (
-                <div className="w-24 h-24 bg-secondary shrink-0 flex items-center justify-center text-xs text-muted-foreground">
+                <div className="w-16 h-16 sm:w-24 sm:h-24 bg-secondary shrink-0 flex items-center justify-center text-[10px] text-muted-foreground">
                   no image
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <div className="flex items-baseline gap-3 flex-wrap">
-                  <div className="font-serif text-xl">{c.name}</div>
+                <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
+                  <div className="font-serif text-base sm:text-xl truncate">{c.name}</div>
                   <span className="text-xs uppercase tracking-[0.25em] text-gold-deep">{c.slug}</span>
                   {!c.published && <span className="text-[10px] uppercase tracking-widest text-destructive">draft</span>}
                   {c.images?.length > 0 && (
@@ -209,7 +209,7 @@ export default function AdminCollections() {
                 </div>
                 {c.description && <p className="text-sm mt-2 text-foreground/80 line-clamp-2">{c.description}</p>}
               </div>
-              <div className="flex gap-2 shrink-0">
+              <div className="flex gap-1 sm:gap-2 shrink-0">
                 <button onClick={() => togglePublished(c)} className="p-2 text-muted-foreground hover:text-gold transition" aria-label="Toggle published">
                   {c.published ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
                 </button>
@@ -233,14 +233,14 @@ export default function AdminCollections() {
             onClick={(e) => e.stopPropagation()}
             className="w-full max-w-2xl bg-background border-l border-border overflow-y-auto"
           >
-            <div className="p-6 border-b border-border flex justify-between items-center">
-              <h3 className="font-serif text-2xl">{editing.id ? "Edit collection" : "New collection"}</h3>
+            <div className="p-5 sm:p-6 border-b border-border flex justify-between items-center sticky top-0 bg-background z-10">
+              <h3 className="font-serif text-xl sm:text-2xl">{editing.id ? "Edit collection" : "New collection"}</h3>
               <button onClick={() => setEditing(null)} className="text-muted-foreground hover:text-foreground">
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <div className="p-6 space-y-5">
-              <div className="grid grid-cols-2 gap-4">
+            <div className="p-5 sm:p-6 space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input label="Name *" value={editing.name ?? ""} onChange={(v) => setEditing({ ...editing, name: v })} />
                 <Input label="Slug *" value={editing.slug ?? ""} onChange={(v) => setEditing({ ...editing, slug: v })} placeholder="banarasi" />
                 <Input label="Fabric" value={editing.fabric ?? ""} onChange={(v) => setEditing({ ...editing, fabric: v })} />

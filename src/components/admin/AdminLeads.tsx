@@ -61,20 +61,20 @@ export default function AdminLeads() {
           </button>
         }
       />
-      <div className="px-10 py-8 space-y-3">
+      <div className="px-5 sm:px-8 lg:px-10 py-6 sm:py-8 space-y-3">
         {loading ? (
           <div className="text-center py-20 text-muted-foreground">Loading…</div>
         ) : leads.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">No leads yet.</div>
         ) : leads.map((l) => (
-          <div key={l.id} className="bg-card border border-border p-5 group">
+          <div key={l.id} className="bg-card border border-border p-4 sm:p-5 group">
             <div className="flex justify-between gap-4 flex-wrap">
-              <div className="min-w-0">
-                <div className="font-serif text-xl">
+              <div className="min-w-0 flex-1">
+                <div className="font-serif text-lg sm:text-xl">
                   {l.full_name}
                   {l.company && <span className="text-muted-foreground"> · {l.company}</span>}
                 </div>
-                <div className="text-sm text-muted-foreground mt-1 break-all">
+                <div className="text-xs sm:text-sm text-muted-foreground mt-1 break-all">
                   <a href={`mailto:${l.email}`} className="link-edit">{l.email}</a>
                   {" · "}{l.country ?? "—"}{" · "}{l.order_volume ?? "—"}
                   {l.phone && <> · <a href={`tel:${l.phone}`} className="link-edit">{l.phone}</a></>}
@@ -90,7 +90,7 @@ export default function AdminLeads() {
                   </span>
                   <button
                     onClick={() => remove(l.id)}
-                    className="text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition"
+                    className="text-muted-foreground hover:text-destructive sm:opacity-0 sm:group-hover:opacity-100 transition"
                     aria-label="Delete lead"
                   >
                     <Trash2 className="h-4 w-4" />
