@@ -149,10 +149,14 @@ const SareeDetail = () => {
                       key={url + idx}
                       type="button"
                       onClick={() => setActiveIdx(idx)}
+                      onDoubleClick={() => {
+                        setActiveIdx(idx);
+                        setLightboxOpen(true);
+                      }}
                       className={`aspect-square overflow-hidden bg-secondary border-2 transition ${
                         idx === activeIdx ? "border-gold" : "border-transparent hover:border-gold/40"
                       }`}
-                      aria-label={`View photo ${idx + 1}`}
+                      aria-label={`View photo ${idx + 1} (double-click to enlarge)`}
                     >
                       <img
                         src={url}
@@ -219,6 +223,14 @@ const SareeDetail = () => {
           </div>
         </section>
       )}
+
+      <SareeLightbox
+        images={gallery}
+        open={lightboxOpen}
+        startIndex={activeIdx}
+        onClose={() => setLightboxOpen(false)}
+        alt={item?.name ?? "Saree"}
+      />
 
       <Footer />
       <SareeExpert />
