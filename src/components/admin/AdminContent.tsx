@@ -43,7 +43,7 @@ export default function AdminContent() {
         subtitle="Edit hero text, contact details, and other site copy. Changes are live immediately."
         count={rows.length}
       />
-      <div className="px-10 py-8 space-y-4 max-w-4xl">
+      <div className="px-5 sm:px-8 lg:px-10 py-6 sm:py-8 space-y-4 max-w-4xl">
         {loading ? (
           <div className="text-center py-20 text-muted-foreground">Loading…</div>
         ) : rows.map((r) => {
@@ -57,7 +57,7 @@ export default function AdminContent() {
                 {dirty && <span className="text-[10px] uppercase tracking-widest text-gold">unsaved</span>}
               </div>
               {r.description && <p className="text-xs text-muted-foreground mb-3">{r.description}</p>}
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 {isLong ? (
                   <textarea
                     rows={3}

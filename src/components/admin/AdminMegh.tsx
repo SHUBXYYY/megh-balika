@@ -62,10 +62,10 @@ export default function AdminMegh() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-gradient-to-br from-gold to-gold-deep text-ink shadow-2xl shadow-gold-deep/30 flex items-center justify-center hover:scale-105 transition-transform"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-gradient-to-br from-gold to-gold-deep text-ink shadow-2xl shadow-gold-deep/30 flex items-center justify-center hover:scale-105 transition-transform"
         aria-label="Open Megh assistant"
       >
-        <Sparkles className="h-6 w-6" strokeWidth={1.5} />
+        <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={1.5} />
       </button>
 
       <AnimatePresence>
@@ -75,7 +75,7 @@ export default function AdminMegh() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.96 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-24 right-6 z-40 w-[min(420px,calc(100vw-2rem))] h-[min(620px,calc(100vh-8rem))] bg-background border border-gold-deep/30 shadow-2xl flex flex-col"
+            className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-40 w-[min(420px,calc(100vw-2rem))] h-[min(620px,calc(100vh-7rem))] bg-background border border-gold-deep/30 shadow-2xl flex flex-col"
           >
             <div className="px-5 py-4 border-b border-border bg-ink text-ink-foreground flex items-center justify-between">
               <div>

@@ -51,8 +51,8 @@ export default function AdminChats() {
         subtitle="Conversations with Megh — your AI saree expert."
         count={sessions.length}
       />
-      <div className="grid lg:grid-cols-[320px,1fr] gap-px bg-border min-h-[calc(100vh-200px)]">
-        <div className="bg-card overflow-y-auto">
+      <div className="grid lg:grid-cols-[280px,1fr] gap-px bg-border min-h-[calc(100vh-200px)]">
+        <div className={`bg-card overflow-y-auto ${active ? "hidden lg:block" : "block"}`}>
           {loadingSessions ? (
             <div className="text-muted-foreground text-sm p-6">Loading…</div>
           ) : sessions.length === 0 ? (
@@ -81,7 +81,12 @@ export default function AdminChats() {
           ))}
         </div>
 
-        <div className="bg-background overflow-y-auto p-6 lg:p-10">
+        <div className={`bg-background overflow-y-auto p-5 sm:p-6 lg:p-10 ${active ? "block" : "hidden lg:block"}`}>
+          {active && (
+            <button onClick={() => setActive(null)} className="lg:hidden text-xs uppercase tracking-[0.25em] text-gold-deep mb-4">
+              ← Back to sessions
+            </button>
+          )}
           {!active ? (
             <div className="text-muted-foreground text-center py-20">
               Select a session to view the conversation
