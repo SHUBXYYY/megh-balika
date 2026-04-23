@@ -15,7 +15,6 @@ import Auth from "./pages/Auth.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import WhatsAppFab from "./components/WhatsAppFab";
-import NamaskarSplash from "./components/NamaskarSplash";
 
 const queryClient = new QueryClient();
 
@@ -25,7 +24,6 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <NamaskarSplash />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/export" element={<Export />} />
