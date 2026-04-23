@@ -66,6 +66,41 @@ const SareeLightbox = ({ images, open, startIndex = 0, onClose, alt = "Saree clo
     setZoomed((z) => !z);
   };
 
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (zoomed || images.length < 2) return;
+    const t = e.touches[0];
+    touchStartRef.current = { x: t.clientX, y: t.clientY, time: Date.now() };
+  };
+
+  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (zoomed || !touchStartRef.current) return;
+    const t = e.touches[0];
+    const dx = t.clientX - touchStartRef.current.x;
+    const dy = t.clientY - touchStartRef.current.y;
+    // Only treat as horizontal swipe if dominantly horizontal
+    if (Math.abs(dx) > Math.abs(dy)) {
+      setDragX(dx);
+    }
+  };
+
+  const onTouchEnd = () => {
+    if (zoomed || !touchStartRef.current) {
+      setDragX(0);
+      touchStartRef.current = null;
+      return;
+    }
+    const elapsed = Date.now() - touchStartRef.current.time;
+    const threshold = 60;
+    const isFlick = elapsed < 300 && Math.abs(dragX) > 30;
+    if (dragX <= -threshold || (isFlick && dragX < 0)) {
+      next();
+    } else if (dragX >= threshold || (isFlick && dragX > 0)) {
+      prev();
+    }
+    setDragX(0);
+    touchStartRef.current = null;
+  };
+
   return (
     <AnimatePresence>
       {open && images.length > 0 && (
