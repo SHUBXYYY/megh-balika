@@ -140,7 +140,13 @@ const SareeLightbox = ({ images, open, startIndex = 0, onClose, alt = "Saree clo
           </div>
 
           {/* Image stage */}
-          <div className="flex-1 relative flex items-center justify-center overflow-hidden" ref={containerRef}>
+          <div
+            className="flex-1 relative flex items-center justify-center overflow-hidden touch-pan-y"
+            ref={containerRef}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             {images.length > 1 && (
               <button
                 type="button"
