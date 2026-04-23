@@ -14,7 +14,9 @@ const SareeLightbox = ({ images, open, startIndex = 0, onClose, alt = "Saree clo
   const [index, setIndex] = useState(startIndex);
   const [zoomed, setZoomed] = useState(false);
   const [origin, setOrigin] = useState<{ x: number; y: number }>({ x: 50, y: 50 });
+  const [dragX, setDragX] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
 
   useEffect(() => {
     if (open) {
