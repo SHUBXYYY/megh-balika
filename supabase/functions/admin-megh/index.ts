@@ -75,6 +75,13 @@ serve(async (req) => {
       { count: chatSessions },
       { count: collectionsTotal },
       { count: collectionsDraft },
+      { count: productsTotal },
+      { count: productsDraft },
+      { count: lowStock },
+      { count: inquiriesTotal },
+      { count: inquiriesNew },
+      { data: recentInquiries },
+      { count: adminCount },
     ] = await Promise.all([
       admin.from("leads").select("*", { count: "exact", head: true }),
       admin.from("leads").select("*", { count: "exact", head: true }).gte("created_at", todayIso),
@@ -85,13 +92,23 @@ serve(async (req) => {
       admin.from("chat_sessions").select("*", { count: "exact", head: true }).gte("created_at", since),
       admin.from("collections").select("*", { count: "exact", head: true }),
       admin.from("collections").select("*", { count: "exact", head: true }).eq("published", false),
+      admin.from("products").select("*", { count: "exact", head: true }),
+      admin.from("products").select("*", { count: "exact", head: true }).eq("published", false),
+      admin.from("products").select("*", { count: "exact", head: true }).lte("stock", 2),
+      admin.from("inquiries").select("*", { count: "exact", head: true }),
+      admin.from("inquiries").select("*", { count: "exact", head: true }).eq("status", "new"),
+      admin.from("inquiries").select("full_name,email,subject,created_at").order("created_at", { ascending: false }).limit(5),
+      admin.from("user_roles").select("*", { count: "exact", head: true }).eq("role", "admin"),
     ]);
 
     const snapshot = {
       leads: { total: leadsTotal ?? 0, today: leadsToday ?? 0, recent: recentLeads ?? [] },
       bookings: { total: bookingsTotal ?? 0, pending: bookingsPending ?? 0, upcoming: upcoming ?? [] },
+      inquiries: { total: inquiriesTotal ?? 0, new: inquiriesNew ?? 0, recent: recentInquiries ?? [] },
       chats: { sessionsLast7Days: chatSessions ?? 0 },
       collections: { total: collectionsTotal ?? 0, drafts: collectionsDraft ?? 0 },
+      products: { total: productsTotal ?? 0, drafts: productsDraft ?? 0, lowStock: lowStock ?? 0 },
+      team: { admins: adminCount ?? 0 },
     };
 
     const SYSTEM = `You are Megh, the warm Hinglish-speaking concierge of the Megh Balika atelier dashboard.
