@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, Mail, ArrowLeft } from "lucide-react";
+import { MessageCircle, Mail, ArrowLeft, ZoomIn } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import MenuTrigger from "@/components/MenuTrigger";
 import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
+import SareeLightbox from "@/components/SareeLightbox";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
 
 type Collection = {
@@ -28,6 +29,7 @@ const SareeDetail = () => {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   const { get } = useSiteContent();
   const email = get("contact_email", SITE_DEFAULTS.contact_email);
@@ -108,26 +110,37 @@ const SareeDetail = () => {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-7 relative"
             >
-              <div className="aspect-[4/5] overflow-hidden bg-secondary gold-sweep relative">
+              <button
+                type="button"
+                onClick={() => gallery.length > 0 && setLightboxOpen(true)}
+                className="aspect-[4/5] w-full overflow-hidden bg-secondary gold-sweep relative group block"
+                aria-label="Open full-screen gallery"
+                disabled={gallery.length === 0}
+              >
                 {gallery.length > 0 ? (
-                  <AnimatePresence mode="wait">
-                    <motion.img
-                      key={gallery[activeIdx]}
-                      src={gallery[activeIdx]}
-                      alt={`${item.name} saree from Megh Balika — view ${activeIdx + 1}`}
-                      className="w-full h-full object-cover absolute inset-0"
-                      initial={{ opacity: 0, scale: 1.04 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    />
-                  </AnimatePresence>
+                  <>
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={gallery[activeIdx]}
+                        src={gallery[activeIdx]}
+                        alt={`${item.name} saree from Megh Balika — view ${activeIdx + 1}`}
+                        className="w-full h-full object-cover absolute inset-0 cursor-zoom-in"
+                        initial={{ opacity: 0, scale: 1.04 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      />
+                    </AnimatePresence>
+                    <div className="absolute bottom-4 right-4 z-10 flex items-center gap-2 px-3 py-2 bg-background/85 border border-gold-deep/20 text-[10px] uppercase tracking-[0.3em] text-gold-deep opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ZoomIn className="h-3 w-3" /> Zoom
+                    </div>
+                  </>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-muted-foreground">
                     Photograph coming soon
                   </div>
                 )}
-              </div>
+              </button>
 
               {gallery.length > 1 && (
                 <div className="mt-4 grid grid-cols-5 gap-2">
