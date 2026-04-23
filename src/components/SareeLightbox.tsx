@@ -14,7 +14,9 @@ const SareeLightbox = ({ images, open, startIndex = 0, onClose, alt = "Saree clo
   const [index, setIndex] = useState(startIndex);
   const [zoomed, setZoomed] = useState(false);
   const [origin, setOrigin] = useState<{ x: number; y: number }>({ x: 50, y: 50 });
+  const [dragX, setDragX] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null);
 
   useEffect(() => {
     if (open) {
@@ -64,6 +66,41 @@ const SareeLightbox = ({ images, open, startIndex = 0, onClose, alt = "Saree clo
     setZoomed((z) => !z);
   };
 
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (zoomed || images.length < 2) return;
+    const t = e.touches[0];
+    touchStartRef.current = { x: t.clientX, y: t.clientY, time: Date.now() };
+  };
+
+  const onTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (zoomed || !touchStartRef.current) return;
+    const t = e.touches[0];
+    const dx = t.clientX - touchStartRef.current.x;
+    const dy = t.clientY - touchStartRef.current.y;
+    // Only treat as horizontal swipe if dominantly horizontal
+    if (Math.abs(dx) > Math.abs(dy)) {
+      setDragX(dx);
+    }
+  };
+
+  const onTouchEnd = () => {
+    if (zoomed || !touchStartRef.current) {
+      setDragX(0);
+      touchStartRef.current = null;
+      return;
+    }
+    const elapsed = Date.now() - touchStartRef.current.time;
+    const threshold = 60;
+    const isFlick = elapsed < 300 && Math.abs(dragX) > 30;
+    if (dragX <= -threshold || (isFlick && dragX < 0)) {
+      next();
+    } else if (dragX >= threshold || (isFlick && dragX > 0)) {
+      prev();
+    }
+    setDragX(0);
+    touchStartRef.current = null;
+  };
+
   return (
     <AnimatePresence>
       {open && images.length > 0 && (
@@ -103,7 +140,13 @@ const SareeLightbox = ({ images, open, startIndex = 0, onClose, alt = "Saree clo
           </div>
 
           {/* Image stage */}
-          <div className="flex-1 relative flex items-center justify-center overflow-hidden" ref={containerRef}>
+          <div
+            className="flex-1 relative flex items-center justify-center overflow-hidden touch-pan-y"
+            ref={containerRef}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             {images.length > 1 && (
               <button
                 type="button"
@@ -134,8 +177,11 @@ const SareeLightbox = ({ images, open, startIndex = 0, onClose, alt = "Saree clo
                   draggable={false}
                   className="max-w-full max-h-full object-contain select-none transition-transform duration-300 ease-out"
                   style={{
-                    transform: zoomed ? "scale(2.4)" : "scale(1)",
+                    transform: zoomed
+                      ? "scale(2.4)"
+                      : `translateX(${dragX}px) scale(1)`,
                     transformOrigin: `${origin.x}% ${origin.y}%`,
+                    transition: dragX !== 0 ? "none" : undefined,
                   }}
                 />
               </motion.div>
