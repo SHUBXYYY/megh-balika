@@ -177,8 +177,11 @@ const SareeLightbox = ({ images, open, startIndex = 0, onClose, alt = "Saree clo
                   draggable={false}
                   className="max-w-full max-h-full object-contain select-none transition-transform duration-300 ease-out"
                   style={{
-                    transform: zoomed ? "scale(2.4)" : "scale(1)",
+                    transform: zoomed
+                      ? "scale(2.4)"
+                      : `translateX(${dragX}px) scale(1)`,
                     transformOrigin: `${origin.x}% ${origin.y}%`,
+                    transition: dragX !== 0 ? "none" : undefined,
                   }}
                 />
               </motion.div>
