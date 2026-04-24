@@ -7,10 +7,10 @@ import { toast } from "sonner";
 type Msg = { role: "user" | "assistant"; content: string };
 
 const SUGGESTIONS = [
-  "Aaj kitne naye leads aaye?",
-  "Kaunse bookings pending hain?",
-  "Pichle hafte chat sessions ka summary do",
-  "Kya koi collection draft mein hai?",
+  "How many new leads came in today?",
+  "Which bookings are pending?",
+  "Summarise chat sessions from the past week",
+  "Are any collections still in draft?",
 ];
 
 export default function AdminMegh() {
@@ -19,7 +19,7 @@ export default function AdminMegh() {
     {
       role: "assistant",
       content:
-        "Namaste! Main Megh — aapki atelier ki concierge. Leads, bookings, chats, ya collections ke baare mein kuch bhi puchiye. Hinglish chalega 🙏",
+        "Hello! I'm Megh — your atelier concierge. Ask me anything about leads, bookings, chats, orders, or collections.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -43,13 +43,13 @@ export default function AdminMegh() {
       });
       if (error) throw error;
       if ((data as any)?.error) throw new Error((data as any).error);
-      const reply = (data as any)?.reply ?? "Sorry, kuch gadbad ho gayi.";
+      const reply = (data as any)?.reply ?? "Sorry, something went wrong.";
       setMessages((m) => [...m, { role: "assistant", content: reply }]);
     } catch (e: any) {
-      toast.error(e.message ?? "Megh se baat nahi ho payi");
+      toast.error(e.message ?? "Couldn't reach Megh");
       setMessages((m) => [
         ...m,
-        { role: "assistant", content: "Maaf kijiye, abhi reply nahi de payi. Thodi der baad try karein." },
+        { role: "assistant", content: "Apologies — I couldn't respond just now. Please try again in a moment." },
       ]);
     } finally {
       setLoading(false);
@@ -83,7 +83,7 @@ export default function AdminMegh() {
                   <Sparkles className="h-4 w-4 text-gold" /> Megh · Admin concierge
                 </div>
                 <div className="text-[10px] uppercase tracking-[0.3em] text-gold-deep mt-0.5">
-                  Hinglish · live snapshot
+                  Live atelier snapshot
                 </div>
               </div>
               <button
@@ -110,7 +110,7 @@ export default function AdminMegh() {
               ))}
               {loading && (
                 <div className="bg-card border border-border px-3.5 py-2.5 text-sm inline-flex items-center gap-2 text-muted-foreground">
-                  <Loader2 className="h-3.5 w-3.5 animate-spin" /> Megh soch rahi hai…
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" /> Megh is thinking…
                 </div>
               )}
             </div>
@@ -134,7 +134,7 @@ export default function AdminMegh() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && send()}
-                placeholder="Megh se kuch puchiye…"
+                placeholder="Ask Megh anything…"
                 className="flex-1 bg-transparent border border-border focus:border-gold outline-none px-3 py-2 text-sm transition"
                 disabled={loading}
               />
