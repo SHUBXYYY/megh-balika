@@ -382,13 +382,69 @@
   animation: soft-pulse 2.4s ease-in-out infinite;
 }
 
+/* ============================================
+   Eastern India — Reshmi Pradhan brand glow
+   ============================================ */
+@keyframes eastern-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 8px hsl(var(--gold) / 0.45),
+      0 0 22px hsl(var(--gold) / 0.35),
+      0 0 44px hsl(var(--gold-deep) / 0.25);
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow:
+      0 0 14px hsl(var(--gold-light) / 0.85),
+      0 0 36px hsl(var(--gold) / 0.65),
+      0 0 70px hsl(var(--gold-deep) / 0.45);
+    filter: brightness(1.18);
+  }
+}
+@keyframes eastern-shimmer-line {
+  0%   { transform: scaleX(0.2); opacity: 0.4; }
+  50%  { transform: scaleX(1);   opacity: 1; }
+  100% { transform: scaleX(0.2); opacity: 0.4; }
+}
+.eastern-brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.eastern-brand .eastern-name {
+  background: linear-gradient(
+    100deg,
+    hsl(36 60% 30%) 0%,
+    hsl(41 80% 60%) 30%,
+    hsl(44 90% 78%) 50%,
+    hsl(41 80% 60%) 70%,
+    hsl(36 60% 30%) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite, eastern-glow 3.4s ease-in-out infinite;
+}
+.eastern-brand .eastern-rule {
+  display: inline-block;
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--gold) / 0.9), transparent);
+  transform-origin: center;
+  animation: eastern-shimmer-line 3.4s ease-in-out infinite;
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .silk-bg::before,
   .silk-bg::after,
   .text-gold-shimmer,
   .animate-float-slow,
-  .pulse-gold {
+  .pulse-gold,
+  .eastern-brand .eastern-name,
+  .eastern-brand .eastern-rule {
     animation: none !important;
   }
   .reveal {

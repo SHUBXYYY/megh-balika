@@ -77,6 +77,22 @@ export default function Hero() {
           transition={{ delay: 0.9, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-5xl"
         >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 1.2 }}
+            className="eastern-brand mb-6"
+            aria-label="Eastern India — by Reshmi Pradhan"
+          >
+            <span className="eastern-rule" aria-hidden="true" />
+            <span className="font-serif italic text-2xl sm:text-3xl md:text-4xl tracking-[0.18em] eastern-name">
+              Eastern India
+            </span>
+            <span className="eastern-rule" aria-hidden="true" />
+          </motion.div>
+          <div className="text-[10px] md:text-xs uppercase tracking-[0.45em] text-gold-deep/80 mb-5">
+            A house by Reshmi Pradhan
+          </div>
           <div className="text-xs md:text-sm uppercase tracking-[0.5em] text-gold-deep mb-6">
             ⟶ &nbsp; The Cloud Maiden
           </div>
