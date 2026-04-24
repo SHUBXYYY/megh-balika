@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import {
   Users, MessageSquare, Calendar, ShieldAlert, LogOut,
   LayoutGrid, FileText, ChevronLeft, Menu, X, LayoutDashboard,
-  Package, MailOpen, ShieldCheck,
+  Package, MailOpen, ShieldCheck, ShoppingBag, Star,
 } from "lucide-react";
 import AdminLeads from "@/components/admin/AdminLeads";
 import AdminBookings from "@/components/admin/AdminBookings";
@@ -17,6 +17,8 @@ import AdminDashboard from "@/components/admin/AdminDashboard";
 import AdminProducts from "@/components/admin/AdminProducts";
 import AdminInquiries from "@/components/admin/AdminInquiries";
 import AdminTeam from "@/components/admin/AdminTeam";
+import AdminOrders from "@/components/admin/AdminOrders";
+import AdminReviews from "@/components/admin/AdminReviews";
 
 const Admin = () => {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
@@ -77,9 +79,11 @@ const Admin = () => {
 
   const navItems = [
     { to: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { to: "orders", label: "Sales orders", icon: ShoppingBag },
     { to: "leads", label: "Leads", icon: Users },
     { to: "bookings", label: "Bookings", icon: Calendar },
     { to: "inquiries", label: "Inquiries", icon: MailOpen },
+    { to: "reviews", label: "Reviews", icon: Star },
     { to: "chats", label: "Chat sessions", icon: MessageSquare },
     { to: "collections", label: "Collections", icon: LayoutGrid },
     { to: "products", label: "Products", icon: Package },
@@ -184,9 +188,11 @@ const Admin = () => {
         <Routes>
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="orders" element={<AdminOrders />} />
           <Route path="leads" element={<AdminLeads />} />
           <Route path="bookings" element={<AdminBookings />} />
           <Route path="inquiries" element={<AdminInquiries />} />
+          <Route path="reviews" element={<AdminReviews />} />
           <Route path="chats" element={<AdminChats />} />
           <Route path="collections" element={<AdminCollections />} />
           <Route path="products" element={<AdminProducts />} />

@@ -209,6 +209,16 @@
     background: hsl(var(--gold) / 0.08);
   }
 
+  /* Form inputs */
+  .input {
+    @apply w-full bg-card border border-border px-3 py-2 text-sm text-foreground
+           focus:outline-none focus:border-gold transition-colors;
+  }
+  .input-luxe {
+    @apply w-full bg-background border border-border px-4 py-3 text-sm text-foreground
+           focus:outline-none focus:border-gold transition-colors;
+  }
+
   /* Hairline divider with gold center */
   .hairline {
     @apply relative h-px w-full;

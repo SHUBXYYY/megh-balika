@@ -12,6 +12,7 @@ import Certifications from "./pages/Certifications.tsx";
 import Sarees from "./pages/Sarees.tsx";
 import SareeDetail from "./pages/SareeDetail.tsx";
 import Auth from "./pages/Auth.tsx";
+import Reviews from "./pages/Reviews.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import WhatsAppFab from "./components/WhatsAppFab";
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/sarees" element={<Sarees />} />
           <Route path="/sarees/:slug" element={<SareeDetail />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/reviews" element={<Reviews />} />
           <Route path="/admin/*" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

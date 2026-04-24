@@ -181,6 +181,50 @@ export type Database = {
         }
         Relationships: []
       }
+      inquiry_replies: {
+        Row: {
+          body: string
+          channel: string
+          created_at: string
+          id: string
+          inquiry_id: string
+          sent_by: string | null
+          status: string
+          subject: string
+          to_email: string
+        }
+        Insert: {
+          body: string
+          channel?: string
+          created_at?: string
+          id?: string
+          inquiry_id: string
+          sent_by?: string | null
+          status?: string
+          subject: string
+          to_email: string
+        }
+        Update: {
+          body?: string
+          channel?: string
+          created_at?: string
+          id?: string
+          inquiry_id?: string
+          sent_by?: string | null
+          status?: string
+          subject?: string
+          to_email?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiry_replies_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leads: {
         Row: {
           company: string | null
@@ -219,6 +263,57 @@ export type Database = {
           source?: string
         }
         Relationships: []
+      }
+      order_items: {
+        Row: {
+          created_at: string
+          id: string
+          line_total_inr: number
+          order_id: string
+          product_id: string | null
+          product_name: string
+          quantity: number
+          sku: string | null
+          unit_price_inr: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          line_total_inr?: number
+          order_id: string
+          product_id?: string | null
+          product_name: string
+          quantity?: number
+          sku?: string | null
+          unit_price_inr?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          line_total_inr?: number
+          order_id?: string
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          sku?: string | null
+          unit_price_inr?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "sales_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       products: {
         Row: {
@@ -315,6 +410,119 @@ export type Database = {
           phone?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          approved: boolean
+          category: string | null
+          comment: string
+          created_at: string
+          featured: boolean
+          id: string
+          product_id: string | null
+          rating: number
+          reviewer_email: string | null
+          reviewer_name: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          approved?: boolean
+          category?: string | null
+          comment: string
+          created_at?: string
+          featured?: boolean
+          id?: string
+          product_id?: string | null
+          rating: number
+          reviewer_email?: string | null
+          reviewer_name: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          approved?: boolean
+          category?: string | null
+          comment?: string
+          created_at?: string
+          featured?: boolean
+          id?: string
+          product_id?: string | null
+          rating?: number
+          reviewer_email?: string | null
+          reviewer_name?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sales_orders: {
+        Row: {
+          created_at: string
+          customer_email: string | null
+          customer_name: string
+          customer_phone: string | null
+          id: string
+          notes: string | null
+          order_number: string
+          payment_method: string | null
+          payment_status: string
+          shipping_address: string | null
+          shipping_inr: number
+          source: string | null
+          status: string
+          subtotal_inr: number
+          tax_inr: number
+          total_inr: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          customer_email?: string | null
+          customer_name: string
+          customer_phone?: string | null
+          id?: string
+          notes?: string | null
+          order_number: string
+          payment_method?: string | null
+          payment_status?: string
+          shipping_address?: string | null
+          shipping_inr?: number
+          source?: string | null
+          status?: string
+          subtotal_inr?: number
+          tax_inr?: number
+          total_inr?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          customer_email?: string | null
+          customer_name?: string
+          customer_phone?: string | null
+          id?: string
+          notes?: string | null
+          order_number?: string
+          payment_method?: string | null
+          payment_status?: string
+          shipping_address?: string | null
+          shipping_inr?: number
+          source?: string | null
+          status?: string
+          subtotal_inr?: number
+          tax_inr?: number
+          total_inr?: number
+          updated_at?: string
         }
         Relationships: []
       }
