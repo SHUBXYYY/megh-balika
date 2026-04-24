@@ -62,16 +62,16 @@ export default function AdminTeam() {
     if (error) { toast.error(error.message); return; }
     const res = data as { ok: boolean; error?: string };
     if (!res?.ok) { toast.error(res?.error ?? "Could not promote"); return; }
-    toast.success(`${trimmed} ab admin hai 🎉`);
+    toast.success(`${trimmed} is now an admin 🎉`);
     setEmail("");
     load();
   };
 
   const revoke = async (uid: string) => {
     if (uid === meId) {
-      if (!confirm("Yeh aapki apni admin access hatayegi. Continue?")) return;
+      if (!confirm("This will remove your own admin access. Continue?")) return;
     } else {
-      if (!confirm("Iss user ki admin access revoke karein?")) return;
+      if (!confirm("Revoke admin access for this user?")) return;
     }
     const { data, error } = await supabase.rpc("revoke_admin", { _user_id: uid });
     if (error) { toast.error(error.message); return; }
@@ -96,7 +96,7 @@ export default function AdminTeam() {
             <UserPlus className="h-4 w-4" /> Add new admin
           </div>
           <p className="text-xs text-muted-foreground mb-4">
-            User ko pehle <code className="text-gold-deep">/auth</code> par sign-up karna hoga, fir yahan unka email daal ke promote karein.
+            The user must first sign up at <code className="text-gold-deep">/auth</code>, then enter their email here to promote them.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <input

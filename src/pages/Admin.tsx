@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import {
   Users, MessageSquare, Calendar, ShieldAlert, LogOut,
   LayoutGrid, FileText, ChevronLeft, Menu, X, LayoutDashboard,
-  Package, MailOpen, ShieldCheck, ShoppingBag, Star,
+  Package, MailOpen, ShieldCheck, ShoppingBag, Star, BarChart3,
 } from "lucide-react";
 import AdminLeads from "@/components/admin/AdminLeads";
 import AdminBookings from "@/components/admin/AdminBookings";
@@ -19,6 +19,7 @@ import AdminInquiries from "@/components/admin/AdminInquiries";
 import AdminTeam from "@/components/admin/AdminTeam";
 import AdminOrders from "@/components/admin/AdminOrders";
 import AdminReviews from "@/components/admin/AdminReviews";
+import AdminReports from "@/components/admin/AdminReports";
 
 const Admin = () => {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
@@ -79,6 +80,7 @@ const Admin = () => {
 
   const navItems = [
     { to: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { to: "reports", label: "Reports", icon: BarChart3 },
     { to: "orders", label: "Sales orders", icon: ShoppingBag },
     { to: "leads", label: "Leads", icon: Users },
     { to: "bookings", label: "Bookings", icon: Calendar },
@@ -188,6 +190,7 @@ const Admin = () => {
         <Routes>
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="reports" element={<AdminReports />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="leads" element={<AdminLeads />} />
           <Route path="bookings" element={<AdminBookings />} />

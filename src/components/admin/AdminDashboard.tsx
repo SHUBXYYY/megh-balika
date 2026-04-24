@@ -93,7 +93,7 @@ export default function AdminDashboard() {
     <div>
       <AdminHeader
         title="Dashboard"
-        subtitle="Aapki atelier ki ek nazar mein."
+        subtitle="A single glance across your atelier."
       />
       <div className="px-5 sm:px-8 lg:px-10 py-6 sm:py-8 space-y-8">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
@@ -116,7 +116,7 @@ export default function AdminDashboard() {
         <div>
           <div className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-3">Recent activity</div>
           {recent.length === 0 ? (
-            <div className="bg-card border border-border p-6 text-sm text-muted-foreground text-center">Abhi koi activity nahi.</div>
+            <div className="bg-card border border-border p-6 text-sm text-muted-foreground text-center">No recent activity yet.</div>
           ) : (
             <div className="bg-card border border-border divide-y divide-border">
               {recent.map((r, i) => (

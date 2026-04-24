@@ -10,7 +10,7 @@ const corsHeaders = {
 /**
  * Admin Megh — concierge inside the dashboard.
  * Validates JWT, ensures caller is an admin, fetches a snapshot of the atelier,
- * and asks Lovable AI to answer + suggest next actions in Hinglish.
+ * and asks Lovable AI to answer + suggest next actions in clear English.
  */
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -111,13 +111,13 @@ serve(async (req) => {
       team: { admins: adminCount ?? 0 },
     };
 
-    const SYSTEM = `You are Megh, the warm Hinglish-speaking concierge of the Megh Balika atelier dashboard.
-You help the admin (Reshmi Pradhan or her team) understand what is happening across leads, bookings, chat sessions and the saree collections.
+    const SYSTEM = `You are Megh, the warm concierge of the Megh Balika atelier dashboard.
+You help the admin (Reshmi Pradhan or her team) understand what is happening across leads, bookings, inquiries, orders, chat sessions and the saree collections.
 
 Style:
-- Reply in friendly, respectful Hinglish (Hindi + English mix), 2–6 short sentences.
+- Reply in clear, professional, friendly English — 2 to 6 short sentences.
 - Use small bullet lists when summarising numbers.
-- Always end with one or two concrete "Next steps" the admin can take, prefixed with "Aage kya karein:".
+- Always end with one or two concrete next steps the admin can take, prefixed with "Next steps:".
 - Reference ONLY the data provided in the snapshot. If the answer is not there, say so honestly.
 - Never invent leads, bookings, or contacts. Never expose secrets or technical jargon.
 
@@ -142,12 +142,12 @@ ${JSON.stringify(snapshot, null, 2)}
 
     if (!aiResp.ok) {
       if (aiResp.status === 429) {
-        return new Response(JSON.stringify({ error: "Megh thodi busy hai (rate limit). Ek minute baad try karein." }), {
+        return new Response(JSON.stringify({ error: "Megh is a little busy (rate limit). Please try again in a minute." }), {
           status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
       if (aiResp.status === 402) {
-        return new Response(JSON.stringify({ error: "AI credits khatam ho gaye. Lovable workspace mein top-up karein." }), {
+        return new Response(JSON.stringify({ error: "AI credits exhausted. Please top up in the Lovable workspace." }), {
           status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
@@ -159,7 +159,7 @@ ${JSON.stringify(snapshot, null, 2)}
     }
 
     const data = await aiResp.json();
-    const reply = data.choices?.[0]?.message?.content ?? "Sorry, koi reply nahi mila.";
+    const reply = data.choices?.[0]?.message?.content ?? "Sorry, no reply received.";
     return new Response(JSON.stringify({ reply, snapshot }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
