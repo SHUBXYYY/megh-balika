@@ -96,7 +96,7 @@ export default function AdminDashboard() {
         subtitle="Aapki atelier ki ek nazar mein."
       />
       <div className="px-5 sm:px-8 lg:px-10 py-6 sm:py-8 space-y-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
           {cards.map((c) => (
             <Link key={c.to} to={c.to}
               className={`group relative overflow-hidden border border-border bg-gradient-to-br ${c.accent} hover:border-gold transition-all p-4 sm:p-5`}>
