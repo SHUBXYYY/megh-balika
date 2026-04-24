@@ -94,7 +94,7 @@ export default function Reviews() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <MenuTrigger onClick={() => setMenuOpen(true)} />
+      <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <section className="px-6 sm:px-10 lg:px-16 pt-24 sm:pt-32 pb-12 silk-bg relative">
