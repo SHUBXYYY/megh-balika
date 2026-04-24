@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Users, Calendar, MessageSquare, MailOpen, LayoutGrid, Package, ArrowRight,
+  ShoppingBag, Star,
 } from "lucide-react";
 import AdminHeader from "./AdminHeader";
 
@@ -10,7 +11,12 @@ type Stats = {
   leads: number; bookingsPending: number; inquiriesNew: number;
   chats: number; collections: number; collectionsDraft: number;
   products: number; productsDraft: number;
+  ordersOpen: number; revenue30: number;
+  reviewsPending: number; avgRating: number;
 };
+
+const fmtINR = (n: number) =>
+  new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n || 0);
 
 export default function AdminDashboard() {
   const [s, setS] = useState<Stats | null>(null);
@@ -18,19 +24,26 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const load = async () => {
-      const [leads, appts, inqs, chats, cols, prods, recentLeads, recentInq] = await Promise.all([
+      const last30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      const [leads, appts, inqs, chats, cols, prods, orders, reviews, recentLeads, recentInq, recentOrders] = await Promise.all([
         supabase.from("leads").select("id", { count: "exact", head: true }),
         supabase.from("appointments").select("id, status", { count: "exact" }).eq("status", "pending"),
         supabase.from("inquiries").select("id, status", { count: "exact" }).eq("status", "new"),
         supabase.from("chat_sessions").select("id", { count: "exact", head: true }),
         supabase.from("collections").select("id, published"),
         supabase.from("products").select("id, published"),
+        supabase.from("sales_orders").select("status, total_inr, created_at"),
+        supabase.from("reviews").select("rating, approved"),
         supabase.from("leads").select("full_name, email, source, created_at").order("created_at", { ascending: false }).limit(3),
         supabase.from("inquiries").select("full_name, subject, created_at").order("created_at", { ascending: false }).limit(3),
+        supabase.from("sales_orders").select("order_number, customer_name, total_inr, created_at").order("created_at", { ascending: false }).limit(3),
       ]);
 
       const colsArr = (cols.data as any[]) ?? [];
       const prodsArr = (prods.data as any[]) ?? [];
+      const ordersArr = (orders.data as any[]) ?? [];
+      const reviewsArr = (reviews.data as any[]) ?? [];
+      const approved = reviewsArr.filter((r) => r.approved);
 
       setS({
         leads: leads.count ?? 0,
@@ -41,6 +54,12 @@ export default function AdminDashboard() {
         collectionsDraft: colsArr.filter((c) => !c.published).length,
         products: prodsArr.length,
         productsDraft: prodsArr.filter((p) => !p.published).length,
+        ordersOpen: ordersArr.filter((o) => o.status === "new" || o.status === "confirmed").length,
+        revenue30: ordersArr
+          .filter((o) => o.created_at >= last30 && o.status !== "cancelled")
+          .reduce((t, o) => t + Number(o.total_inr || 0), 0),
+        reviewsPending: reviewsArr.filter((r) => !r.approved).length,
+        avgRating: approved.length ? approved.reduce((t, r) => t + r.rating, 0) / approved.length : 0,
       });
 
       const items = [
@@ -50,6 +69,9 @@ export default function AdminDashboard() {
         ...((recentInq.data as any[]) ?? []).map((i) => ({
           kind: "inquiry", label: i.full_name, meta: i.subject ?? "Contact form", at: i.created_at,
         })),
+        ...((recentOrders.data as any[]) ?? []).map((o) => ({
+          kind: "order", label: o.customer_name, meta: `${o.order_number} · ${fmtINR(Number(o.total_inr))}`, at: o.created_at,
+        })),
       ].sort((a, b) => +new Date(b.at) - +new Date(a.at)).slice(0, 6);
       setRecent(items);
     };
@@ -57,9 +79,11 @@ export default function AdminDashboard() {
   }, []);
 
   const cards = [
-    { to: "leads", label: "Leads", value: s?.leads, icon: Users, accent: "from-gold/20 to-gold-deep/10" },
+    { to: "orders", label: "Open orders", value: s?.ordersOpen, sub: s?.revenue30 ? `${fmtINR(s.revenue30)} · 30d` : undefined, icon: ShoppingBag, accent: "from-gold/20 to-gold-deep/10" },
+    { to: "leads", label: "Leads", value: s?.leads, icon: Users, accent: "from-gold/15 to-gold-deep/5" },
     { to: "bookings", label: "Pending bookings", value: s?.bookingsPending, icon: Calendar, accent: "from-gold-deep/20 to-gold/10" },
     { to: "inquiries", label: "New inquiries", value: s?.inquiriesNew, icon: MailOpen, accent: "from-destructive/15 to-gold/5" },
+    { to: "reviews", label: "Reviews", value: s?.avgRating ? Number(s.avgRating.toFixed(1)) : 0, sub: s?.reviewsPending ? `${s.reviewsPending} pending` : undefined, icon: Star, accent: "from-gold/20 to-gold-deep/5" },
     { to: "chats", label: "Chat sessions", value: s?.chats, icon: MessageSquare, accent: "from-gold/15 to-gold-deep/5" },
     { to: "collections", label: "Collections", value: s?.collections, sub: s?.collectionsDraft ? `${s.collectionsDraft} draft` : undefined, icon: LayoutGrid, accent: "from-gold-deep/15 to-gold/5" },
     { to: "products", label: "Products", value: s?.products, sub: s?.productsDraft ? `${s.productsDraft} draft` : undefined, icon: Package, accent: "from-gold/15 to-gold-deep/10" },
