@@ -26,6 +26,7 @@ export default function Footer() {
               <li><Link to="/export" className="link-edit hover:text-gold">Export Hub</Link></li>
               <li><Link to="/book" className="link-edit hover:text-gold">Book a Tour</Link></li>
               <li><Link to="/about" className="link-edit hover:text-gold">About</Link></li>
+              <li><Link to="/reviews" className="link-edit hover:text-gold">Reviews</Link></li>
             </ul>
           </div>
 
