@@ -5,6 +5,9 @@ import MenuTrigger from "@/components/MenuTrigger";
 import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
+import imgBanarasi from "@/assets/collection-banarasi.jpg";
+import imgBatik from "@/assets/collection-batik.jpg";
+import imgKantha from "@/assets/collection-kantha.jpg";
 
 export interface BlogPost {
   id: string;
@@ -27,7 +30,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A 3,000-year-old tradition, still alive in the hands of Bengal's master weavers. We trace the story of Jamdani — from ancient Dhaka looms to the global stage.",
     content: `Jamdani is one of the finest muslin textiles, historically produced in the Bengal region. The name comes from the Persian words 'jama' (cloth) and 'dana' (motif). UNESCO recognized it as an Intangible Cultural Heritage of Humanity in 2013.\n\nAt Megh Balika, every Jamdani saree is hand-loomed by master weavers in Shantiniketan and Dhaka, using techniques passed down across generations. The geometric and floral motifs are woven directly into the fabric — not printed, not embroidered — making each piece an irreplaceable work of art.\n\nThe process is slow by design. A single saree can take between 10 to 30 days depending on the intricacy of the pattern. Two weavers work side by side on a single loom, their fingers moving in perfect synchrony — a conversation in thread.`,
-    image: "/src/assets/collection-banarasi.jpg",
+    image: imgBanarasi,
   },
   {
     id: "2",
@@ -38,7 +41,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "What makes a true Kanchipuram? Weight, zari, the interlocking border — we break down everything you need to know before investing in one.",
     content: `Kanchipuram silk, or Kanjivaram, is synonymous with southern Indian bridal wear. Woven in the temple town of Kanchipuram in Tamil Nadu, these sarees are known for their rich silk, heavy gold zari, and vibrant contrasting borders.\n\nAuthentic Kanchipuram sarees are made from pure mulberry silk, and the body and border are woven separately and interlocked — a technique unique to Kanchipuram. This makes the saree reversible with the border pattern visible on both sides.\n\nAt Megh Balika, our Kanchipuram collection is sourced directly from certified master weavers, each piece carrying a Silk Mark certification — your guarantee of authenticity.`,
-    image: "/src/assets/collection-batik.jpg",
+    image: imgBatik,
   },
   {
     id: "3",
@@ -49,7 +52,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Silk is resilient, but it rewards gentle handling. Our complete care guide — from storage to dry cleaning — to keep your saree in heirloom condition.",
     content: `A silk saree is an investment, and with the right care it can last generations. Here is our complete care guide.\n\nStorage: Always wrap your silk saree in a soft muslin cloth — never plastic. Store in a cool, dry place away from direct sunlight. Re-fold along different lines every few months to prevent permanent crease marks.\n\nCleaning: Dry clean only for zari-heavy sarees. For plain silk, hand wash gently in cold water with a mild silk-specific detergent. Never wring — press gently between two clean towels.\n\nIroning: Iron on the reverse side at a low silk setting. Place a thin cotton cloth between the iron and the saree to protect the lustre.`,
-    image: "/src/assets/collection-kantha.jpg",
+    image: imgKantha,
   },
 ];
 
