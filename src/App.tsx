@@ -16,6 +16,8 @@ import Reviews from "./pages/Reviews.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import WhatsAppFab from "./components/WhatsAppFab";
+import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,9 @@ const App = () => (
           <Route path="/admin/*" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
+
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
         </Routes>
         <WhatsAppFab />
       </BrowserRouter>
