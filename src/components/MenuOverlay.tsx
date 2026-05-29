@@ -11,6 +11,7 @@ const links = [
   { label: "AI Saree Expert", to: "/#expert", subtitle: "Speak with Megh" },
   { label: "Book a Tour", to: "/book", subtitle: "Virtual showroom" },
   { label: "About", to: "/about", subtitle: "Our heritage" },
+  { label: "Blog", to: "/blog", subtitle: "Our Blogs" },
   { label: "Certifications", to: "/certifications", subtitle: "Govt. & GI verified" },
   { label: "Reviews", to: "/reviews", subtitle: "Patrons' voices" },
   { label: "Contact", to: "/contact", subtitle: "Reach our team" },
