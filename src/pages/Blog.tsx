@@ -5,9 +5,9 @@ import MenuTrigger from "@/components/MenuTrigger";
 import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
-import imgBanarasi from "@/src/assets/collection-banarasi.jpg";
-import imgBatik from "@/src/assets/collection-batik.jpg";
-import imgKantha from "@/src/assets/collection-kantha.jpg";
+import imgBanarasi from "@/assets/collection-banarasi.jpg";
+import imgBatik from "@/assets/collection-batik.jpg";
+import imgKantha from "@/assets/collection-kantha.jpg";
 
 export interface BlogPost {
   id: string;
