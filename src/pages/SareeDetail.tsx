@@ -220,7 +220,242 @@ const SareeDetail = () => {
                 </a>
               </div>
             </motion.div>
+
+            
           </div>
+          
+          {/* Extra content below gallery */}
+          {!loading && item?.slug === "bishnupur" &&(
+          
+            <div className="container mt-12 space-y-12">
+
+              {/* Introduction */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h2 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Pure Bishnupuri Silk from the Best Katha Embroidery Supplier in the USA
+                </h2>
+
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    If you are seeking a renowned Hand Katha Stitch saree wholesaler, Meghbalika is the best choice. As a Bishnupuri silk saree lover, you will admire a range of exquisite sarees with hand-katha silk embroidery. Our skilled artisans craft the beautiful embroidery using traditional handloom techniques. 
+                  </p>
+
+                  <p>
+                    Our sarees portray a rich cultural legacy of West Bengal. The adorable Bishupuri sarees with katha work offer a perfect drape, artistic detailing, and refined texture suitable for modern wardrobes.  Meghbalika is a trusted katha stitch saree supplier that offers a blend of silk craftsmanship, heritage weaving traditions, and detailed hand embroidery to design sarees that reflect individuality, elegance, and grace.
+                  </p>
+                </div>
+              </section>
+
+              {/* Pure Bishnupuri Silk */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Pure Bishnupuri Sarees are Found Here! Buy Now!
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  At Meghbalika, we create authentic pure Bishnupuri sarees using premium quality Bishnupuri silk fabric, which is lightweight, carries a natural sheen, texture, smooth finish, and elegant fall. This silk originates from the heritage weaving traditions of West Bengal. Bishnupuri silk has long been admired for its refined craftsmanship and timeless appeal.  Each saree is carefully developed using authentic silk yarn and traditional weaving methods that preserve the purity and originality of the fabric.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  So, if you want to buy graceful Bishnupuri silk sarees with an excellent katha silk embroidery, visit Meghbalika, a top Katha-stitched apparel supplier today.
+                </p>
+                
+              </section>
+
+              {/* Hand Katha Work */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Features of Our Bishnupuri Silk Sarees
+                </h3>
+
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    As the best Katha silk saree provider, we offer an authentic range of pure Bishnupuri sarees with beautiful embroidery and soft fabric. Let’s explore the characteristics of our sarees.
+                  </p>
+                  <ul className="grid gap-3 text-sm text-muted-foreground">
+                    <li>✦ Pure Bishnupuri silk fabric </li>
+                    <li>✦ Elegant natural sheen and graceful drape</li>
+                    <li>✦ Soft, breathable, and luxurious texture</li>
+                    <li>✦ Suitable for bridal, festive, cultural, and designer collections </li>
+                    <li>✦ Lightweight and comfortable for long wear</li>
+                  </ul>
+                </div>
+              </section>
+
+              {/* Handloom */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Looking for an Elaborative Hand Katha Stitch Work? Connect With Meghbalika Today!
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed">
+                  Meghbalika is a prominent Katha silk saree provider that provides impeccable Bishnupuri sarees that reflect a traditional art form known for its fine needlework and storytelling patterns. We have a team of skilled artisans who spend hours creating delicate motifs, heritage-inspired designs, floral patterns, and artistic detailing. This hard work transforms a saree into a wearable masterpiece. 
+                </p>
+              </section>
+
+              {/* Handloom */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Features of Hand Katha Stitch 
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed">
+                  Hand Katha stitch is an authentic handcrafted embroidery that showcases traditional West Bengal’s artistry. With decent thread detailing and motifs, the art gives a marvelous look to the silk saree. The artwork offers a unique handcrafted finish in every piece. Hand Katha stitch is ideal for premium ethnic and designer collections. Visit Meghbalika, and experience sophistication through aesthetically appealing Bishnupuri silk sarees that carry a unique identity and artisanal charm. 
+                </p>
+              </section>
+
+              {/* Handloom */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Produced on Handlooms: Our Sarees Look Amazing!
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed">
+                  At Meghbalika, the Bishnupuri silk sarees are produced on handlooms. We believe in preserving the texture, authenticity, and craftsmanship associated with traditional silk weaving. With the use of handlooms, we weave with greater attention to detail and create fabrics with perfect artisanal character and super softness.
+                </p>
+                <p className="text-muted-foreground leading-relaxed">
+                  We use handlooms not just to create intricate designs. However, Meghbalika promotes sustainable practices. This is our contribution toward traditional weaving communities and preserving India’s textile heritage. 
+
+                </p>
+              </section>
+
+              {/* Certifications */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Our Certifications & Authenticity 
+                </h3>
+
+                <ul className="grid gap-3 text-sm text-muted-foreground">
+                  <li>✓ Silk Mark Certified </li>
+                  <li>✓ GI Tagged </li>
+                  <li>✓ Authentic traditional weaving practices </li>
+                  <li>✓ Trusted craftsmanship for export and domestic buyers </li>
+                  <li>✓ Assured purity of silk</li>
+                </ul>
+              </section>
+
+              {/* Who We Cater To */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Who do We Cater to?
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed">
+                  The best <b>handmade Kantha clothing wholesale</b> company caters to fashion houses, boutiques, exporters, and ethnic wear brands looking for genuine Bishnupuri silk sarees with Katha hand stitch. As a trusted company for Katha stitch sarees, Meghbalika ensures consistent quality, timely delivery, and authentic craftsmanship. 
+                </p>
+              </section>
+
+              {/* Care Instructions */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Key Care Instructions
+                </h3>
+
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>✦ Store the silk saree in a muslin cloth</li>
+                  <li>✦ Dry clean only</li>
+                  <li>✦ Avoid direct sunlight for longer periods</li>
+                  <li>✦ Refold periodically to maintain fabric quality </li>
+                </ul>
+                <br/>
+                <p className="text-muted-foreground leading-relaxed">Proper care of Bishnupuri or any other silk saree helps preserve the richness, shine, longevity, texture, and embroidery detailing for years. </p>
+              </section>
+
+              {/* Why Choose Us */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Why Choose Us?
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">If you are an admirer of silk sarees with Katha artwork, you should associate with us and buy a fine range of Bishupuri Silk sarees. Let’s explore the reasons to choose us.</p>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div>
+                    <h4 className="font-medium mb-2">✓ Heritage Craftsmanship</h4>
+                    <p className="text-sm text-muted-foreground">
+                      We promote traditional weaving and hand embroidery techniques, passed through generations.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-medium mb-2">✓ Trusted Katha Stitch Saree Provider</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Meghbalika is a reliable provider of Katha stitch sarees, serving exporters, retailers, and premium ethnic wear buyers with authentic collections.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-medium mb-2">✓ Skilled Artisan Work</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Every saree reflects detailed artistry and handcrafted excellence.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-medium mb-2">✓ Sustainable Handloom Production</h4>
+                    <p className="text-sm text-muted-foreground">
+                      We produce on handlooms, and support sustainable practices, traditional artisans, and preserving India’s textile heritage.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <section class="container py-16">
+                  <h2 class="text-3xl font-light mb-8">
+                    Frequently Asked Questions
+                  </h2>
+
+                  <div class="space-y-4">
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        What makes Bishnupuri Silk sarees unique?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        The lightweight fabric, perfect drape, smooth finish, and natural sheen, along with Katha hand stitch, make a Bishnupuri Silk saree look unique.
+                      </p>
+                    </details>
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        What is the hand Katha Stitch work?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        Hand Katha Stitch is a traditional embroidery technique, originating from West Bengal, where skilled artisans create comprehensive patterns and motifs through fine hand stitching. 
+
+                      </p>
+                    </details>
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        Are your sarees created from pure silk?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        Yes, the sarees are crafted using genuine and pure Bishnupuri silk fabric. Our silk holds a silk-marked certification for assured authenticity and quality.
+                      </p>
+                    </details>
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        What is the minimum order quantity for export?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        The MOQ for export is 12 pieces per design, making it suitable for exporters, retailers, boutiques, and designer labels.
+
+                      </p>
+                    </details>
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        What are the ways to maintain a Bishnupuri silk saree?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        Bishnupuri silk sarees are maintained by considering some useful tips, including dry cleaning the saree, storing it in a muslin cloth, refolding periodically, and avoiding prolonged direct sunlight. This will help maintain the shine, texture, and longevity of your silk saree.
+                      </p>
+                    </details>
+
+                  </div>
+                </section>
+            </div>
+          )}
+
         </section>
       )}
 
