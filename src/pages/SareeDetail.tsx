@@ -231,7 +231,7 @@ const SareeDetail = () => {
 
               {/* Introduction */}
               <section className="border-t border-gold-deep/20 pt-8">
-                <h2 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                <h2 className="text-xxl uppercase tracking-[0.3em] text-gold-deep mb-4">
                   Pure Bishnupuri Silk from the Best Katha Embroidery Supplier in the USA
                 </h2>
 
@@ -438,6 +438,178 @@ const SareeDetail = () => {
                       </summary>
                       <p class="mt-3 text-gray-600">
                         The MOQ for export is 12 pieces per design, making it suitable for exporters, retailers, boutiques, and designer labels.
+
+                      </p>
+                    </details>
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        What are the ways to maintain a Bishnupuri silk saree?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        Bishnupuri silk sarees are maintained by considering some useful tips, including dry cleaning the saree, storing it in a muslin cloth, refolding periodically, and avoiding prolonged direct sunlight. This will help maintain the shine, texture, and longevity of your silk saree.
+                      </p>
+                    </details>
+
+                  </div>
+                </section>
+            </div>
+          )}
+
+          {!loading && item?.slug === "jamdani" &&(
+          
+            <div className="container mt-12 space-y-12">
+
+              {/* Introduction */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h2 className="text-xxl uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Pure Jamdani from the Best Jamdani Saree Wholesale in the USA
+                </h2>
+
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Meghbalika is a leading jamdani textile supplier. We blend traditional weaving with modern fashion and home décor needs. Our beautiful collections feature carefully crafted Jamdani fabrics made by skilled artisans using traditional methods and high-quality yarns. We give a wide range of designs, colors, and textures, suitable for clothing, scarves, furnishings, and unique boutique items.   
+                  </p>
+
+                  <p>
+                    Quality is important to us. We follow strict quality control methods and ethical sourcing practices, and we ensure reliable delivery. We build strong partnerships with retailers, designers, wholesalers, and exporters to deliver great products at competitive prices. Whether you need small orders or large projects, we provide authentic craftsmanship, excellent service, and lasting value to our global customers through personalized support, clear communication, and flexible solutions.
+                  </p>
+                </div>
+              </section>
+
+              {/* Pure Bishnupuri Silk */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Get The Best Bengali Jamdani Wholesale at Affordable Price 
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Meghbalika provides the best collections of authentic Jamdani fabrics of Bengali style at affordable costs. Recognized for their complex weaving, elegance in designs, and heritage, our Jamdani fabrics are made by experts through traditional methods. We provide our customers with high-quality Jamdani sarees, dress materials, and fabrics. 
+                </p>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Every item we sell is authentic in nature, durable, and beautiful to wear. At Meghbalika, we assure our customers the best service regarding quality, price, and fast delivery. Partner with us for wholesale Bengali Jamdani textiles that combine heritage craftsmanship with modern market demands and customer satisfaction.
+                </p>
+                
+              </section>
+
+              {/* Hand Katha Work */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Specification of Our Jamdani Sarees 
+                </h3>
+
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Our Jamdani sarees represent traditional Bengali weaving, artistic mastery, and quality fabrics, making them suitable for everyday use as well as festive events.
+                  </p>
+                  <ul className="grid gap-3 text-sm text-muted-foreground">
+                    <li>✦ Handwoven by skilled Jamdani artisans </li>
+                    <li>✦ Made of high-quality cotton fabrics and cotton blends</li>
+                    <li>✦ Elaborate weaving patterns, both traditional and modern</li>
+                    <li>✦ Soft, comfortable, and breathable to wear </li>
+                    <li>✦ Offered in different colors, prints, and patterns</li>
+                    <li>✦ Fine texture with excellent durability</li>
+                  </ul>
+                </div>
+              </section>
+
+              {/* Handloom */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Why People Choose Us? 
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed">
+                  Our goal is to supply genuine Jamdani fabric, which reflects the skills of Bengali artisans. We have established ourselves as an organization that can be relied upon for our quality and service standards because of our dedication to both our customers and high standards of professionalism.
+                </p>
+              </section>
+
+              {/* Handloom */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Authentic Craftsmanship
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed">
+                  The Jamdani pieces that we offer are all handcrafted, retaining the elegance of this ancient textile craft.
+                </p>
+              </section>
+
+              {/* Handloom */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Premium Quality Materials
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed">
+                  We use carefully selected fabrics and maintain strict quality standards to ensure durability, comfort, and an elegant finish in every piece.
+                </p>                
+              </section>
+
+              {/* Certifications */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Competitive Wholesale Pricing
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Through our close ties with weavers, we offer premium-quality Jamdani pieces at wholesale prices.
+                </p>  
+                
+              </section>
+
+              {/* Who We Cater To */}
+              <section className="border-t border-gold-deep/20 pt-8">
+                <h3 className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-4">
+                  Wide Product Selection
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed">
+                  Our collection includes a variety of sarees, fabrics, colors, patterns, and designs to meet diverse market demands and customer preferences.
+                </p>
+              </section> 
+              
+
+              <section class="container py-16">
+                  <h2 class="text-3xl font-light mb-8">
+                    Frequently Asked Questions
+                  </h2>
+
+                  <div class="space-y-4">
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        What fabrics are used in your Jamdani sarees?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        Jamdani sarees are made from premium-quality cotton and cotton-blend fabrics, ensuring comfort, durability, and elegance.
+                      </p>
+                    </details>
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        Do you provide wholesale Jamdani sarees?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        Yes, Meghbalika is a wholesale supplier of Jamdani sarees at affordable prices.
+
+                      </p>
+                    </details>
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        Can I place bulk orders?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        Absolutely. We accept bulk and customized orders based on design preferences, quantity requirements, and business needs.
+                      </p>
+                    </details>
+
+                    <details class="border rounded-lg p-4">
+                      <summary class="cursor-pointer font-medium">
+                        How do you ensure product quality?
+                      </summary>
+                      <p class="mt-3 text-gray-600">
+                        Every saree undergoes careful quality inspection to ensure superior weaving, fabric quality, finishing, and overall craftsmanship.
 
                       </p>
                     </details>
