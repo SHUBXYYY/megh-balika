@@ -612,16 +612,7 @@ const SareeDetail = () => {
                         Every saree undergoes careful quality inspection to ensure superior weaving, fabric quality, finishing, and overall craftsmanship.
 
                       </p>
-                    </details>
-
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
-                        What are the ways to maintain a Bishnupuri silk saree?
-                      </summary>
-                      <p class="mt-3 text-gray-600">
-                        Bishnupuri silk sarees are maintained by considering some useful tips, including dry cleaning the saree, storing it in a muslin cloth, refolding periodically, and avoiding prolonged direct sunlight. This will help maintain the shine, texture, and longevity of your silk saree.
-                      </p>
-                    </details>
+                    </details>                    
 
                   </div>
                 </section>
