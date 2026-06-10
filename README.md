@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Welcome to Megh Balika
 
 TODO: Document your project here
 # megh-balika
