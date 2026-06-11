@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/sarees/bishnupur",
+      "destination": "/sarees/kantha-stitch",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]
