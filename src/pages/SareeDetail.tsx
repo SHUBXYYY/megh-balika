@@ -88,10 +88,10 @@ const SareeDetail = () => {
 
       {item?.slug === "jamdani" && (
         <Helmet>
-          <title>Pure Bishnupuri Silk Saree Wholesaler | Megh Balika</title>
+          <title>Jamdani Saree Wholesale USA | Megh Balika</title>
           <meta
             name="description"
-            content="Buy authentic Bishnupuri silk sarees wholesale from Megh Balika. Hand-loomed by master weavers in Bengal, shipped to 72+ countries."
+            content="Partner with Megh Balika, a premium jamdani saree wholesale supplier in the USA. We are an authentic, handcrafted Bengali jamdani cotton saree exporter."
           />
         </Helmet>
       )}
