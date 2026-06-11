@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import SareeLightbox from "@/components/SareeLightbox";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
+import { Helmet } from "react-helmet-async";
 
 type Collection = {
   id: string;
@@ -75,6 +76,25 @@ const SareeDetail = () => {
 
   return (
     <main className="bg-background">
+      {item?.slug === "kantha-stitch" && (
+        <Helmet>
+          <title>Kantha Stitch Saree Supplier & Wholesaler USA | Megh Balika</title>
+          <meta
+            name="description"
+            content="Partner with Megh Balika, India's premier kantha stitch saree supplier. We provide bulk handmade kantha clothing & sustainable fashion wholesale to the USA."
+          />
+        </Helmet>
+      )}
+
+      {item?.slug === "jamdani" && (
+        <Helmet>
+          <title>Pure Bishnupuri Silk Saree Wholesaler | Megh Balika</title>
+          <meta
+            name="description"
+            content="Buy authentic Bishnupuri silk sarees wholesale from Megh Balika. Hand-loomed by master weavers in Bengal, shipped to 72+ countries."
+          />
+        </Helmet>
+      )}
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 
@@ -225,7 +245,7 @@ const SareeDetail = () => {
           </div>
           
           {/* Extra content below gallery */}
-          {!loading && item?.slug === "bishnupur" &&(
+          {!loading && item?.slug === "kantha-stitch" &&(
           
             <div className="container mt-12 space-y-12">
 
