@@ -4,6 +4,11 @@
       "source": "/sarees/bishnupur",
       "destination": "/sarees/kantha-stitch",
       "permanent": true
+    },
+    {
+      "source": "/sarees/kantha",
+      "destination": "/sarees/kantha-stitch",
+      "permanent": true
     }
   ],
   "rewrites": [
