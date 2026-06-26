@@ -78,11 +78,38 @@ const SareeDetail = () => {
     <main className="bg-background">
       {item?.slug === "kantha-stitch" && (
         <Helmet>
+          {/* OnPage Optimization */}
           <title>Kantha Stitch Saree Supplier & Wholesaler USA | Megh Balika</title>
-          <meta
-            name="description"
-            content="Partner with Megh Balika, India's premier kantha stitch saree supplier. We provide bulk handmade kantha clothing & sustainable fashion wholesale to the USA."
-          />
+          <meta name="description" content="Partner with Megh Balika, India's premier kantha stitch saree supplier. We provide bulk handmade kantha clothing & sustainable fashion wholesale to the USA." />
+
+          {/* OpenGraph Meta Tags */}
+          <meta property="og:title" content="Kantha Stitch Saree Supplier & Wholesaler USA | Megh Balika" />
+          <meta property="og:description" content="Partner with Megh Balika, India's premier kantha stitch saree supplier. We provide bulk handmade kantha clothing & sustainable fashion wholesale to the USA." />
+          <meta property="og:url" content="https://www.meghbalika.store/sarees/kantha-stitch" />
+          <meta name="og:site_name" content="Megh Balika" />
+          <link rel="canonical" href="https://www.meghbalika.store/sarees/kantha-stitch" />
+          <meta property="og:locale" content="en_US" />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content="https://hgphlzxkacbadwdshulp.supabase.co/storage/v1/object/public/collection-images/1777133632693-ikejs2.jpeg" />
+
+          {/* Twitter Meta Tags */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="Kantha Stitch Saree Supplier & Wholesaler USA | Megh Balika" />
+          <meta name="twitter:description" content="Partner with Megh Balika, India's premier kantha stitch saree supplier. We provide bulk handmade kantha clothing & sustainable fashion wholesale to the USA." />
+          <meta name="twitter:image" content="https://hgphlzxkacbadwdshulp.supabase.co/storage/v1/object/public/collection-images/1777133632693-ikejs2.jpeg" />
+
+          {/* Robots & Author  */}
+          <meta name="robots" content="index, follow, noodp, noydir" />
+          <meta name="googlebot" content="noodp, noydir" />
+          <meta name="slurp" content="noodp, noydir" />
+          <meta name="msnbot" content="noodp, noydir" />
+          <meta name="revisit-after" content="2 days" />
+          <meta name="author" content="Megh Balika" />
+          <meta name="copyright" content="Megh Balika" />
+          <meta name="language" content="English" />
+          <meta name="rating" content="safe for kids" />
+          <meta name="web_author" content="Megh Balika" />
+          <meta httpEquiv="Cache-control" content="public" />
         </Helmet>
       )}
 
