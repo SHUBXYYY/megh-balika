@@ -115,11 +115,38 @@ const SareeDetail = () => {
 
       {item?.slug === "jamdani" && (
         <Helmet>
-          <title>Jamdani Saree Wholesale USA | Megh Balika</title>
-          <meta
-            name="description"
-            content="Partner with Megh Balika, a premium jamdani saree wholesale supplier in the USA. We are an authentic, handcrafted Bengali jamdani cotton saree exporter."
-          />
+          {/* OnPage Optimization */}
+          <title>Premium Jamdani Saree Wholesale USA | Megh Balika</title>
+          <meta name="description" content="Partner with Megh Balika, a premium jamdani saree wholesale supplier in the USA. We are an authentic, handcrafted Bengali jamdani cotton saree exporter." />
+
+          {/* OpenGraph Meta Tags */}
+          <meta property="og:title" content="Premium Jamdani Saree Wholesale USA | Megh Balika" />
+          <meta property="og:description" content="Partner with Megh Balika, a premium jamdani saree wholesale supplier in the USA. We are an authentic, handcrafted Bengali jamdani cotton saree exporter." />
+          <meta property="og:url" content="https://www.meghbalika.store/sarees/jamdani" />
+          <meta name="og:site_name" content="Megh Balika" />
+          <link rel="canonical" href="https://www.meghbalika.store/sarees/jamdani" />
+          <meta property="og:locale" content="en_US" />
+          <meta property="og:type" content="website" />
+          <meta property="og:image" content="https://hgphlzxkacbadwdshulp.supabase.co/storage/v1/object/public/collection-images/1780311057605-bs7b0i.jpg" />
+
+          {/* Twitter Meta Tags */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="Premium Jamdani Saree Wholesale USA | Megh Balika" />
+          <meta name="twitter:description" content="Partner with Megh Balika, a premium jamdani saree wholesale supplier in the USA. We are an authentic, handcrafted Bengali jamdani cotton saree exporter." />
+          <meta name="twitter:image" content="https://hgphlzxkacbadwdshulp.supabase.co/storage/v1/object/public/collection-images/1780311057605-bs7b0i.jpg" />
+
+          {/* Robots & Author */}
+          <meta name="robots" content="index, follow, noodp, noydir" />
+          <meta name="googlebot" content="noodp, noydir" />
+          <meta name="slurp" content="noodp, noydir" />
+          <meta name="msnbot" content="noodp, noydir" />
+          <meta name="revisit-after" content="2 days" />
+          <meta name="author" content="Megh Balika" />
+          <meta name="copyright" content="Megh Balika" />
+          <meta name="language" content="English" />
+          <meta name="rating" content="safe for kids" />
+          <meta name="web_author" content="Megh Balika" />
+          <meta httpEquiv="Cache-control" content="public" />
         </Helmet>
       )}
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
