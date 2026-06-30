@@ -6,6 +6,7 @@ import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import { blogPosts } from "./Blog";
+import { Helmet } from "react-helmet-async";
 
 const BlogDetail = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -78,6 +79,12 @@ const BlogDetail = () => {
 
   return (
     <main className="bg-background">
+      {(post.metaTitle || post.metaDescription) && (
+        <Helmet>
+          {post.metaTitle && <title>{post.metaTitle}</title>}
+          {post.metaDescription && <meta name="description" content={post.metaDescription} />}
+        </Helmet>
+      )}
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 
@@ -129,7 +136,8 @@ const BlogDetail = () => {
         >
           <img
             src={post.image}
-            alt={post.title}
+            alt={post.imageAlt ?? post.title}
+            title={post.imageTitle ?? post.title}
             className="w-full h-[400px] md:h-[520px] object-cover"
           />
         </motion.div>

@@ -9,6 +9,9 @@ import imgBanarasi from "@/assets/collection-banarasi.jpg";
 import imgBatik from "@/assets/collection-batik.jpg";
 import imgKantha from "@/assets/collection-kantha.jpg";
 import imgEmbroidered from "@/assets/blog-embroidered-sarees.jpg";
+import imgBuyingBulk from "@/assets/blog-buying-sarees-bulk.jpg";
+import imgHandcrafted from "@/assets/blog-handcrafted-clothing-investment.jpg";
+import imgHandloom from "@/assets/blog-handloom-sustainable-fashion.jpg";
 
 export interface BlogPost {
   id: string;
@@ -18,19 +21,152 @@ export interface BlogPost {
   excerpt: string;
   content: string;
   image?: string;
+  imageAlt?: string;
+  imageTitle?: string;
   category?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "7",
+    slug: "the-role-of-handloom-in-promoting-sustainable-fashion-practices",
+    title: "The Role of Handloom in Promoting Sustainable Fashion Practices",
+    date: "June 21, 2025",
+    category: "Sustainability",
+    excerpt:
+      "There are various role of handloom in promoting sustainable fashion practices. Read to know more about it in details.",
+    image: imgHandloom,
+    imageAlt: "Role of Handloom",
+    imageTitle: "Promoting Sustainable Fashion Practices",
+    metaTitle: "How Handloom Supports Sustainable Fashion",
+    metaDescription: "There are various role of handloom in promoting sustainable fashion practices. Read to know more about it in details.",
+    content: `Imagine a textile with a weave that speaks of a rhythm of a loom, the craftsmanship of patient hands, and the discipline of people who learned weaving in generations past. This is essentially what handloom means in the world of fashion. It's more than clothes; it's about a method of creation that is slow and deliberate. Many designers and conscious buyers looking for a reliable [[Jamdani textile supplier|https://www.meghbalika.store/sarees/jamdani]] are often drawn to this space because it naturally aligns with sustainability, tradition, and craftsmanship that doesn't rely on mass production.
+
+Handloom is interesting in today's fashion because it naturally supports sustainability. There is no excessive production, no heavy industrial impact, just skilled artisans using traditional methods. In each piece there are subtle distinctions to show that it is a handmade product. In a hurried world, where uniformity prevails, handloom serves to encourage mindful buying and greater appreciation of one's clothes.
+
+## Various Roles of Handloom in Promoting Sustainable Fashion Practices
+
+Handloom is a representation of sustainable fashion due to its use of old-fashioned weaving skills and processes in order to avoid the negative impact on the environment brought about by mass production.
+
+1. Low environmental impact by design
+Handloom weaving does not involve any large machines or consume much energy. It's mostly human skill, simple tools, and natural materials working together. That alone reduces a huge chunk of the carbon footprint compared to factory-made textiles. When fewer machines are involved, there's less pollution, less water waste, and far more control over resources.
+
+2. Preserves traditional craft techniques
+Handloom isn't just about clothing; its cultural memory woven into fabric. Weaving, dyeing, and embroidery practices hold years of expertise in them. For example, a lot of people who are in search of [[kantha embroidery supplier in the USA|https://www.meghbalika.store/sarees/kantha-stitch]] are in search of a story woven into the fabric.
+
+3. Supports artisan livelihoods
+In the making of each piece of handloom cloth, there is always an artisan at work or a community of weavers. The livelihood of these artisans or weavers relies directly upon their skill. Handwoven products contribute to the continuity of these skills, which have been practiced for generations.
+
+4. Promotes natural and biodegradable materials
+In most cases, natural fibers such as cotton, silk, and wool are used in making handloom fabrics. They decompose much faster compared to man-made fiber materials. This will help avoid putting too much pressure on the environment and accumulation of textile waste in landfills.
+
+5. Encourages conscious consumer choices
+Choosing handloom means a change in the way fashion is thought about. People are not going to focus on following the trends anymore; instead, they are going to consider other aspects of clothing, like its quality, origin, and production. It may seem a minor change, but it is very influential.
+
+6. Strengthens local and rural economies
+Handlooms are typically based in rural areas. Promoting handlooms would mean that the financial benefits would go to the rural area and not the central factories. This ensures balanced economic growth and also preserves the communities who weave.
+
+7. Encourages slow fashion instead of fast consumption
+This fashion system is built around speed, rapid changes in style within a few weeks, high rotation, and disposability of clothes. Handloom works in the opposite direction. A woven piece often takes days or even weeks to complete. That time naturally slows down production and makes both makers and buyers value the garment more. It shifts fashion from "buy and toss" to "buy and keep."
+
+### Conclusion
+
+Handloom brings fashion back to something more grounded and responsible. It slows down production, conserves nature, and preserves the culture of manual skills in a way that mass production methods fail to take notice of. As a matter of fact, when you consider it carefully, sustainability is not just an added aspect in this scenario; it forms a part of the very process of handloom.`,
+  },
+  {
+    id: "6",
+    slug: "why-handcrafted-clothing-represents-a-wise-long-term-investment",
+    title: "Why Handcrafted Clothing Represents a Wise Long-Term Investment",
+    date: "June 14, 2025",
+    category: "Craft & Heritage",
+    excerpt:
+      "There are various reasons handcrafted clothing represents a wise long-term investment. Read to know more about it in details.",
+    image: imgHandcrafted,
+    imageAlt: "Handcrafted Clothing",
+    imageTitle: "Handcrafted Clothing Represents a Wise Long-Term Investment",
+    metaTitle: "Why Handcrafted Apparel Is a Long-Term Investment",
+    metaDescription: "There are various reasons handcrafted clothing represents a wise long-term investment. Read to know more about it in details.",
+    content: `Clothes with a narrative are always intriguing. In fact, when you have one such garment in your hands, you cannot but appreciate the skill invested into making the item. This is why many buyers who are interested in purchasing [[jamdani saree wholesale in the USA|https://www.meghbalika.store/sarees/jamdani]] are actually buying something of value. Unlike ready-to-wear items which go out of trend rather soon, handcrafted clothing gets better and better as time passes. Selecting solid wood furniture is equivalent to selecting handmade clothes. The function of both items remains similar, but solid wood furniture proves to be durable. An excellent garment will remain relevant for a long time since it will not get outdated due to changing fashion trends. High-quality fabrics and fine workmanship ensure durability, and customers can instantly realize the value of an item purchased. The inheritance of craftsmanship ensures that every purchase has more meaning than just a fashionable piece of clothing.
+
+## Reasons Handcrafted Clothing Represents a Wise Long-Term Investment
+
+Fast fashion is becoming increasingly popular today. However, custom-made clothes can provide something different from regular fast fashion clothes due to their high quality, material and workmanship. This kind of clothing is made to last longer and have some unique designs, which make them worth purchasing.
+
+1. Superior craftsmanship means longer wear
+Clothing that is made by hand is constructed in a different manner. While crafting the piece of clothing through sewing, weaving, or embroidery, the intention behind it is not to create thousands of items within the shortest time frame possible but to make sure that the end product has quality. For example, take into consideration a handcrafted Kantha jacket compared to a poorly constructed one – the former can last in your closet for years while the latter wears out after a couple of washes.
+
+2. Timeless designs outlast fashion trends
+It is based on immediacy. Purchase fast fashion now, since it may no longer be fashionable in a month's time. On the contrary, handmade clothes take a completely different route. Time-honored designs, timeless shapes and techniques of making have frequently been in use for generations. When you purchase something beautiful and handmade, you will never find it passé the following season.
+
+3. Better materials deliver greater value
+The creation of handmade clothes starts with picking out good materials. The craftsmen know very well that the end product will rely on the materials used. This is just like when making food from fresh materials rather than processed ones; the results will be easily noticeable. Good quality cotton, silk, or natural materials usually look better and last longer.
+
+4. Every piece carries a unique character
+Mass-manufactured clothes are manufactured to appear identical. This is not the case with hand-made clothes. Subtle differences in the stitching, embroidery, or weaving make each article unique in its way. Buyers tend to like these things because they add uniqueness to the item. This is one of the reasons why many businesses prefer a reputable [[kantha boutique supplier|https://www.meghbalika.store/sarees/kantha-stitch]].
+
+5. Stronger resale and heirloom potential
+Some handmade clothes get their value from being artistic and culturally significant. Handmade fabrics, embroideries, and traditional clothing are often handed down through generations. It is uncommon to find someone who would keep an item of clothing that was made for fashion in decades to come. But if the clothes are handmade and done nicely, then it becomes something of value.
+
+6. Supporting skilled artisans preserves traditional craftsmanship
+The investment is not only in the clothing but also in what they symbolize. Every item purchased is an investment in the culture that has taken so much time and effort to develop. By choosing to purchase artisanal clothing, consumers keep cultures alive that would otherwise become extinct. There is much more meaning than just fabric in the purchase.
+
+### Conclusion
+
+Custom-made outfits do not only provide style but also durability, elegance, and real value. You are purchasing a piece of clothing to wear and appreciate for many years when you purchase custom-made clothes. This is a much better idea than spending money on fashionable trends.`,
+  },
+  {
+    id: "5",
+    slug: "top-essential-factors-to-consider-when-buying-sarees-in-bulk",
+    title: "Top Essential Factors to Consider When Buying Sarees in Bulk",
+    date: "June 07, 2025",
+    category: "Buying Guide",
+    excerpt:
+      "There are various essential factors to consider when buying sarees in bulk. Read to know more about it in details.",
+    image: imgBuyingBulk,
+    imageAlt: "Buying Sarees in Bulk",
+    imageTitle: "Essential Factors to Consider When Buying Sarees in Bulk",
+    metaTitle: "Factors to Consider Before Buying Sarees in Bulk",
+    metaDescription: "There are various essential factors to consider when buying sarees in bulk. Read to know more about it in details.",
+    content: `Buying a bulk saree might sound like a good idea, but it could turn out to be a difficult situation once delivered. It may seem nice when looking through a catalog, but determining its quality, durability, and uniformity in large numbers comes later. In the case of [[kantha stitch wholesale in the USA|https://www.meghbalika.store/sarees/kantha-stitch]], this is very important as it determines its worth. Just because one piece looks great doesn't mean all will be the same. Wise bulk buyers should look out for factors that are often overlooked by other buyers, including the quality of the fabric used, the dependability of the supplier, and the quality control measures involved, all of which could make a bigger difference in the overall success of the business rather than a small difference in prices. A beautiful saree may not have an impressive finish, causing customers to lose faith in it.
+
+## Various Essential Factors to Consider When Buying Sarees in Bulk
+
+Purchasing sarees in large quantities is not just about cost and aesthetics. Quality, durability, and customer acceptance become major considerations. Analyzing all these aspects can help in making prudent decisions and enhance returns on investments.
+
+1. Fabric quality comes first.
+A saree may have a fantastic design; however, if the fabric is harsh or poor in quality, the buyers will recognize that right away. Fabric can be considered the base of any building. A poor base automatically decreases the worth of everything constructed on top of it.
+
+2. Look at authenticity
+In the case of the purchase of traditional products, such as [[Bengali jamdani wholesale|https://www.meghbalika.store/sarees/jamdani]], the factor of authenticity becomes very important. Any customers familiar with the history of weaving would be able to distinguish between authentic products created by skilled craftsmen and shoddy replicas. Authenticity of these beautiful designs with bright colors is evident.
+
+3. Evaluate the craftsmanship
+Small things can tell you much about the quality of the product. When you look closer, you will notice imperfect stitching; this is a sign of negligence. Threads sticking out of the product mean that it has been made quickly. Irregular borders can be a hint that the product was not carefully made but rather hurriedly put together. Meanwhile, attention to detail can be found in the careful matching of the pattern and evenness of stitching. All of these factors reveal the talent and effort of a committed creator who has made the product.
+
+4. Check product variety
+The tastes and preferences of consumers keep changing all the time. Companies have to cater to these changing tastes by giving their clients choices in terms of styles, materials, and embroidery work. They will attract more consumers if they provide different choices for their products.
+
+5. Compare pricing carefully
+Selecting a saree based on cost may initially sound wise but might not provide the most satisfaction. A saree with a slightly higher price tag could turn out to be better quality and more durable, thus making customers happy in the process. Customers will often notice that their experience using such a saree will make them appreciate spending a little extra on it. This could result in them returning for more.
+
+### Conclusion
+
+Purchasing sarees in large quantities entails striking a balance between various elements. While aesthetics and affordability play a big part, there is still more to consider. One needs to make sure that good materials will be used and that one deals with an honest seller. This is necessary for future success.`,
+  },
+  {
     id: "4",
     slug: "how-to-identify-the-right-supplier-for-quality-embroidered-sarees",
     title: "How to Identify the Right Supplier for Quality Embroidered Sarees",
-    date: "June 26, 2025",
+    date: "June 28, 2025",
     category: "Buying Guide",
     excerpt:
       "There are various ways to identify the right supplier for quality embroidered sarees. Read to know more about it in details.",
     image: imgEmbroidered,
+    imageAlt: "Embroidered Sarees",
+    imageTitle: "Right Supplier for Quality Embroidered Sarees",
+    metaTitle: "How to Identify the Right Supplier for Quality Embroidered Sarees",
+    metaDescription: "There are various ways to identify the right supplier for quality embroidered sarees. Read to know more about it in details.",
     content: `Some sarees don't just sit in a wardrobe; they carry stories in every thread. Embroidery work, especially detailed hand finishes, can completely change how a fabric feels and drapes. That's why choosing the right [[katha stitch saree provider|https://www.meghbalika.store/sarees/kantha-stitch]] matters so much when you're looking for quality pieces that actually hold their charm over time. The difference often shows up in the small things: stitch consistency, fabric feel, and how well the design holds up after regular use.
 
 The issue with this is that not all suppliers have maintained the same standards. Some put a lot of emphasis on design variety but do not pay attention to finishes, while others concentrate on longevity but do not have enough creativity when designing their patterns. It turns out that choosing the right supplier involves much more than glossy catalogs – it's all about the craft involved. Once you learn how to recognize this, things get much easier.
@@ -52,7 +188,7 @@ The market has lots of products with designs that seem identical and devoid of a
 In general, real reviews offer a more in-depth insight into the product than pictures. Concentrate on reviews that talk about the stitching quality since it speaks of the product's quality and craftsmanship. Moreover, delivery is another important point to remember when considering comments, as shipping is an integral part of customer experience. Fabric comfort should also be taken into account for its importance to actual use.
 
 5. Check supply reliability
-Constantly procuring the products is vital for ensuring consistent stock levels. Delays in receiving stock or any inconsistencies can have repercussions that are not always anticipated. Such complications can interfere with the success of your planning and affect both your relationship with your suppliers as well as your customers. Maintaining a smooth chain is necessary, as anything else will prove disastrous to all parties involved.
+Constantly procuring the products is vital for ensuring consistent stock levels. Delays in receiving stock or any inconsistencies can have repercussions that are not always anticipated. Such complications can interfere with the success of your planning and affect both your relationship with your suppliers as well as your customers. Maintaining a smooth chain is necessary, as anything else will prove disastrous to all parties involved. It is therefore imperative to ensure constant stock monitoring and to address any complications immediately.
 
 6. Balance aesthetics with practicality
 The saree needs to be both beautiful and convenient. It must be easy to put on and handle in order for the person to be able to wear and move about in it confidently. It is crucial that you feel comfortable wearing the saree, so it should fit just like a second skin and also should integrate seamlessly into your life. Every saree must be both fashionable and comfortable enough to wear on a day-to-day basis.
@@ -133,7 +269,7 @@ const Blog = () => {
       <section className="py-20 md:py-28">
         <div className="container px-6 md:px-12 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-            {blogPosts.map((post, i) => (
+            {[...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post, i) => (
               <motion.div
                 key={post.id}
                 initial={{ opacity: 0, y: 24 }}
