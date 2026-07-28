@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-12 gap-12">
           <div className="md:col-span-5">
             <div className="font-serif text-3xl md:text-4xl tracking-[0.15em] mb-4">
-              MEGH<span className="text-gold-shimmer mx-1">·</span>BALIKA
+              <span className="relative">MEGH<span className="text-gold-shimmer mx-1">·</span>BALIKA <span className="tm ftm">TM</span></span>
             </div>
             <p className="text-ink-foreground/60 max-w-sm leading-relaxed">
               The Cloud Maiden — a B2B saree atelier weaving Indian heritage for boutiques across the world.

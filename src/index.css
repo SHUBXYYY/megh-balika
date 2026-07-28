@@ -453,3 +453,22 @@
     transition: none !important;
   }
 }
+.tm {
+  font-size: 10px;
+    width: 25px;
+    height: 25px;
+    border: 1px solid black;
+    border-radius: 50%;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -9px;
+    right: -22px;
+    font-weight: 900;
+}
+.ftm {
+  color: white;
+  border-color: white;
+}

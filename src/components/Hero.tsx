@@ -39,8 +39,8 @@ export default function Hero() {
         transition={{ delay: 0.6, duration: 1 }}
         className="absolute top-6 left-6 md:top-10 md:left-10 z-20"
       >
-        <div className="font-serif text-xl md:text-2xl tracking-[0.25em] text-foreground/80">
-          MEGH<span className="text-gold-shimmer mx-1">·</span>BALIKA
+        <div className="font-serif text-xl md:text-2xl tracking-[0.25em] text-foreground/80 relative">
+          MEGH<span className="text-gold-shimmer mx-1">·</span>BALIKA <span className="tm">TM</span>
         </div>
         <div className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground mt-1">
           Est. heritage · Bengal
