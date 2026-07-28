@@ -102,7 +102,7 @@ export default function MenuOverlay({ open, onClose }: Props) {
             {/* Top bar */}
             <div className="flex items-center justify-between px-6 md:px-12 py-6 md:py-8">
               <Link to="/" onClick={onClose} className="font-serif text-2xl text-ink-foreground tracking-widest">
-                MEGH<span className="text-gold-shimmer">·</span>BALIKA
+               <span className="relative">MEGH<span className="text-gold-shimmer">·</span>BALIKA <span className="tm ftm">TM</span></span>
               </Link>
               <button
                 onClick={onClose}

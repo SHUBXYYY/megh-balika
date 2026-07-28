@@ -138,7 +138,7 @@ const BlogDetail = () => {
             src={post.image}
             alt={post.imageAlt ?? post.title}
             title={post.imageTitle ?? post.title}
-            className="w-full h-[400px] md:h-[520px] object-cover"
+            className="w-full object-cover"
           />
         </motion.div>
       )}
