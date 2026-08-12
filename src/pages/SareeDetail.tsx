@@ -471,56 +471,56 @@ const SareeDetail = () => {
                 </div>
               </section>
 
-              <section class="container py-16">
-                  <h2 class="text-3xl font-light mb-8">
+              <section className="container py-16">
+                  <h2 className="text-3xl font-light mb-8">
                     Frequently Asked Questions
                   </h2>
 
-                  <div class="space-y-4">
+                  <div className="space-y-4">
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What makes Bishnupuri Silk sarees unique?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         The lightweight fabric, perfect drape, smooth finish, and natural sheen, along with Katha hand stitch, make a Bishnupuri Silk saree look unique.
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What is the hand Katha Stitch work?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Hand Katha Stitch is a traditional embroidery technique, originating from West Bengal, where skilled artisans create comprehensive patterns and motifs through fine hand stitching. 
 
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         Are your sarees created from pure silk?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Yes, the sarees are crafted using genuine and pure Bishnupuri silk fabric. Our silk holds a silk-marked certification for assured authenticity and quality.
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What is the minimum order quantity for export?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         The MOQ for export is 12 pieces per design, making it suitable for exporters, retailers, boutiques, and designer labels.
 
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What are the ways to maintain a Bishnupuri silk saree?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Bishnupuri silk sarees are maintained by considering some useful tips, including dry cleaning the saree, storing it in a muslin cloth, refolding periodically, and avoiding prolonged direct sunlight. This will help maintain the shine, texture, and longevity of your silk saree.
                       </p>
                     </details>
@@ -643,46 +643,46 @@ const SareeDetail = () => {
               </section> 
               
 
-              <section class="container py-16">
-                  <h2 class="text-3xl font-light mb-8">
+              <section className="container py-16">
+                  <h2 className="text-3xl font-light mb-8">
                     Frequently Asked Questions
                   </h2>
 
-                  <div class="space-y-4">
+                  <div className="space-y-4">
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What fabrics are used in your Jamdani sarees?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Jamdani sarees are made from premium-quality cotton and cotton-blend fabrics, ensuring comfort, durability, and elegance.
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         Do you provide wholesale Jamdani sarees?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Yes, Meghbalika is a wholesale supplier of Jamdani sarees at affordable prices.
 
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         Can I place bulk orders?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Absolutely. We accept bulk and customized orders based on design preferences, quantity requirements, and business needs.
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         How do you ensure product quality?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Every saree undergoes careful quality inspection to ensure superior weaving, fabric quality, finishing, and overall craftsmanship.
 
                       </p>
