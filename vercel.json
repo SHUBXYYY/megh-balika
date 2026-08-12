@@ -12,7 +12,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/((?!api/.*|assets/.*|.*\\..*).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
