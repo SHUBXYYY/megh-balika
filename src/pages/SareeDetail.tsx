@@ -302,6 +302,43 @@ const SareeDetail = () => {
 
             
           </div>
+
+          {related.length > 0 && (
+            <div className="container px-6 md:px-12 mt-20">
+              <div className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-6">
+                More in this category
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                {related.slice(0, 8).map((r) => {
+                  const cover = r.images?.[r.primary_image_index] || r.image_url;
+                  return (
+                    <Link key={r.id} to={`/sarees/${r.slug}`} className="group block">
+                      <div className="aspect-[3/4] overflow-hidden bg-secondary">
+                        {cover && (
+                          <img
+                            src={cover}
+                            alt={`${r.name} saree`}
+                            loading="lazy"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                        )}
+                      </div>
+                      <div className="mt-3 font-serif text-lg group-hover:text-gold transition-colors">
+                        {r.name}
+                      </div>
+                      {r.fabric && (
+                        <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+                          {r.fabric}
+                        </div>
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          
+
           
           {/* Extra content below gallery */}
           {!loading && item?.slug === "kantha-stitch" &&(
