@@ -10,6 +10,8 @@ import SareeExpert from "@/components/SareeExpert";
 import SareeLightbox from "@/components/SareeLightbox";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
 import { Helmet } from "react-helmet-async";
+import { resolveSaree } from "@/lib/sareeFallbacks";
+
 
 type Collection = {
   id: string;
@@ -27,8 +29,10 @@ const SareeDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [menuOpen, setMenuOpen] = useState(false);
   const [item, setItem] = useState<Collection | null>(null);
+  const [related, setRelated] = useState<Collection[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+
   const [activeIdx, setActiveIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -40,26 +44,27 @@ const SareeDetail = () => {
     if (!slug) return;
     (async () => {
       setLoading(true);
+      setNotFound(false);
       const { data } = await supabase
         .from("collections")
         .select("*")
-        .eq("slug", slug)
         .eq("published", true)
-        .maybeSingle();
-      if (!data) {
-        setNotFound(true);
-      } else {
-        const normalized = {
-          ...(data as any),
-          images: Array.isArray((data as any).images) ? (data as any).images : [],
-          primary_image_index: (data as any).primary_image_index ?? 0,
-        } as Collection;
-        setItem(normalized);
-        setActiveIdx(normalized.primary_image_index ?? 0);
-      }
+        .order("sort_order");
+
+      const rows = ((data as any[]) ?? []).map((c) => ({
+        ...c,
+        images: Array.isArray(c.images) ? c.images : [],
+        primary_image_index: c.primary_image_index ?? 0,
+      })) as Collection[];
+
+      const { item: resolved, related: rel } = resolveSaree(slug, rows as any);
+      setItem(resolved as Collection);
+      setRelated(rel as Collection[]);
+      setActiveIdx(resolved.primary_image_index ?? 0);
       setLoading(false);
     })();
   }, [slug]);
+
 
   // Build display gallery: prefer images[], fall back to image_url
   const gallery = (() => {
