@@ -10,6 +10,8 @@ import SareeExpert from "@/components/SareeExpert";
 import SareeLightbox from "@/components/SareeLightbox";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
 import { Helmet } from "react-helmet-async";
+import { resolveSaree } from "@/lib/sareeFallbacks";
+
 
 type Collection = {
   id: string;
@@ -27,8 +29,10 @@ const SareeDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [menuOpen, setMenuOpen] = useState(false);
   const [item, setItem] = useState<Collection | null>(null);
+  const [related, setRelated] = useState<Collection[]>([]);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+
   const [activeIdx, setActiveIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -40,26 +44,27 @@ const SareeDetail = () => {
     if (!slug) return;
     (async () => {
       setLoading(true);
+      setNotFound(false);
       const { data } = await supabase
         .from("collections")
         .select("*")
-        .eq("slug", slug)
         .eq("published", true)
-        .maybeSingle();
-      if (!data) {
-        setNotFound(true);
-      } else {
-        const normalized = {
-          ...(data as any),
-          images: Array.isArray((data as any).images) ? (data as any).images : [],
-          primary_image_index: (data as any).primary_image_index ?? 0,
-        } as Collection;
-        setItem(normalized);
-        setActiveIdx(normalized.primary_image_index ?? 0);
-      }
+        .order("sort_order");
+
+      const rows = ((data as any[]) ?? []).map((c) => ({
+        ...c,
+        images: Array.isArray(c.images) ? c.images : [],
+        primary_image_index: c.primary_image_index ?? 0,
+      })) as Collection[];
+
+      const { item: resolved, related: rel } = resolveSaree(slug, rows as any);
+      setItem(resolved as Collection);
+      setRelated(rel as Collection[]);
+      setActiveIdx(resolved.primary_image_index ?? 0);
       setLoading(false);
     })();
   }, [slug]);
+
 
   // Build display gallery: prefer images[], fall back to image_url
   const gallery = (() => {
@@ -297,6 +302,43 @@ const SareeDetail = () => {
 
             
           </div>
+
+          {related.length > 0 && (
+            <div className="container px-6 md:px-12 mt-20">
+              <div className="text-xs uppercase tracking-[0.3em] text-gold-deep mb-6">
+                More in this category
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                {related.slice(0, 8).map((r) => {
+                  const cover = r.images?.[r.primary_image_index] || r.image_url;
+                  return (
+                    <Link key={r.id} to={`/sarees/${r.slug}`} className="group block">
+                      <div className="aspect-[3/4] overflow-hidden bg-secondary">
+                        {cover && (
+                          <img
+                            src={cover}
+                            alt={`${r.name} saree`}
+                            loading="lazy"
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                        )}
+                      </div>
+                      <div className="mt-3 font-serif text-lg group-hover:text-gold transition-colors">
+                        {r.name}
+                      </div>
+                      {r.fabric && (
+                        <div className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+                          {r.fabric}
+                        </div>
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          
+
           
           {/* Extra content below gallery */}
           {!loading && item?.slug === "kantha-stitch" &&(
@@ -471,56 +513,56 @@ const SareeDetail = () => {
                 </div>
               </section>
 
-              <section class="container py-16">
-                  <h2 class="text-3xl font-light mb-8">
+              <section className="container py-16">
+                  <h2 className="text-3xl font-light mb-8">
                     Frequently Asked Questions
                   </h2>
 
-                  <div class="space-y-4">
+                  <div className="space-y-4">
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What makes Bishnupuri Silk sarees unique?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         The lightweight fabric, perfect drape, smooth finish, and natural sheen, along with Katha hand stitch, make a Bishnupuri Silk saree look unique.
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What is the hand Katha Stitch work?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Hand Katha Stitch is a traditional embroidery technique, originating from West Bengal, where skilled artisans create comprehensive patterns and motifs through fine hand stitching. 
 
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         Are your sarees created from pure silk?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Yes, the sarees are crafted using genuine and pure Bishnupuri silk fabric. Our silk holds a silk-marked certification for assured authenticity and quality.
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What is the minimum order quantity for export?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         The MOQ for export is 12 pieces per design, making it suitable for exporters, retailers, boutiques, and designer labels.
 
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What are the ways to maintain a Bishnupuri silk saree?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Bishnupuri silk sarees are maintained by considering some useful tips, including dry cleaning the saree, storing it in a muslin cloth, refolding periodically, and avoiding prolonged direct sunlight. This will help maintain the shine, texture, and longevity of your silk saree.
                       </p>
                     </details>
@@ -643,46 +685,46 @@ const SareeDetail = () => {
               </section> 
               
 
-              <section class="container py-16">
-                  <h2 class="text-3xl font-light mb-8">
+              <section className="container py-16">
+                  <h2 className="text-3xl font-light mb-8">
                     Frequently Asked Questions
                   </h2>
 
-                  <div class="space-y-4">
+                  <div className="space-y-4">
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         What fabrics are used in your Jamdani sarees?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Jamdani sarees are made from premium-quality cotton and cotton-blend fabrics, ensuring comfort, durability, and elegance.
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         Do you provide wholesale Jamdani sarees?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Yes, Meghbalika is a wholesale supplier of Jamdani sarees at affordable prices.
 
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         Can I place bulk orders?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Absolutely. We accept bulk and customized orders based on design preferences, quantity requirements, and business needs.
                       </p>
                     </details>
 
-                    <details class="border rounded-lg p-4">
-                      <summary class="cursor-pointer font-medium">
+                    <details className="border rounded-lg p-4">
+                      <summary className="cursor-pointer font-medium">
                         How do you ensure product quality?
                       </summary>
-                      <p class="mt-3 text-gray-600">
+                      <p className="mt-3 text-gray-600">
                         Every saree undergoes careful quality inspection to ensure superior weaving, fabric quality, finishing, and overall craftsmanship.
 
                       </p>
