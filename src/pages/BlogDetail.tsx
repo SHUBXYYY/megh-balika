@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import { blogPosts } from "./Blog";
 import { Helmet } from "react-helmet-async";
+import Seo, { breadcrumbLd, SITE_URL } from "@/components/Seo";
 
 const BlogDetail = () => {
   const [menuOpen, setMenuOpen] = useState(false);
