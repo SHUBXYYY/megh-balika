@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import { blogPosts } from "./Blog";
 import { Helmet } from "react-helmet-async";
+import Seo, { breadcrumbLd, SITE_URL } from "@/components/Seo";
 
 const BlogDetail = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -79,12 +80,32 @@ const BlogDetail = () => {
 
   return (
     <main className="bg-background">
-      {(post.metaTitle || post.metaDescription) && (
-        <Helmet>
-          {post.metaTitle && <title>{post.metaTitle}</title>}
-          {post.metaDescription && <meta name="description" content={post.metaDescription} />}
-        </Helmet>
-      )}
+      <Seo
+        path={`/blog/${post.slug}`}
+        type="article"
+        title={post.metaTitle || `${post.title} | Megh Balika Journal`}
+        description={(post.metaDescription || post.excerpt).slice(0, 158)}
+        image={post.image}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.date,
+            image: post.image ? [post.image] : undefined,
+            mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+            author: { "@type": "Organization", name: "Megh Balika" },
+            publisher: { "@type": "Organization", name: "Megh Balika" },
+          },
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Journal", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+        ]}
+      />
+
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 

@@ -16,6 +16,7 @@ import dms from "@/assets/wear-handcrafted-sarees-with-flair.jpeg";
 import bftw from "@/assets/best-fabrics-for-traditional-womens-wear.jpeg";
 import acfs from "@/assets/apparel-collection-for-your-store.jpeg";
 import hw from "@/assets/handwoven-pieces.jpeg";
+import Seo, { breadcrumbLd } from "@/components/Seo";
 
 
 export interface BlogPost {
@@ -268,6 +269,29 @@ const Blog = () => {
 
   return (
     <main className="bg-background">
+      <Seo
+        path="/blog"
+        title="The Journal — Saree Craft, Trade & Textile Notes | Megh Balika"
+        description="Stories on handloom heritage, sourcing handwoven sarees in bulk, fabric guides and wholesale buying advice from the Megh Balika atelier in Kolkata."
+        jsonLd={[
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Journal", path: "/blog" },
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            name: "Megh Balika Journal",
+            url: "https://www.meghbalika.store/blog",
+            blogPost: blogPosts.slice(0, 10).map((p) => ({
+              "@type": "BlogPosting",
+              headline: p.title,
+              datePublished: p.date,
+              url: "https://www.meghbalika.store/blog/" + p.slug,
+            })),
+          },
+        ]}
+      />
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 

@@ -7,6 +7,8 @@ import MenuTrigger from "@/components/MenuTrigger";
 import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
+import Seo, { breadcrumbLd } from "@/components/Seo";
+import { SAREE_CATEGORIES } from "@/lib/sareeCategories";
 
 type Collection = {
   id: string;
@@ -74,6 +76,29 @@ const Sarees = () => {
 
   return (
     <main className="bg-background">
+      <Seo
+        path="/sarees"
+        title="Saree Collection — Wholesale Silk, Kantha & Jamdani | Megh Balika"
+        description="Browse the full Megh Balika saree library — handwoven Banarasi, Kantha stitch, Tussar, Jamdani, Chanderi and pure silk sarees, export-ready for global B2B buyers."
+        jsonLd={[
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Sarees", path: "/sarees" },
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Megh Balika Saree Collection",
+            url: "https://www.meghbalika.store/sarees",
+            hasPart: SAREE_CATEGORIES.map((c) => ({
+              "@type": "ProductGroup",
+              name: c.label + " Sarees",
+              description: c.blurb,
+              url: "https://www.meghbalika.store" + c.href,
+            })),
+          },
+        ]}
+      />
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 

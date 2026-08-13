@@ -11,6 +11,7 @@ import SareeLightbox from "@/components/SareeLightbox";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
 import { Helmet } from "react-helmet-async";
 import { resolveSaree } from "@/lib/sareeFallbacks";
+import Seo, { breadcrumbLd, SITE_URL } from "@/components/Seo";
 
 
 type Collection = {
@@ -24,6 +25,8 @@ type Collection = {
   images: string[];
   primary_image_index: number;
 };
+
+const CUSTOM_SEO_SLUGS = ["kantha-stitch", "jamdani"];
 
 const SareeDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -153,6 +156,61 @@ const SareeDetail = () => {
           <meta name="web_author" content="Megh Balika" />
           <meta httpEquiv="Cache-control" content="public" />
         </Helmet>
+      )}
+      {item && (
+        <>
+          {!CUSTOM_SEO_SLUGS.includes(item.slug) && (
+            <Seo
+              path={`/sarees/${slug}`}
+              type="product"
+              title={`${item.name} Saree Wholesale & Export | Megh Balika`}
+              description={
+                (item.description ||
+                  `Handwoven ${item.name} sarees${item.fabric ? ` in ${item.fabric}` : ""}${
+                    item.origin ? ` from ${item.origin}` : ""
+                  } — available wholesale and export-ready from the Megh Balika atelier, Kolkata.`
+                ).slice(0, 155)
+              }
+              image={gallery[0]}
+            />
+          )}
+          <Helmet>
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Product",
+                name: `${item.name} Saree`,
+                sku: item.slug,
+                description:
+                  item.description ||
+                  `Handwoven ${item.name} saree from the Megh Balika atelier, Kolkata.`,
+                image: gallery.map((g) => (/^https?:\/\//.test(g) ? g : `${SITE_URL}${g}`)),
+                url: `${SITE_URL}/sarees/${item.slug}`,
+                brand: { "@type": "Brand", name: "Megh Balika" },
+                category: item.fabric || "Saree",
+                material: item.fabric || undefined,
+                countryOfOrigin: item.origin || "India",
+                offers: {
+                  "@type": "Offer",
+                  url: `${SITE_URL}/sarees/${item.slug}`,
+                  availability: "https://schema.org/InStock",
+                  priceCurrency: "INR",
+                  businessFunction: "http://purl.org/goodrelations/v1#Sell",
+                  seller: { "@type": "Organization", name: "Megh Balika" },
+                },
+              })}
+            </script>
+            <script type="application/ld+json">
+              {JSON.stringify(
+                breadcrumbLd([
+                  { name: "Home", path: "/" },
+                  { name: "Sarees", path: "/sarees" },
+                  { name: item.name, path: `/sarees/${item.slug}` },
+                ])
+              )}
+            </script>
+          </Helmet>
+        </>
       )}
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />

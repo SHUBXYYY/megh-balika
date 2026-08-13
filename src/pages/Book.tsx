@@ -8,6 +8,7 @@ import MenuTrigger from "@/components/MenuTrigger";
 import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
+import Seo, { breadcrumbLd } from "@/components/Seo";
 
 const schema = z.object({
   full_name: z.string().trim().min(1).max(120),
@@ -67,6 +68,15 @@ const Book = () => {
 
   return (
     <main className="bg-background min-h-screen">
+      <Seo
+        path="/book"
+        title="Book an Atelier Tour or Buying Appointment | Megh Balika"
+        description="Schedule a visit to the Megh Balika atelier in Kolkata or a virtual buying appointment to review handwoven saree collections for your store."
+        jsonLd={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Book", path: "/book" },
+        ])}
+      />
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 

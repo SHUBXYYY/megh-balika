@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import CatalogForm from "@/components/CatalogForm";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
+import Seo, { breadcrumbLd } from "@/components/Seo";
 
 const Contact = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,6 +21,15 @@ const Contact = () => {
 
   return (
     <main className="bg-background">
+      <Seo
+        path="/contact"
+        title="Contact the Megh Balika Atelier — Wholesale Enquiries"
+        description="Reach the Megh Balika atelier in Kolkata by WhatsApp, phone or email for saree catalogues, wholesale pricing and export orders."
+        jsonLd={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 

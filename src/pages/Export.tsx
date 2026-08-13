@@ -7,6 +7,7 @@ import SareeExpert from "@/components/SareeExpert";
 import CatalogForm from "@/components/CatalogForm";
 import { motion } from "framer-motion";
 import { Award, Globe2, Truck, ShieldCheck, FileText, Tag } from "lucide-react";
+import Seo, { breadcrumbLd } from "@/components/Seo";
 
 const certs = [
   { icon: Award, title: "Silk Mark", desc: "Government-issued silk authenticity certification" },
@@ -19,6 +20,15 @@ const Export = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <main className="bg-background">
+      <Seo
+        path="/export"
+        title="Saree Export & Wholesale Programme | Megh Balika"
+        description="Export-ready handwoven sarees from India — private labelling, documentation, worldwide logistics and MOQ-friendly wholesale for boutiques and importers."
+        jsonLd={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Export", path: "/export" },
+        ])}
+      />
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 
