@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import MenuTrigger from "@/components/MenuTrigger";
 import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
+import Seo, { breadcrumbLd } from "@/components/Seo";
 
 type Review = {
   id: string;
@@ -94,6 +95,15 @@ export default function Reviews() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <Seo
+        path="/reviews"
+        title="Buyer Reviews & Ratings | Megh Balika"
+        description="Read verified reviews from boutiques, importers and wholesale buyers about Megh Balika's saree quality, service and export experience."
+        jsonLd={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Reviews", path: "/reviews" },
+        ])}
+      />
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 

@@ -6,6 +6,7 @@ import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
+import Seo, { breadcrumbLd } from "@/components/Seo";
 
 const About = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -16,6 +17,32 @@ const About = () => {
 
   return (
     <main className="bg-background">
+      <Seo
+        path="/about"
+        title="About Megh Balika — Kolkata Saree Atelier by Reshmi Pradhan"
+        description="Megh Balika is a Kolkata-based luxury saree house led by Reshmi Pradhan, representing 200+ master weavers across Bengal, Banaras and Bhuj for global buyers."
+        jsonLd={[
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "About", path: "/about" },
+          ]),
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Megh Balika",
+            url: "https://www.meghbalika.store",
+            founder: { "@type": "Person", name: "Reshmi Pradhan" },
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "Esplanade East",
+              addressLocality: "Kolkata",
+              addressRegion: "West Bengal",
+              postalCode: "700069",
+              addressCountry: "IN",
+            },
+          },
+        ]}
+      />
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 

@@ -6,6 +6,7 @@ import MenuTrigger from "@/components/MenuTrigger";
 import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
+import Seo, { breadcrumbLd } from "@/components/Seo";
 
 const CERT_PDF = "/certificates/megh-balika-registration-certificate.pdf";
 
@@ -32,6 +33,15 @@ const Certifications = () => {
 
   return (
     <main className="bg-background">
+      <Seo
+        path="/certifications"
+        title="Certifications & Government Registration | Megh Balika"
+        description="View Megh Balika's government registration and authenticity certifications backing our handloom saree export and wholesale operations from Kolkata, India."
+        jsonLd={breadcrumbLd([
+          { name: "Home", path: "/" },
+          { name: "Certifications", path: "/certifications" },
+        ])}
+      />
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
       <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
 
