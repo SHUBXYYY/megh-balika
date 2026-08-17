@@ -30,11 +30,15 @@ const CUSTOM_SEO_SLUGS = ["kantha-stitch", "jamdani"];
 
 const SareeDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  // Resolve a static fallback synchronously so the server-prerendered HTML
+  // already contains real headings, copy and images for crawlers.
+  const seed = useMemo(() => resolveSaree(slug ?? "", []), [slug]);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [item, setItem] = useState<Collection | null>(null);
+  const [item, setItem] = useState<Collection | null>(seed.item as Collection);
   const [related, setRelated] = useState<Collection[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
+
 
   const [activeIdx, setActiveIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
