@@ -53,12 +53,34 @@ export function prerenderPlugin() {
       if (!fs.existsSync(template)) return;
 
       const shell = fs.readFileSync(template, "utf8");
+
+      // Minimal browser shims so browser-only modules (e.g. the auth client)
+      // can be imported in the Node SSR context.
+      const memoryStorage = () => {
+        const store = new Map();
+        return {
+          getItem: (k) => (store.has(k) ? store.get(k) : null),
+          setItem: (k, v) => void store.set(k, String(v)),
+          removeItem: (k) => void store.delete(k),
+          clear: () => store.clear(),
+          key: (i) => Array.from(store.keys())[i] ?? null,
+          get length() {
+            return store.size;
+          },
+        };
+      };
+      if (typeof globalThis.localStorage === "undefined")
+        globalThis.localStorage = memoryStorage();
+      if (typeof globalThis.sessionStorage === "undefined")
+        globalThis.sessionStorage = memoryStorage();
+
       let createServer;
       try {
         ({ createServer } = await import("vite"));
       } catch {
         return;
       }
+
 
       const server = await createServer({
         root,
