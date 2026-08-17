@@ -84,6 +84,7 @@ export function prerenderPlugin() {
 
       const server = await createServer({
         root,
+        mode: "production",
         logLevel: "warn",
         server: { middlewareMode: true, hmr: false },
         appType: "custom",
