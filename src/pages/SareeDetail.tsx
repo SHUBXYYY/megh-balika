@@ -50,8 +50,8 @@ const SareeDetail = () => {
   useEffect(() => {
     if (!slug) return;
     (async () => {
-      setLoading(true);
       setNotFound(false);
+
       const { data } = await supabase
         .from("collections")
         .select("*")
