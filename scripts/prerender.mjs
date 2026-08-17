@@ -49,6 +49,7 @@ export function prerenderPlugin() {
       root = config.root;
     },
     async closeBundle() {
+      if (process.env.MEGH_PRERENDER_SSR === "1") return; // nested SSR build
       const template = path.join(outDir, "index.html");
       if (!fs.existsSync(template)) return;
 
@@ -74,25 +75,29 @@ export function prerenderPlugin() {
       if (typeof globalThis.sessionStorage === "undefined")
         globalThis.sessionStorage = memoryStorage();
 
-      let createServer;
-      try {
-        ({ createServer } = await import("vite"));
-      } catch {
-        return;
-      }
-
-
-      const server = await createServer({
-        root,
-        mode: "production",
-        logLevel: "warn",
-        server: { middlewareMode: true, hmr: false },
-        appType: "custom",
-      });
-
+      const ssrDir = path.join(root, "node_modules/.megh-prerender");
       let ok = 0;
       try {
-        const mod = await server.ssrLoadModule("/src/entry-server.tsx");
+        const { build } = await import("vite");
+        process.env.MEGH_PRERENDER_SSR = "1";
+        await build({
+          root,
+          mode: "production",
+          logLevel: "warn",
+          build: {
+            ssr: path.join(root, "src/entry-server.tsx"),
+            outDir: ssrDir,
+            emptyOutDir: true,
+            copyPublicDir: false,
+            rollupOptions: { output: { entryFileNames: "entry-server.mjs" } },
+          },
+        });
+        process.env.MEGH_PRERENDER_SSR = "";
+
+        const mod = await import(
+          `${new URL(`file://${path.join(ssrDir, "entry-server.mjs")}`).href}?t=${Date.now()}`
+        );
+
         for (const route of PRERENDER_ROUTES) {
           try {
             const { html, head } = mod.render(route);
@@ -103,10 +108,7 @@ export function prerenderPlugin() {
                   .replace(/data-rh="true"/g, 'data-prerender="true"')
                   .replace(/<title/g, '<title data-prerender="true"')}\n  </head>`
               )
-              .replace(
-                '<div id="root"></div>',
-                `<div id="root">${html}</div>`
-              );
+              .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 
             const file = outFileFor(outDir, route);
             fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -119,10 +121,11 @@ export function prerenderPlugin() {
       } catch (err) {
         console.warn(`[prerender] disabled: ${err?.message ?? err}`);
       } finally {
-        await server.close();
+        process.env.MEGH_PRERENDER_SSR = "";
       }
       console.log(`[prerender] wrote ${ok}/${PRERENDER_ROUTES.length} static pages`);
     },
+
   };
 }
 
