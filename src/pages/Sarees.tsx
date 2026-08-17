@@ -120,6 +120,26 @@ const Sarees = () => {
         </div>
       </section>
 
+      {/* Crawlable category index — rendered server-side at build time */}
+      <section className="py-12 border-t border-gold-deep/15">
+        <div className="container px-6 md:px-12">
+          <h2 className="font-serif text-3xl md:text-4xl mb-8">Saree categories we export</h2>
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
+            {SAREE_CATEGORIES.map((c) => (
+              <li key={c.href}>
+                <a href={c.href} className="group block border-b border-gold-deep/15 pb-4">
+                  <h3 className="font-serif text-2xl group-hover:text-gold transition-colors">
+                    {c.label} Sarees
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">{c.blurb}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+
       {/* Filter bar */}
       <section className="sticky top-0 z-30 bg-background/85 backdrop-blur-md border-y border-gold-deep/15">
         <div className="container px-6 md:px-12 py-4 flex flex-col gap-3">
