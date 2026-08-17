@@ -1,0 +1,53 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Route, Routes } from "react-router-dom";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import Index from "./pages/Index.tsx";
+import Export from "./pages/Export.tsx";
+import Book from "./pages/Book.tsx";
+import About from "./pages/About.tsx";
+import Contact from "./pages/Contact.tsx";
+import Certifications from "./pages/Certifications.tsx";
+import Sarees from "./pages/Sarees.tsx";
+import SareeDetail from "./pages/SareeDetail.tsx";
+import Auth from "./pages/Auth.tsx";
+import Reviews from "./pages/Reviews.tsx";
+import Admin from "./pages/Admin.tsx";
+import NotFound from "./pages/NotFound.tsx";
+import WhatsAppFab from "./components/WhatsAppFab";
+import Blog from "./pages/Blog";
+import BlogDetail from "./pages/BlogDetail";
+
+const queryClient = new QueryClient();
+
+/** Router-agnostic app tree — mounted under BrowserRouter (client)
+ *  or StaticRouter (build-time prerender). */
+const AppRoutes = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/export" element={<Export />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/certifications" element={<Certifications />} />
+        <Route path="/sarees" element={<Sarees />} />
+        <Route path="/sarees/:slug" element={<SareeDetail />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/admin/*" element={<Admin />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogDetail />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <WhatsAppFab />
+    </TooltipProvider>
+  </QueryClientProvider>
+);
+
+export default AppRoutes;
