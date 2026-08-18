@@ -107,12 +107,13 @@ export function prerenderPlugin() {
         for (const route of PRERENDER_ROUTES) {
           try {
             const { html, head } = mod.render(route);
+            const markedHead = head
+              .replace(/\sdata-rh=("|')true\1/g, "")
+              .replace(/<(title|meta|link|script)(\s|>)/g, '<$1 data-prerender="true"$2');
             const page = shell
               .replace(
                 "</head>",
-                `  <!-- prerendered -->\n    ${head
-                  .replace(/data-rh="true"/g, 'data-prerender="true"')
-                  .replace(/<title/g, '<title data-prerender="true"')}\n  </head>`
+                `  <!-- prerendered -->\n    ${markedHead}\n  </head>`
               )
               .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 
@@ -120,6 +121,7 @@ export function prerenderPlugin() {
             fs.mkdirSync(path.dirname(file), { recursive: true });
             fs.writeFileSync(file, page);
             ok++;
+
           } catch (err) {
             console.warn(`[prerender] skipped ${route}: ${err?.message ?? err}`);
           }
