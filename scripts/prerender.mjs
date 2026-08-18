@@ -53,7 +53,13 @@ export function prerenderPlugin() {
       const template = path.join(outDir, "index.html");
       if (!fs.existsSync(template)) return;
 
-      const shell = fs.readFileSync(template, "utf8");
+      // Strip the shell's generic <title> and <meta name="description"> so each
+      // prerendered page only carries its route-specific head tags.
+      const shell = fs
+        .readFileSync(template, "utf8")
+        .replace(/\s*<title>[\s\S]*?<\/title>/i, "")
+        .replace(/\s*<meta\s+name=["']description["'][^>]*>/i, "");
+
 
       // Minimal browser shims so browser-only modules (e.g. the auth client)
       // can be imported in the Node SSR context.
