@@ -19,6 +19,8 @@ export function render(url: string): { html: string; head: string } {
   const head = h
     ? [
         h.title.toString(),
+        // `prioritizeSeoTags` moves description/canonical/OG tags here
+        h.priority?.toString?.() ?? "",
         h.meta.toString(),
         h.link.toString(),
         h.script.toString(),
@@ -26,6 +28,7 @@ export function render(url: string): { html: string; head: string } {
         .filter(Boolean)
         .join("\n    ")
     : "";
+
 
   return { html, head };
 }

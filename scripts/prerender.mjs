@@ -53,7 +53,13 @@ export function prerenderPlugin() {
       const template = path.join(outDir, "index.html");
       if (!fs.existsSync(template)) return;
 
-      const shell = fs.readFileSync(template, "utf8");
+      // Strip the shell's generic <title> and <meta name="description"> so each
+      // prerendered page only carries its route-specific head tags.
+      const shell = fs
+        .readFileSync(template, "utf8")
+        .replace(/\s*<title>[\s\S]*?<\/title>/i, "")
+        .replace(/\s*<meta\s+name=["']description["'][^>]*>/i, "");
+
 
       // Minimal browser shims so browser-only modules (e.g. the auth client)
       // can be imported in the Node SSR context.
@@ -101,12 +107,13 @@ export function prerenderPlugin() {
         for (const route of PRERENDER_ROUTES) {
           try {
             const { html, head } = mod.render(route);
+            const markedHead = head
+              .replace(/\sdata-rh=("|')true\1/g, "")
+              .replace(/<(title|meta|link|script)(\s|>)/g, '<$1 data-prerender="true"$2');
             const page = shell
               .replace(
                 "</head>",
-                `  <!-- prerendered -->\n    ${head
-                  .replace(/data-rh="true"/g, 'data-prerender="true"')
-                  .replace(/<title/g, '<title data-prerender="true"')}\n  </head>`
+                `  <!-- prerendered -->\n    ${markedHead}\n  </head>`
               )
               .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 
@@ -114,6 +121,7 @@ export function prerenderPlugin() {
             fs.mkdirSync(path.dirname(file), { recursive: true });
             fs.writeFileSync(file, page);
             ok++;
+
           } catch (err) {
             console.warn(`[prerender] skipped ${route}: ${err?.message ?? err}`);
           }
