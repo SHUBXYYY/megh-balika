@@ -50,6 +50,60 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_posts: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string
+          excerpt: string
+          id: string
+          image_alt: string | null
+          image_title: string | null
+          image_url: string | null
+          meta_description: string | null
+          meta_title: string | null
+          published: boolean
+          published_at: string | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          content?: string
+          created_at?: string
+          excerpt?: string
+          id?: string
+          image_alt?: string | null
+          image_title?: string | null
+          image_url?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          published?: boolean
+          published_at?: string | null
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string
+          excerpt?: string
+          id?: string
+          image_alt?: string | null
+          image_title?: string | null
+          image_url?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          published?: boolean
+          published_at?: string | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           content: string
