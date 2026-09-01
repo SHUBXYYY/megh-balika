@@ -9,6 +9,7 @@ type SeoProps = {
   /** Route path beginning with "/" — used for canonical & og:url */
   path: string;
   image?: string;
+  imageAlt?: string;
   type?: "website" | "article" | "product";
   /** One or more JSON-LD objects injected as <script type="application/ld+json"> */
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
@@ -21,9 +22,15 @@ const abs = (url?: string) => {
   return `${SITE_URL}${url.startsWith("/") ? "" : "/"}${url}`;
 };
 
-const Seo = ({ title, description, path, image, type = "website", jsonLd, noindex }: SeoProps) => {
+export const absoluteUrl = (url?: string) => {
+  if (!url) return undefined;
+  if (/^https?:\/\//i.test(url)) return url;
+  return `${SITE_URL}${url.startsWith("/") ? "" : "/"}${url}`;
+};
+
+const Seo = ({ title, description, path, image, imageAlt, type = "website", jsonLd, noindex }: SeoProps) => {
   const url = `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
-  const img = abs(image);
+  const img = absoluteUrl(image);
   const blocks = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   return (
@@ -40,6 +47,7 @@ const Seo = ({ title, description, path, image, type = "website", jsonLd, noinde
       <meta property="og:url" content={url} />
       <meta property="og:locale" content="en_US" />
       {img && <meta property="og:image" content={img} />}
+      {img && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
 
       <meta name="twitter:card" content={img ? "summary_large_image" : "summary"} />
       <meta name="twitter:title" content={title} />
