@@ -1,0 +1,3 @@
+- [ ] Wire Blog CMS into admin navigation and dashboard
+- [ ] Connect public blog feed and dynamic post route to published database data
+- [ ] Verify SEO output, imports, and production build
