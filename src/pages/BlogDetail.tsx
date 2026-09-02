@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import MenuTrigger from "@/components/MenuTrigger";
@@ -8,11 +8,41 @@ import SareeExpert from "@/components/SareeExpert";
 import { blogPosts } from "./Blog";
 import { Helmet } from "react-helmet-async";
 import Seo, { breadcrumbLd, SITE_URL } from "@/components/Seo";
+import { fetchPublishedBlogPost, type CmsBlogPost } from "@/lib/blog";
 
 const BlogDetail = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { slug } = useParams();
-  const post = blogPosts.find((p) => p.slug === slug);
+  const staticPost = blogPosts.find((p) => p.slug === slug);
+  const [post, setPost] = useState<BlogPost | CmsBlogPost | null>(staticPost ?? null);
+  const [loading, setLoading] = useState(!staticPost);
+
+  useEffect(() => {
+    if (!slug) return;
+    let active = true;
+    fetchPublishedBlogPost(slug).then(({ data }) => {
+      if (!active) return;
+      if (data) setPost(data);
+      setLoading(false);
+    });
+    return () => {
+      active = false;
+    };
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <main className="bg-background">
+        <MenuTrigger onOpen={() => setMenuOpen(true)} />
+        <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
+        <section className="pt-44 pb-28">
+          <div className="container px-6 md:px-12">
+            <p className="font-serif text-3xl text-muted-foreground">Loading the journal…</p>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   if (!post) {
     return (
