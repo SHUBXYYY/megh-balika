@@ -9,7 +9,6 @@ import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import SareeLightbox from "@/components/SareeLightbox";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
-import { Helmet } from "react-helmet-async";
 import { resolveSaree } from "@/lib/sareeFallbacks";
 import Seo, { breadcrumbLd, SITE_URL } from "@/components/Seo";
 
@@ -25,8 +24,6 @@ type Collection = {
   images: string[];
   primary_image_index: number;
 };
-
-const CUSTOM_SEO_SLUGS = ["kantha-stitch", "jamdani"];
 
 const SareeDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -88,132 +85,41 @@ const SareeDetail = () => {
 
   return (
     <main className="bg-background">
-      {item?.slug === "kantha-stitch" && (
-        <Helmet>
-          {/* OnPage Optimization */}
-          <title>Kantha Stitch Saree Supplier & Wholesaler USA | Megh Balika</title>
-          <meta name="description" content="Partner with Megh Balika, India's premier kantha stitch saree supplier. We provide bulk handmade kantha clothing & sustainable fashion wholesale to the USA." />
-
-          {/* OpenGraph Meta Tags */}
-          <meta property="og:title" content="Kantha Stitch Saree Supplier & Wholesaler USA | Megh Balika" />
-          <meta property="og:description" content="Partner with Megh Balika, India's premier kantha stitch saree supplier. We provide bulk handmade kantha clothing & sustainable fashion wholesale to the USA." />
-          <meta property="og:url" content="https://www.meghbalika.store/sarees/kantha-stitch" />
-          <meta name="og:site_name" content="Megh Balika" />
-          <link rel="canonical" href="https://www.meghbalika.store/sarees/kantha-stitch" />
-          <meta property="og:locale" content="en_US" />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content="https://hgphlzxkacbadwdshulp.supabase.co/storage/v1/object/public/collection-images/1777133632693-ikejs2.jpeg" />
-
-          {/* Twitter Meta Tags */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Kantha Stitch Saree Supplier & Wholesaler USA | Megh Balika" />
-          <meta name="twitter:description" content="Partner with Megh Balika, India's premier kantha stitch saree supplier. We provide bulk handmade kantha clothing & sustainable fashion wholesale to the USA." />
-          <meta name="twitter:image" content="https://hgphlzxkacbadwdshulp.supabase.co/storage/v1/object/public/collection-images/1777133632693-ikejs2.jpeg" />
-
-          {/* Robots & Author  */}
-          <meta name="robots" content="index, follow, noodp, noydir" />
-          <meta name="googlebot" content="noodp, noydir" />
-          <meta name="slurp" content="noodp, noydir" />
-          <meta name="msnbot" content="noodp, noydir" />
-          <meta name="revisit-after" content="2 days" />
-          <meta name="author" content="Megh Balika" />
-          <meta name="copyright" content="Megh Balika" />
-          <meta name="language" content="English" />
-          <meta name="rating" content="safe for kids" />
-          <meta name="web_author" content="Megh Balika" />
-          <meta httpEquiv="Cache-control" content="public" />
-        </Helmet>
-      )}
-
-      {item?.slug === "jamdani" && (
-        <Helmet>
-          {/* OnPage Optimization */}
-          <title>Premium Jamdani Saree Wholesale USA | Megh Balika</title>
-          <meta name="description" content="Partner with Megh Balika, a premium jamdani saree wholesale supplier in the USA. We are an authentic, handcrafted Bengali jamdani cotton saree exporter." />
-
-          {/* OpenGraph Meta Tags */}
-          <meta property="og:title" content="Premium Jamdani Saree Wholesale USA | Megh Balika" />
-          <meta property="og:description" content="Partner with Megh Balika, a premium jamdani saree wholesale supplier in the USA. We are an authentic, handcrafted Bengali jamdani cotton saree exporter." />
-          <meta property="og:url" content="https://www.meghbalika.store/sarees/jamdani" />
-          <meta name="og:site_name" content="Megh Balika" />
-          <link rel="canonical" href="https://www.meghbalika.store/sarees/jamdani" />
-          <meta property="og:locale" content="en_US" />
-          <meta property="og:type" content="website" />
-          <meta property="og:image" content="https://hgphlzxkacbadwdshulp.supabase.co/storage/v1/object/public/collection-images/1780311057605-bs7b0i.jpg" />
-
-          {/* Twitter Meta Tags */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Premium Jamdani Saree Wholesale USA | Megh Balika" />
-          <meta name="twitter:description" content="Partner with Megh Balika, a premium jamdani saree wholesale supplier in the USA. We are an authentic, handcrafted Bengali jamdani cotton saree exporter." />
-          <meta name="twitter:image" content="https://hgphlzxkacbadwdshulp.supabase.co/storage/v1/object/public/collection-images/1780311057605-bs7b0i.jpg" />
-
-          {/* Robots & Author */}
-          <meta name="robots" content="index, follow, noodp, noydir" />
-          <meta name="googlebot" content="noodp, noydir" />
-          <meta name="slurp" content="noodp, noydir" />
-          <meta name="msnbot" content="noodp, noydir" />
-          <meta name="revisit-after" content="2 days" />
-          <meta name="author" content="Megh Balika" />
-          <meta name="copyright" content="Megh Balika" />
-          <meta name="language" content="English" />
-          <meta name="rating" content="safe for kids" />
-          <meta name="web_author" content="Megh Balika" />
-          <meta httpEquiv="Cache-control" content="public" />
-        </Helmet>
-      )}
       {item && (
         <>
-          {!CUSTOM_SEO_SLUGS.includes(item.slug) && (
-            <Seo
-              path={`/sarees/${slug}`}
-              type="product"
-              title={`${item.name} Saree Wholesale & Export | Megh Balika`}
-              description={
-                (item.description ||
-                  `Handwoven ${item.name} sarees${item.fabric ? ` in ${item.fabric}` : ""}${
-                    item.origin ? ` from ${item.origin}` : ""
-                  } — available wholesale and export-ready from the Megh Balika atelier, Kolkata.`
-                ).slice(0, 155)
-              }
-              image={gallery[0]}
-            />
-          )}
-          <Helmet>
-            <script type="application/ld+json">
-              {JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Product",
-                name: `${item.name} Saree`,
-                sku: item.slug,
-                description:
-                  item.description ||
-                  `Handwoven ${item.name} saree from the Megh Balika atelier, Kolkata.`,
-                image: gallery.map((g) => (/^https?:\/\//.test(g) ? g : `${SITE_URL}${g}`)),
-                url: `${SITE_URL}/sarees/${item.slug}`,
-                brand: { "@type": "Brand", name: "Megh Balika" },
-                category: item.fabric || "Saree",
-                material: item.fabric || undefined,
-                countryOfOrigin: item.origin || "India",
-                offers: {
-                  "@type": "Offer",
-                  url: `${SITE_URL}/sarees/${item.slug}`,
-                  availability: "https://schema.org/InStock",
-                  priceCurrency: "INR",
-                  businessFunction: "http://purl.org/goodrelations/v1#Sell",
-                  seller: { "@type": "Organization", name: "Megh Balika" },
-                },
-              })}
-            </script>
-            <script type="application/ld+json">
-              {JSON.stringify(
-                breadcrumbLd([
-                  { name: "Home", path: "/" },
-                  { name: "Sarees", path: "/sarees" },
-                  { name: item.name, path: `/sarees/${item.slug}` },
-                ])
-              )}
-            </script>
-          </Helmet>
+          {(() => {
+            const description = (item.description ||
+              `Handwoven ${item.name} sarees${item.fabric ? ` in ${item.fabric}` : ""}${
+                item.origin ? ` from ${item.origin}` : ""
+              } — available wholesale and export-ready from the Megh Balika atelier, Kolkata.`
+            ).slice(0, 155);
+            const pageUrl = `${SITE_URL}/sarees/${item.slug}`;
+            return (
+              <Seo
+                path={`/sarees/${item.slug}`}
+                title={`${item.name} Saree Wholesale & Export | Megh Balika`}
+                description={description}
+                image={gallery[0]}
+                imageAlt={`${item.name} handwoven saree`}
+                jsonLd={[
+                  {
+                    "@context": "https://schema.org",
+                    "@type": "WebPage",
+                    name: `${item.name} Saree Wholesale & Export`,
+                    description,
+                    url: pageUrl,
+                    about: { "@type": "Thing", name: `${item.name} sarees` },
+                    publisher: { "@type": "Organization", name: "Megh Balika" },
+                  },
+                  breadcrumbLd([
+                    { name: "Home", path: "/" },
+                    { name: "Sarees", path: "/sarees" },
+                    { name: item.name, path: `/sarees/${item.slug}` },
+                  ]),
+                ]}
+              />
+            );
+          })()}
         </>
       )}
       <MenuTrigger onOpen={() => setMenuOpen(true)} />
