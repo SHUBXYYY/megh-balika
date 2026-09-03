@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Users, Calendar, MessageSquare, MailOpen, LayoutGrid, Package, ArrowRight,
-  ShoppingBag, Star,
+  ShoppingBag, Star, FileText,
 } from "lucide-react";
 import AdminHeader from "./AdminHeader";
 
@@ -13,6 +13,7 @@ type Stats = {
   products: number; productsDraft: number;
   ordersOpen: number; revenue30: number;
   reviewsPending: number; avgRating: number;
+  blogs: number;
 };
 
 const fmtINR = (n: number) =>
@@ -25,7 +26,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const load = async () => {
       const last30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-      const [leads, appts, inqs, chats, cols, prods, orders, reviews, recentLeads, recentInq, recentOrders] = await Promise.all([
+      const [leads, appts, inqs, chats, cols, prods, orders, reviews, blogs, recentLeads, recentInq, recentOrders] = await Promise.all([
         supabase.from("leads").select("id", { count: "exact", head: true }),
         supabase.from("appointments").select("id, status", { count: "exact" }).eq("status", "pending"),
         supabase.from("inquiries").select("id, status", { count: "exact" }).eq("status", "new"),
@@ -34,6 +35,7 @@ export default function AdminDashboard() {
         supabase.from("products").select("id, published"),
         supabase.from("sales_orders").select("status, total_inr, created_at"),
         supabase.from("reviews").select("rating, approved"),
+        supabase.from("blog_posts").select("id", { count: "exact", head: true }),
         supabase.from("leads").select("full_name, email, source, created_at").order("created_at", { ascending: false }).limit(3),
         supabase.from("inquiries").select("full_name, subject, created_at").order("created_at", { ascending: false }).limit(3),
         supabase.from("sales_orders").select("order_number, customer_name, total_inr, created_at").order("created_at", { ascending: false }).limit(3),
@@ -60,6 +62,7 @@ export default function AdminDashboard() {
           .reduce((t, o) => t + Number(o.total_inr || 0), 0),
         reviewsPending: reviewsArr.filter((r) => !r.approved).length,
         avgRating: approved.length ? approved.reduce((t, r) => t + r.rating, 0) / approved.length : 0,
+        blogs: blogs.count ?? 0,
       });
 
       const items = [
@@ -87,6 +90,7 @@ export default function AdminDashboard() {
     { to: "chats", label: "Chat sessions", value: s?.chats, icon: MessageSquare, accent: "from-gold/15 to-gold-deep/5" },
     { to: "collections", label: "Collections", value: s?.collections, sub: s?.collectionsDraft ? `${s.collectionsDraft} draft` : undefined, icon: LayoutGrid, accent: "from-gold-deep/15 to-gold/5" },
     { to: "products", label: "Products", value: s?.products, sub: s?.productsDraft ? `${s.productsDraft} draft` : undefined, icon: Package, accent: "from-gold/15 to-gold-deep/10" },
+    { to: "blog", label: "Blog posts", value: s?.blogs, icon: FileText, accent: "from-gold-deep/15 to-gold/5" },
   ];
 
   return (

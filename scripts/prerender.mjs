@@ -23,6 +23,7 @@ export const PRERENDER_ROUTES = [
   "/sarees/batik",
   "/about",
   "/blog",
+  "/blog/best-traditional-fabrics-for-premium-boutiques",
   "/export",
   "/book",
   "/contact",

@@ -20,6 +20,7 @@ import AdminTeam from "@/components/admin/AdminTeam";
 import AdminOrders from "@/components/admin/AdminOrders";
 import AdminReviews from "@/components/admin/AdminReviews";
 import AdminReports from "@/components/admin/AdminReports";
+import AdminBlog from "@/components/admin/AdminBlog";
 
 const Admin = () => {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
@@ -91,6 +92,7 @@ const Admin = () => {
     { to: "products", label: "Products", icon: Package },
     { to: "content", label: "Site content", icon: FileText },
     { to: "team", label: "Team & access", icon: ShieldCheck },
+    { to: "blog", label: "Blog management", icon: FileText },
   ];
 
   const SidebarBody = (
@@ -201,6 +203,7 @@ const Admin = () => {
           <Route path="products" element={<AdminProducts />} />
           <Route path="content" element={<AdminContent />} />
           <Route path="team" element={<AdminTeam />} />
+          <Route path="blog" element={<AdminBlog />} />
         </Routes>
       </section>
 

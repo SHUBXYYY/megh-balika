@@ -6,7 +6,6 @@ import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import { blogPosts, type BlogPost } from "./Blog";
-import { Helmet } from "react-helmet-async";
 import Seo, { breadcrumbLd, SITE_URL } from "@/components/Seo";
 import { fetchPublishedBlogPost, type CmsBlogPost } from "@/lib/blog";
 
