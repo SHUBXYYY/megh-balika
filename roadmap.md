@@ -1,4 +1,4 @@
-- [ ] Wire Blog CMS into admin navigation and dashboard
-- [ ] Connect public blog feed and dynamic post route to published database data
-- [ ] Fix Product structured data, blog slug routing, and route-specific prerendered SEO
+- [x] Wire Blog CMS into admin navigation and dashboard
+- [x] Connect public blog feed and dynamic post route to published database data
+- [x] Fix Product structured data, blog slug routing, and route-specific prerendered SEO
 - [ ] Verify SEO output, imports, and production build
