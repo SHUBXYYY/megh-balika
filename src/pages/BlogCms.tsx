@@ -7,9 +7,25 @@ import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import Seo, { breadcrumbLd } from "@/components/Seo";
 import { fetchPublishedBlogPosts, formatBlogDate, type CmsBlogPost } from "@/lib/blog";
+import { blogPosts } from "./Blog";
 
 const BLOG_DESCRIPTION =
   "Stories on handloom heritage, sourcing handwoven sarees in bulk, fabric guides and wholesale buying advice from the Megh Balika atelier in Kolkata.";
+
+const legacyPosts: CmsBlogPost[] = blogPosts.map((post) => ({
+  id: post.id,
+  slug: post.slug,
+  title: post.title,
+  date: new Date(post.date).toISOString().slice(0, 10),
+  excerpt: post.excerpt,
+  content: post.content,
+  image: post.image,
+  imageAlt: post.imageAlt,
+  imageTitle: post.imageTitle,
+  category: post.category,
+  metaTitle: post.metaTitle,
+  metaDescription: post.metaDescription,
+}));
 
 export default function BlogCms() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,7 +38,9 @@ export default function BlogCms() {
     fetchPublishedBlogPosts().then(({ data, error: fetchError }) => {
       if (!active) return;
       if (fetchError) setError("The journal is temporarily unavailable. Please try again shortly.");
-      setPosts(data);
+      // Keep the public journal useful during a new Cloud setup while still
+      // preferring published CMS rows whenever they exist.
+      setPosts(data.length > 0 ? data : legacyPosts);
       setLoading(false);
     });
     return () => {
