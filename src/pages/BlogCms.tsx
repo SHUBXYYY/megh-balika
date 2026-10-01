@@ -101,7 +101,7 @@ export default function BlogCms() {
         <div className="container px-6 md:px-12 max-w-6xl">
           {loading ? (
             <div className="py-20 text-center text-muted-foreground">Loading the journal…</div>
-          ) : error ? (
+          ) : error && posts.length === 0 ? (
             <div className="py-20 text-center text-muted-foreground">{error}</div>
           ) : posts.length === 0 ? (
             <div className="py-20 text-center text-muted-foreground">New journal stories are being prepared.</div>
