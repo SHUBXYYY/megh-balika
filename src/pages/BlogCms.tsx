@@ -6,7 +6,7 @@ import MenuOverlay from "@/components/MenuOverlay";
 import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import Seo, { breadcrumbLd } from "@/components/Seo";
-import { fetchPublishedBlogPosts, formatBlogDate, type CmsBlogPost } from "@/lib/blog";
+import { fetchPublishedBlogPosts, formatBlogDate, mergePublishedBlogPosts, type CmsBlogPost } from "@/lib/blog";
 import { blogPosts } from "./Blog";
 
 const BLOG_DESCRIPTION =
@@ -38,9 +38,7 @@ export default function BlogCms() {
     fetchPublishedBlogPosts().then(({ data, error: fetchError }) => {
       if (!active) return;
       if (fetchError) setError("The journal is temporarily unavailable. Please try again shortly.");
-      // Keep the public journal useful during a new Cloud setup while still
-      // preferring published CMS rows whenever they exist.
-      setPosts(data.length > 0 ? data : legacyPosts);
+      setPosts(mergePublishedBlogPosts(data, legacyPosts));
       setLoading(false);
     });
     return () => {

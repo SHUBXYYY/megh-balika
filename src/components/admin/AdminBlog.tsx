@@ -7,6 +7,8 @@ import {
   List, ListOrdered, Loader2, Pencil, Plus, Quote, Trash2, Upload, X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { hasDuplicateBlogSlug } from "@/lib/blog";
+import { blogPosts } from "@/pages/Blog";
 import AdminHeader from "./AdminHeader";
 
 type BlogRow = {
@@ -167,11 +169,44 @@ export default function AdminBlog() {
       category: draft.category.trim() || null, meta_title: draft.meta_title.trim() || null,
       meta_description: draft.meta_description.trim() || null, published: draft.published,
     };
+    const legacySlugs = blogPosts.map((post) => post.slug);
+    const savedSlugs = items
+      .filter((item) => item.id !== draft.id)
+      .map((item) => item.slug);
+    const staticSlugIsCurrentPost = draft.id
+      ? items.some((item) => item.id === draft.id && item.slug === payload.slug)
+      : false;
+    if (
+      hasDuplicateBlogSlug(payload.slug, savedSlugs) ||
+      (hasDuplicateBlogSlug(payload.slug, legacySlugs) && !staticSlugIsCurrentPost)
+    ) {
+      setSaving(false);
+      toast.error("That slug is already in use. Choose a unique slug.");
+      return;
+    }
+
+    let duplicateQuery = supabase.from("blog_posts").select("id").eq("slug", payload.slug);
+    if (draft.id) duplicateQuery = duplicateQuery.neq("id", draft.id);
+    const { data: duplicate, error: duplicateError } = await duplicateQuery.maybeSingle();
+    if (duplicateError) {
+      setSaving(false);
+      toast.error(duplicateError.message);
+      return;
+    }
+    if (duplicate) {
+      setSaving(false);
+      toast.error("That slug is already in use. Choose a unique slug.");
+      return;
+    }
+
     const result = draft.id
       ? await supabase.from("blog_posts").update(payload).eq("id", draft.id)
       : await supabase.from("blog_posts").insert(payload);
     setSaving(false);
-    if (result.error) { toast.error(result.error.message); return; }
+    if (result.error) {
+      toast.error(result.error.code === "23505" ? "That slug is already in use. Choose a unique slug." : result.error.message);
+      return;
+    }
     toast.success(draft.published ? "Blog published" : "Draft saved");
     setDraft(null);
     load();
