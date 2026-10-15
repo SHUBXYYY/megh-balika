@@ -1,4 +1,5 @@
 - [x] Wire Blog CMS into admin navigation and dashboard
 - [x] Connect public blog feed and dynamic post route to published database data
+- [ ] Fix blog listing to merge published CMS posts with legacy articles, preserve every row, and reject duplicate slugs
 - [x] Fix Product structured data, blog slug routing, and route-specific prerendered SEO
 - [ ] Verify SEO output, imports, and production build
