@@ -46,12 +46,31 @@ export const toCmsBlogPost = (row: BlogRow): CmsBlogPost => ({
   metaDescription: row.meta_description ?? undefined,
 });
 
+export const hasDuplicateBlogSlug = (slug: string, existingSlugs: string[]) =>
+  existingSlugs.includes(slug);
+
+export function mergePublishedBlogPosts(
+  publishedPosts: CmsBlogPost[],
+  fallbackPosts: CmsBlogPost[],
+) {
+  const postsBySlug = new Map(fallbackPosts.map((post) => [post.slug, post]));
+
+  // CMS entries take precedence for a matching slug, while unrelated legacy
+  // articles remain available in the public journal.
+  for (const post of publishedPosts) postsBySlug.set(post.slug, post);
+
+  return [...postsBySlug.values()].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
+}
+
 export async function fetchPublishedBlogPosts() {
   const { data, error } = await supabase
     .from("blog_posts")
     .select("id, slug, title, excerpt, content, image_url, image_alt, image_title, category, meta_title, meta_description, published_at, created_at")
     .eq("published", true)
-    .order("published_at", { ascending: false });
+    .order("published_at", { ascending: false, nullsFirst: false })
+    .order("created_at", { ascending: false });
 
   return {
     data: ((data as BlogRow[] | null) ?? []).map(toCmsBlogPost),
