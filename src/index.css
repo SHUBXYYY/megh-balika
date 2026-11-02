@@ -472,3 +472,90 @@
   color: white;
   border-color: white;
 }
+
+/* Shared blog article typography — used by /blog/:slug and the CMS preview */
+.article-prose {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: hsl(var(--muted-foreground));
+}
+.article-prose > *:first-child {
+  margin-top: 0;
+}
+.article-prose h2 {
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: hsl(var(--foreground));
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.article-prose h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: hsl(var(--foreground));
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.article-prose p {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+.article-prose strong {
+  font-weight: 700;
+  color: hsl(var(--foreground));
+}
+.article-prose em {
+  font-style: italic;
+}
+.article-prose ul,
+.article-prose ol {
+  margin: 0 0 1.25rem;
+  padding-left: 1.5rem;
+}
+.article-prose ul {
+  list-style: disc;
+}
+.article-prose ol {
+  list-style: decimal;
+}
+.article-prose li {
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+.article-prose li::marker {
+  color: hsl(var(--gold-deep));
+}
+.article-prose blockquote {
+  margin: 1.75rem 0;
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  border-left: 2px solid hsl(var(--gold));
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+}
+.article-prose blockquote p {
+  margin-bottom: 0;
+}
+.article-prose a {
+  color: hsl(var(--gold-deep));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s ease;
+}
+.article-prose a:hover {
+  opacity: 0.75;
+}
+.article-prose img {
+  width: 100%;
+  margin: 2rem 0;
+  display: block;
+}
+.article-prose hr {
+  border: 0;
+  border-top: 1px solid hsl(var(--border));
+  margin: 2.5rem 0;
+}
