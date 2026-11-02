@@ -8,6 +8,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { hasDuplicateBlogSlug } from "@/lib/blog";
+import {
+  insertLink, toggleLinePrefix, toggleOrderedList, wrapInline, type FormatResult,
+} from "@/lib/markdownToolbar";
+import ArticleProse from "@/components/ArticleProse";
 import { blogPosts } from "@/pages/Blog";
 import AdminHeader from "./AdminHeader";
 
@@ -138,7 +142,7 @@ export default function AdminBlog() {
     }
   };
 
-  const insertAtCursor = (value: string, selectionStartOffset = 0, selectionEndOffset = 0) => {
+  const insertAtCursor = (value: string) => {
     const textarea = editorRef.current;
     if (!textarea || !draft) return;
     const start = textarea.selectionStart;
@@ -148,12 +152,23 @@ export default function AdminBlog() {
     requestAnimationFrame(() => {
       textarea.focus();
       const cursor = start + value.length;
-      textarea.setSelectionRange(cursor - selectionStartOffset, cursor + selectionEndOffset);
+      textarea.setSelectionRange(cursor, cursor);
     });
   };
 
-  const toolbar = (label: string, value: string, icon: React.ReactNode) => (
-    <Button type="button" variant="ghost" size="icon" className="h-8 w-8 rounded-none text-muted-foreground hover:text-gold-deep" onClick={() => insertAtCursor(value)} aria-label={label} title={label}>
+  const applyFormat = (format: (content: string, selection: { start: number; end: number }) => FormatResult) => {
+    const textarea = editorRef.current;
+    if (!textarea || !draft) return;
+    const result = format(draft.content, { start: textarea.selectionStart, end: textarea.selectionEnd });
+    updateDraft("content", result.content);
+    requestAnimationFrame(() => {
+      textarea.focus();
+      textarea.setSelectionRange(result.selectionStart, result.selectionEnd);
+    });
+  };
+
+  const toolButton = (label: string, icon: React.ReactNode, onClick: () => void) => (
+    <Button type="button" variant="ghost" size="icon" className="h-8 w-8 rounded-none text-muted-foreground hover:text-gold-deep" onClick={onClick} aria-label={label} title={label}>
       {icon}
     </Button>
   );
