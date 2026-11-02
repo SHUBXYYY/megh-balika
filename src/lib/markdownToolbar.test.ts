@@ -36,7 +36,7 @@ describe("wrapInline", () => {
 
 describe("toggleLinePrefix", () => {
   it("turns the current line into an H2 heading", () => {
-    const result = toggleLinePrefix("first line\nweaves of bengal\nlast", { start: 14, end: 28 }, "## ");
+    const result = toggleLinePrefix("first line\nweaves of bengal\nlast", { start: 14, end: 26 }, "## ");
     expect(result.content).toBe("first line\n## weaves of bengal\nlast");
   });
 
@@ -77,14 +77,14 @@ describe("insertLink", () => {
   it("wraps the selected text as the link label and selects the URL", () => {
     const result = insertLink("see the atelier", { start: 4, end: 15 });
     expect(result.content).toBe("see [the atelier](url)");
-    expect(result.selectionStart).toBe(15);
-    expect(result.selectionEnd).toBe(18);
+    expect(result.selectionStart).toBe(18);
+    expect(result.selectionEnd).toBe(21);
   });
 
   it("inserts a placeholder label when nothing is selected", () => {
     const result = insertLink("", { start: 0, end: 0 });
     expect(result.content).toBe("[link text](url)");
-    expect(result.selectionStart).toBe(11);
-    expect(result.selectionEnd).toBe(14);
+    expect(result.selectionStart).toBe(12);
+    expect(result.selectionEnd).toBe(15);
   });
 });
