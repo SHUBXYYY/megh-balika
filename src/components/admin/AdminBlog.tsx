@@ -8,6 +8,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { hasDuplicateBlogSlug } from "@/lib/blog";
+import {
+  insertLink, toggleLinePrefix, toggleOrderedList, wrapInline, type FormatResult,
+} from "@/lib/markdownToolbar";
+import ArticleProse from "@/components/ArticleProse";
 import { blogPosts } from "@/pages/Blog";
 import AdminHeader from "./AdminHeader";
 
@@ -79,6 +83,7 @@ export default function AdminBlog() {
   const editorRef = useRef<HTMLTextAreaElement | null>(null);
   const featuredInputRef = useRef<HTMLInputElement | null>(null);
   const bodyImageInputRef = useRef<HTMLInputElement | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -138,7 +143,7 @@ export default function AdminBlog() {
     }
   };
 
-  const insertAtCursor = (value: string, selectionStartOffset = 0, selectionEndOffset = 0) => {
+  const insertAtCursor = (value: string) => {
     const textarea = editorRef.current;
     if (!textarea || !draft) return;
     const start = textarea.selectionStart;
@@ -148,12 +153,23 @@ export default function AdminBlog() {
     requestAnimationFrame(() => {
       textarea.focus();
       const cursor = start + value.length;
-      textarea.setSelectionRange(cursor - selectionStartOffset, cursor + selectionEndOffset);
+      textarea.setSelectionRange(cursor, cursor);
     });
   };
 
-  const toolbar = (label: string, value: string, icon: React.ReactNode) => (
-    <Button type="button" variant="ghost" size="icon" className="h-8 w-8 rounded-none text-muted-foreground hover:text-gold-deep" onClick={() => insertAtCursor(value)} aria-label={label} title={label}>
+  const applyFormat = (format: (content: string, selection: { start: number; end: number }) => FormatResult) => {
+    const textarea = editorRef.current;
+    if (!textarea || !draft) return;
+    const result = format(draft.content, { start: textarea.selectionStart, end: textarea.selectionEnd });
+    updateDraft("content", result.content);
+    requestAnimationFrame(() => {
+      textarea.focus();
+      textarea.setSelectionRange(result.selectionStart, result.selectionEnd);
+    });
+  };
+
+  const toolButton = (label: string, icon: React.ReactNode, onClick: () => void) => (
+    <Button type="button" variant="ghost" size="icon" className="h-8 w-8 rounded-none text-muted-foreground hover:text-gold-deep" onClick={onClick} aria-label={label} title={label}>
       {icon}
     </Button>
   );
@@ -267,9 +283,15 @@ export default function AdminBlog() {
             </div>
 
             <div className="border-t border-border pt-5">
-              <div className="flex items-center justify-between gap-3 mb-2"><label className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Article content</label><span className="text-[10px] text-muted-foreground">Markdown editor</span></div>
-              <div className="border border-border bg-card flex flex-wrap gap-1 p-1">{toolbar("Bold", "**bold text**", <Bold className="h-4 w-4" />)}{toolbar("Italic", "*italic text*", <Italic className="h-4 w-4" />)}{toolbar("Heading 2", "\n\n## Heading\n\n", <span className="text-xs font-semibold">H2</span>)}{toolbar("Heading 3", "\n\n### Heading\n\n", <span className="text-xs font-semibold">H3</span>)}{toolbar("Bulleted list", "\n\n- List item\n- List item\n\n", <List className="h-4 w-4" />)}{toolbar("Numbered list", "\n\n1. List item\n2. List item\n\n", <ListOrdered className="h-4 w-4" />)}{toolbar("Quote", "\n\n> Quote\n\n", <Quote className="h-4 w-4" />)}{toolbar("Link", "[link text](https://example.com)", <Link2 className="h-4 w-4" />)}<input ref={bodyImageInputRef} type="file" accept="image/*" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) uploadImage(file, true); }} /><Button type="button" variant="ghost" size="icon" className="h-8 w-8 rounded-none text-muted-foreground hover:text-gold-deep" onClick={() => bodyImageInputRef.current?.click()} disabled={uploadingBodyImage} aria-label="Embed image" title="Embed image">{uploadingBodyImage ? <Loader2 className="h-4 w-4 animate-spin" /> : <ImagePlus className="h-4 w-4" />}</Button></div>
-              <textarea ref={editorRef} rows={16} value={draft.content} onChange={(event) => updateDraft("content", event.target.value)} placeholder="Start writing your article… Use the toolbar to add headings, lists, links, quotes, and images." className="w-full bg-card border-x border-b border-border focus:border-gold outline-none p-4 text-sm leading-relaxed resize-y" />
+              <div className="flex items-center justify-between gap-3 mb-2"><label className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Article content</label><div className="flex gap-1 text-[10px] uppercase tracking-widest"><button type="button" onClick={() => setShowPreview(false)} className={`px-2 py-1 transition ${!showPreview ? "text-gold-deep border-b border-gold-deep" : "text-muted-foreground"}`}>Write</button><button type="button" onClick={() => setShowPreview(true)} className={`px-2 py-1 transition ${showPreview ? "text-gold-deep border-b border-gold-deep" : "text-muted-foreground"}`}>Preview</button></div></div>
+              <div className="border border-border bg-card flex flex-wrap gap-1 p-1">{toolButton("Bold", <Bold className="h-4 w-4" />, () => applyFormat((content, selection) => wrapInline(content, selection, "**", "bold text")))}{toolButton("Italic", <Italic className="h-4 w-4" />, () => applyFormat((content, selection) => wrapInline(content, selection, "*", "italic text")))}{toolButton("Heading 2", <span className="text-xs font-semibold">H2</span>, () => applyFormat((content, selection) => toggleLinePrefix(content, selection, "## ")))}{toolButton("Heading 3", <span className="text-xs font-semibold">H3</span>, () => applyFormat((content, selection) => toggleLinePrefix(content, selection, "### ")))}{toolButton("Bulleted list", <List className="h-4 w-4" />, () => applyFormat((content, selection) => toggleLinePrefix(content, selection, "- ")))}{toolButton("Numbered list", <ListOrdered className="h-4 w-4" />, () => applyFormat((content, selection) => toggleOrderedList(content, selection)))}{toolButton("Quote", <Quote className="h-4 w-4" />, () => applyFormat((content, selection) => toggleLinePrefix(content, selection, "> ")))}{toolButton("Link", <Link2 className="h-4 w-4" />, () => applyFormat(insertLink))}<input ref={bodyImageInputRef} type="file" accept="image/*" className="hidden" onChange={(event) => { const file = event.target.files?.[0]; if (file) uploadImage(file, true); }} /><Button type="button" variant="ghost" size="icon" className="h-8 w-8 rounded-none text-muted-foreground hover:text-gold-deep" onClick={() => bodyImageInputRef.current?.click()} disabled={uploadingBodyImage} aria-label="Embed image" title="Embed image">{uploadingBodyImage ? <Loader2 className="h-4 w-4 animate-spin" /> : <ImagePlus className="h-4 w-4" />}</Button></div>
+              {showPreview ? (
+                <div className="border border-border bg-background p-5 sm:p-6 min-h-[24rem] overflow-y-auto">
+                  {draft.content.trim() ? <ArticleProse content={draft.content} /> : <p className="text-sm text-muted-foreground">Nothing to preview yet — start writing above.</p>}
+                </div>
+              ) : (
+                <textarea ref={editorRef} rows={16} value={draft.content} onChange={(event) => updateDraft("content", event.target.value)} placeholder="Start writing your article… Use the toolbar to add headings, lists, links, quotes, and images." className="w-full bg-card border-x border-b border-border focus:border-gold outline-none p-4 text-sm leading-relaxed resize-y" />
+              )}
             </div>
 
             <div className="flex items-center justify-between gap-4 border-t border-border pt-5"><label className="flex items-center gap-3 text-sm cursor-pointer"><input type="checkbox" checked={draft.published} onChange={(event) => updateDraft("published", event.target.checked)} className="h-4 w-4 accent-[hsl(var(--gold-deep))]" /> Published (visible on website)</label><div className="flex gap-2"><Button type="button" variant="outline" onClick={() => setDraft(null)} className="rounded-none">Cancel</Button><Button type="button" onClick={save} disabled={saving} className="btn-luxe-primary rounded-none !h-auto !py-3 !px-5 gap-2">{saving && <Loader2 className="h-4 w-4 animate-spin" />}{draft.published ? "Save & publish" : "Save draft"}</Button></div></div>
