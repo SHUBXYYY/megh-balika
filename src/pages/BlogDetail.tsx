@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import SareeExpert from "@/components/SareeExpert";
 import { blogPosts, type BlogPost } from "./Blog";
 import Seo, { breadcrumbLd, SITE_URL } from "@/components/Seo";
+import ArticleProse from "@/components/ArticleProse";
 import { fetchPublishedBlogPost, type CmsBlogPost } from "@/lib/blog";
 
 const BlogDetail = () => {
@@ -60,52 +61,6 @@ const BlogDetail = () => {
       </main>
     );
   }
-
-  // Render a content block: supports ## headings, numbered items (1. ...), and inline [[text|url]] links
-  const renderBlock = (block: string, i: number) => {
-    const parseInline = (text: string) =>
-      text.split(/(\[\[.+?\|.+?\]\])/g).map((part, j) => {
-        const m = part.match(/^\[\[(.+?)\|(.+?)\]\]$/);
-        if (m) return <a key={j} href={m[2]} className="text-gold-deep underline underline-offset-2 hover:opacity-80" target="_blank" rel="noreferrer">{m[1]}</a>;
-        return part;
-      });
-
-    if (block.startsWith("## ")) {
-      return (
-        <motion.h2 key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 * i }}
-          className="font-serif text-2xl md:text-3xl text-foreground mt-8 mb-2">
-          {block.slice(3)}
-        </motion.h2>
-      );
-    }
-    if (block.startsWith("### ")) {
-      return (
-        <motion.h3 key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 * i }}
-          className="font-semibold text-lg text-foreground mt-6 mb-1 uppercase tracking-[0.2em]">
-          {block.slice(4)}
-        </motion.h3>
-      );
-    }
-    if (/^\d+\.\s/.test(block)) {
-      const [head, ...rest] = block.split("\n");
-      const numMatch = head.match(/^(\d+)\.\s(.+)$/);
-      return (
-        <motion.div key={i} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 * i }}
-          className="space-y-2">
-          <p className="font-semibold text-foreground">{numMatch ? `${numMatch[1]}. ${numMatch[2]}` : head}</p>
-          {rest.length > 0 && <p className="text-muted-foreground text-lg leading-relaxed">{parseInline(rest.join("\n"))}</p>}
-        </motion.div>
-      );
-    }
-    return (
-      <motion.p key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 * i }}
-        className="text-muted-foreground text-lg leading-relaxed">
-        {parseInline(block)}
-      </motion.p>
-    );
-  };
-
-  const blocks = post.content.split("\n\n").filter(Boolean);
 
   return (
     <main className="bg-background">
@@ -206,10 +161,14 @@ const BlogDetail = () => {
             {post.excerpt}
           </motion.p>
 
-          {/* Body blocks */}
-          <div className="space-y-6">
-            {blocks.map((block, i) => renderBlock(block, i))}
-          </div>
+          {/* Body */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <ArticleProse content={post.content} />
+          </motion.div>
 
           {/* Back link */}
           <div className="mt-16 pt-10 border-t border-gold-deep/20">
