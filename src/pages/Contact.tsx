@@ -16,8 +16,8 @@ const Contact = () => {
   const email = get("contact_email", SITE_DEFAULTS.contact_email);
   const phone = get("contact_phone", SITE_DEFAULTS.contact_phone);
   const wa = get("whatsapp_number", SITE_DEFAULTS.whatsapp_number);
+  const waAlt = get("whatsapp_number_alt", SITE_DEFAULTS.whatsapp_number_alt);
   const waMsg = get("whatsapp_default_message", SITE_DEFAULTS.whatsapp_default_message);
-  const waHref = `https://wa.me/${wa}?text=${encodeURIComponent(waMsg)}`;
 
   return (
     <main className="bg-background">
@@ -47,16 +47,23 @@ const Contact = () => {
 
       <section className="py-16 md:py-24">
         <div className="container px-6 md:px-12 grid lg:grid-cols-4 gap-px bg-gold-deep/20 mb-20">
-          <a
-            href={waHref}
-            target="_blank" rel="noreferrer"
-            className="bg-card p-8 hover:bg-secondary transition-colors group"
-          >
+          <div className="bg-card p-8 hover:bg-secondary transition-colors group">
             <MessageCircle className="h-7 w-7 text-gold mb-5 transition-transform group-hover:scale-110" strokeWidth={1.2} />
             <div className="font-serif text-2xl mb-2">WhatsApp</div>
             <div className="text-sm text-muted-foreground">Fastest reach for trade enquiries</div>
-            <div className="mt-3 text-gold-deep break-all">+{wa.slice(0,2)} {wa.slice(2)} ⟶</div>
-          </a>
+            <div className="mt-3 space-y-1.5">
+              {[wa, waAlt].map((digits) => (
+                <a
+                  key={digits}
+                  href={`https://wa.me/${digits}?text=${encodeURIComponent(waMsg)}`}
+                  target="_blank" rel="noreferrer"
+                  className="block text-gold-deep hover:underline"
+                >
+                  +{digits.slice(0,2)} {digits.slice(2)} ⟶
+                </a>
+              ))}
+            </div>
+          </div>
           <a
             href={`tel:${phone.replace(/\s/g,"")}`}
             className="bg-card p-8 hover:bg-secondary transition-colors group"

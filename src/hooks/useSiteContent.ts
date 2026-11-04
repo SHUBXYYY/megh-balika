@@ -35,5 +35,6 @@ export const SITE_DEFAULTS = {
   contact_email: "reshmip632@gmail.com",
   contact_phone: "+91 70013 78042",
   whatsapp_number: "917001378042",
+  whatsapp_number_alt: "919088917626",
   whatsapp_default_message: "Namaste! I came across Megh Balika and would like to know more.",
 };

@@ -12,6 +12,14 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    // Lovable CDN assets (/__l5e/assets-v1) are served by the platform in
+    // preview/production; proxy them in dev so local preview renders them too.
+    proxy: {
+      "/__l5e/assets-v1": {
+        target: "https://id-preview--40901b83-6790-49c6-9b82-0afbd65a6650.lovable.app",
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [
     react(),
