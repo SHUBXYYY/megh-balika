@@ -16,6 +16,7 @@ import Reviews from "./pages/Reviews.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import WhatsAppFab from "./components/WhatsAppFab";
+import DiwaliOffer from "./components/DiwaliOffer";
 import BlogCms from "./pages/BlogCms";
 import BlogDetail from "./pages/BlogDetail";
 
@@ -46,6 +47,7 @@ const AppRoutes = () => (
         <Route path="*" element={<NotFound />} />
       </Routes>
       <WhatsAppFab />
+      <DiwaliOffer />
     </TooltipProvider>
   </QueryClientProvider>
 );
