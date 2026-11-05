@@ -12,26 +12,26 @@ const BULB_COLORS = [
   "#f0731f", // orange
 ];
 
-const BULBS = 22;
 const WIDTH = 1440;
-const DROOP = 16; // max sag of the garland at mid-width
 
-// Wire and bulbs share the same curve so the lights hang on the string.
-const wireY = (i: number, n: number) =>
-  6 + DROOP * Math.sin((i / (n - 1)) * Math.PI);
+// Two crossing garlands give the site a fuller canopy of strip lights.
+const STRANDS = [
+  { bulbs: 40, droop: 16, phase: 0, size: 2.8, glow: 5, opacity: 1 },
+  { bulbs: 30, droop: 26, phase: 0.5, size: 2.2, glow: 4, opacity: 0.7 },
+] as const;
 
-const wirePoints = Array.from(
-  { length: 80 },
-  (_, k) => {
-    const t = (k / 79) * (WIDTH);
-    const i = (k / 79) * (BULBS - 1);
-    return `${t.toFixed(1)},${wireY(i, BULBS).toFixed(1)}`;
-  }
-).join(" ");
+const wireY = (t: number, droop: number, phase: number) =>
+  6 + droop * Math.sin((t + phase) * Math.PI);
+
+const wirePoints = (droop: number, phase: number) =>
+  Array.from({ length: 96 }, (_, k) => {
+    const t = (k / 95) * (WIDTH);
+    return `${t.toFixed(1)},${wireY(k / 95, droop, phase).toFixed(1)}`;
+  }).join(" ");
 
 /**
- * Site-wide Diwali decoration: a garland of twinkling multicolour strip
- * lights across the top of every page, with a live countdown to
+ * Site-wide Diwali decoration: two garlands of twinkling multicolour
+ * strip lights across the top of every page, with a live countdown to
  * 11 November 2026. Hidden on /admin and /auth; removed automatically
  * after the campaign ends.
  */
@@ -48,20 +48,33 @@ export default function DiwaliLights() {
       aria-hidden="true"
     >
       <svg
-        viewBox={`0 0 ${WIDTH} 42`}
-        className="w-full h-9 drop-shadow-[0_2px_6px_rgba(255,180,60,0.35)]"
+        viewBox={`0 0 ${WIDTH} 52`}
+        className="w-full h-11 drop-shadow-[0_2px_8px_rgba(255,180,60,0.4)]"
         preserveAspectRatio="xMidYMin slice"
       >
-        <polyline points={wirePoints} fill="none" stroke="rgba(60,40,20,0.6)" strokeWidth="1.5" />
-        {Array.from({ length: BULBS }, (_, i) => {
-          const x = (WIDTH / (BULBS - 1)) * i;
-          const y = wireY(i, BULBS);
-          const color = BULB_COLORS[i % BULB_COLORS.length];
+        {STRANDS.map((s, si) => {
+          const bulbX = (i: number, n: number) => (WIDTH / (n - 1)) * i;
           return (
-            <g key={i} className="diwali-bulb" style={{ animationDelay: `${(i % 7) * 0.35}s` }}>
-              <line x1={x} y1={y} x2={x} y2={y + 5} stroke="rgba(60,40,20,0.6)" strokeWidth="1" />
-              <circle cx={x} cy={y + 8} r="5" fill={color} opacity="0.3" />
-              <circle cx={x} cy={y + 8} r="2.8" fill={color} />
+            <g key={si}>
+              <polyline
+                points={wirePoints(s.droop, s.phase)}
+                fill="none"
+                stroke="rgba(60,40,20,0.6)"
+                strokeWidth="1.5"
+              />
+              {Array.from({ length: s.bulbs }, (_, i) => {
+                const t = i / (s.bulbs - 1);
+                const x = bulbX(i, s.bulbs);
+                const y = wireY(t, s.droop, s.phase);
+                const color = BULB_COLORS[(i + si * 3) % BULB_COLORS.length];
+                return (
+                  <g key={i} className="diwali-bulb" style={{ animationDelay: `${((i + si * 2) % 9) * 0.28}s` }}>
+                    <line x1={x} y1={y} x2={x} y2={y + 5} stroke="rgba(60,40,20,0.6)" strokeWidth="1" />
+                    <circle cx={x} cy={y + 8} r={s.glow} fill={color} opacity={0.3 * s.opacity} />
+                    <circle cx={x} cy={y + 8} r={s.size} fill={color} />
+                  </g>
+                );
+              })}
             </g>
           );
         })}
