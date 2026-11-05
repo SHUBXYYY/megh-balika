@@ -68,15 +68,15 @@ export default function DiwaliLights() {
       </svg>
 
       <motion.div
-        className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-8 flex items-center gap-2 whitespace-nowrap rounded-full border border-gold-deep/40 bg-ink/85 px-4 py-1.5 backdrop-blur-sm shadow-luxe"
+        className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-1 flex items-center gap-1.5 whitespace-nowrap rounded-full border border-gold-deep/40 bg-ink/85 px-3 py-1 backdrop-blur-sm shadow-luxe"
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.6 }}
       >
-        <span className="text-[11px] uppercase tracking-[0.2em] text-gold-light">Diwali Dhamaka · 20% Off</span>
-        <span className="h-3 w-px bg-gold-deep/40" aria-hidden="true" />
+        <span className="hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-gold-light">Diwali Dhamaka · 20% Off</span>
+        <span className="hidden sm:inline h-3 w-px bg-gold-deep/40" aria-hidden="true" />
         <span
-          className="font-mono text-[11px] tabular-nums text-gold"
+          className="font-mono text-[10px] tabular-nums text-gold"
           role="timer"
           aria-label="Time left in the Diwali offer"
         >
