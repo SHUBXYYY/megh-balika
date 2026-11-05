@@ -17,6 +17,7 @@ import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import WhatsAppFab from "./components/WhatsAppFab";
 import DiwaliOffer from "./components/DiwaliOffer";
+import DiwaliLights from "./components/DiwaliLights";
 import BlogCms from "./pages/BlogCms";
 import BlogDetail from "./pages/BlogDetail";
 
@@ -46,6 +47,7 @@ const AppRoutes = () => (
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <DiwaliLights />
       <WhatsAppFab />
       <DiwaliOffer />
     </TooltipProvider>
