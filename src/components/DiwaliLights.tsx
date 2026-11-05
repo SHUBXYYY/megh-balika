@@ -68,9 +68,9 @@ export default function DiwaliLights() {
       </svg>
 
       <motion.div
-        className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-1 flex items-center gap-1.5 whitespace-nowrap rounded-full border border-gold-deep/40 bg-ink/85 px-3 py-1 backdrop-blur-sm shadow-luxe"
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
+        className="pointer-events-auto absolute left-1/2 top-1 flex items-center gap-1.5 whitespace-nowrap rounded-full border border-gold-deep/40 bg-ink/85 px-3 py-1 backdrop-blur-sm shadow-luxe"
+        initial={{ opacity: 0, y: -8, x: "-50%" }}
+        animate={{ opacity: 1, y: 0, x: "-50%" }}
         transition={{ delay: 0.6, duration: 0.6 }}
       >
         <span className="hidden sm:inline text-[10px] uppercase tracking-[0.2em] text-gold-light">Diwali Dhamaka · 20% Off</span>
