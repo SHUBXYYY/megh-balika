@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import diwaliOffer from "@/assets/diwali-offer.png.asset.json";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
+import { OFFER_ENDS_AT, useCountdown, formatCountdown } from "@/lib/diwaliOffer";
 
-// Brochure runs until 10 November 2026, end of day IST. After that it is
-// removed from the site automatically — no manual step needed.
-const OFFER_ENDS_AT = new Date("2026-11-10T18:30:00Z");
 const SESSION_KEY = "diwali-offer-dismissed-v1";
+const BROCHURE_SRC = "/diwali-dhamaka-2026.jpg";
 
 const formatNumber = (digits: string) => `+${digits.slice(0, 2)} ${digits.slice(2, 7)} ${digits.slice(7)}`;
 
@@ -16,6 +14,7 @@ export default function DiwaliOffer() {
   const { pathname } = useLocation();
   const { get } = useSiteContent();
   const [open, setOpen] = useState(false);
+  const countdown = useCountdown();
 
   useEffect(() => {
     if (pathname.startsWith("/admin") || pathname.startsWith("/auth")) return;
@@ -50,7 +49,7 @@ export default function DiwaliOffer() {
 
   return (
     <AnimatePresence>
-      {open && (
+      {open && !countdown.ended && (
         <motion.div
           className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/80 backdrop-blur-sm px-4 py-8 overflow-y-auto"
           initial={{ opacity: 0 }}
@@ -79,13 +78,22 @@ export default function DiwaliOffer() {
             </button>
 
             <img
-              src={diwaliOffer.url}
-              alt="Diwali Dhamaka — 20% off pre-order booking at Megh Balika"
+              src={BROCHURE_SRC}
+              alt="Diwali Dhamaka — Khadi Tussar Hand Kantha Stitch, 20% off pre-order booking at Megh Balika"
               className="w-full rounded-sm shadow-luxe"
               loading="eager"
             />
 
-            <div className="mt-4 grid grid-cols-1 gap-2">
+            <div
+              className="mt-4 flex items-center justify-center gap-3 rounded-sm border border-gold-deep/40 bg-card px-4 py-3"
+              role="timer"
+              aria-label="Time left in the Diwali offer"
+            >
+              <span className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">Offer ends in</span>
+              <span className="font-mono text-lg tabular-nums text-gold-deep">{formatCountdown(countdown)}</span>
+            </div>
+
+            <div className="mt-2 grid grid-cols-1 gap-2">
               {numbers.map(({ digits, label }) => (
                 <a
                   key={digits}
@@ -100,7 +108,7 @@ export default function DiwaliOffer() {
               ))}
             </div>
             <p className="mt-3 text-center text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-              Offer valid until 10 November 2026
+              Offer valid until 11 November 2026
             </p>
           </motion.div>
         </motion.div>

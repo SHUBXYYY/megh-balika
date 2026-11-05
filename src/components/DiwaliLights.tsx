@@ -13,6 +13,21 @@ const BULB_COLORS = [
 ];
 
 const BULBS = 22;
+const WIDTH = 1440;
+const DROOP = 16; // max sag of the garland at mid-width
+
+// Wire and bulbs share the same curve so the lights hang on the string.
+const wireY = (i: number, n: number) =>
+  6 + DROOP * Math.sin((i / (n - 1)) * Math.PI);
+
+const wirePoints = Array.from(
+  { length: 80 },
+  (_, k) => {
+    const t = (k / 79) * (WIDTH);
+    const i = (k / 79) * (BULBS - 1);
+    return `${t.toFixed(1)},${wireY(i, BULBS).toFixed(1)}`;
+  }
+).join(" ");
 
 /**
  * Site-wide Diwali decoration: a garland of twinkling multicolour strip
@@ -27,50 +42,41 @@ export default function DiwaliLights() {
   if (pathname.startsWith("/admin") || pathname.startsWith("/auth")) return null;
   if (new Date() >= OFFER_ENDS_AT || countdown.ended) return null;
 
-  // Gentle sagging curve across the full width.
-  const width = 1440;
-  const sag = 14;
-  const path = `M 0 4 Q ${width / 4} ${4 + sag} ${width / 2} ${4 + sag / 2} T ${width} 4`;
-
   return (
     <div
       className="fixed inset-x-0 top-0 z-[60] pointer-events-none select-none"
       aria-hidden="true"
     >
       <svg
-        viewBox={`0 0 ${width} 44`}
+        viewBox={`0 0 ${WIDTH} 42`}
         className="w-full h-9 drop-shadow-[0_2px_6px_rgba(255,180,60,0.35)]"
         preserveAspectRatio="xMidYMin slice"
       >
-        <path d={path} fill="none" stroke="rgba(60,40,20,0.55)" strokeWidth="1.5" />
+        <polyline points={wirePoints} fill="none" stroke="rgba(60,40,20,0.6)" strokeWidth="1.5" />
         {Array.from({ length: BULBS }, (_, i) => {
-          const x = (width / (BULBS - 1)) * i;
-          // Sample the quadratic-ish curve visually: alternate droop offsets.
-          const droop =
-            i === 0 || i === BULBS - 1
-              ? 6
-              : 10 + 8 * Math.sin((i / (BULBS - 1)) * Math.PI * 2);
+          const x = (WIDTH / (BULBS - 1)) * i;
+          const y = wireY(i, BULBS);
           const color = BULB_COLORS[i % BULB_COLORS.length];
           return (
             <g key={i} className="diwali-bulb" style={{ animationDelay: `${(i % 7) * 0.35}s` }}>
-              <line x1={x} y1={9} x2={x} y2={droop} stroke="rgba(60,40,20,0.55)" strokeWidth="1" />
-              <circle cx={x} cy={droop + 4} r="4" fill={color} opacity="0.25" className="diwali-bulb-glow" />
-              <circle cx={x} cy={droop + 4} r="2.6" fill={color} />
+              <line x1={x} y1={y} x2={x} y2={y + 5} stroke="rgba(60,40,20,0.6)" strokeWidth="1" />
+              <circle cx={x} cy={y + 8} r="5" fill={color} opacity="0.3" />
+              <circle cx={x} cy={y + 8} r="2.8" fill={color} />
             </g>
           );
         })}
       </svg>
 
       <motion.div
-        className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-8 flex items-center gap-2 rounded-full border border-gold-deep/40 bg-ink/85 px-4 py-1.5 backdrop-blur-sm shadow-luxe"
+        className="pointer-events-auto absolute left-1/2 -translate-x-1/2 top-8 flex items-center gap-2 whitespace-nowrap rounded-full border border-gold-deep/40 bg-ink/85 px-4 py-1.5 backdrop-blur-sm shadow-luxe"
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.6 }}
       >
-        <span className="text-[11px] uppercase tracking-[0.2em] text-gold">Diwali Dhamaka · 20% Off</span>
+        <span className="text-[11px] uppercase tracking-[0.2em] text-gold-light">Diwali Dhamaka · 20% Off</span>
         <span className="h-3 w-px bg-gold-deep/40" aria-hidden="true" />
         <span
-          className="font-mono text-[11px] tabular-nums text-gold-foreground"
+          className="font-mono text-[11px] tabular-nums text-gold"
           role="timer"
           aria-label="Time left in the Diwali offer"
         >
