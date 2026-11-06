@@ -17,6 +17,7 @@ export default function DiwaliOffer() {
   const { get } = useSiteContent();
   const [open, setOpen] = useState(false);
   const [mediaView, setMediaView] = useState<"video" | "brochure">("video");
+  const [videoSrc, setVideoSrc] = useState(diwaliVideo.url);
   const countdown = useCountdown();
 
   useEffect(() => {
@@ -104,7 +105,7 @@ export default function DiwaliOffer() {
             {mediaView === "video" ? (
               <div className="flex justify-center overflow-hidden rounded-sm bg-ink">
                 <video
-                  src={diwaliVideo.url}
+                  src={videoSrc}
                   poster={BROCHURE_SRC}
                   className="block max-h-[min(58svh,34rem)] max-w-full object-contain"
                   autoPlay
@@ -113,6 +114,9 @@ export default function DiwaliOffer() {
                   playsInline
                   preload="metadata"
                   aria-label="Megh Balika Diwali saree and handloom video"
+                  onError={() => {
+                    if (videoSrc === diwaliVideo.url) setVideoSrc("/diwali-dhamaka-2026.mp4");
+                  }}
                 />
               </div>
             ) : (
