@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { Image as ImageIcon, Video, X } from "lucide-react";
+import diwaliVideo from "@/assets/diwali-dhamaka-2026.mp4.asset.json";
+import { Button } from "@/components/ui/button";
 import { useSiteContent, SITE_DEFAULTS } from "@/hooks/useSiteContent";
 import { OFFER_ENDS_AT, useCountdown, formatCountdown } from "@/lib/diwaliOffer";
 
@@ -14,6 +16,7 @@ export default function DiwaliOffer() {
   const { pathname } = useLocation();
   const { get } = useSiteContent();
   const [open, setOpen] = useState(false);
+  const [mediaView, setMediaView] = useState<"video" | "brochure">("video");
   const countdown = useCountdown();
 
   useEffect(() => {
@@ -77,12 +80,51 @@ export default function DiwaliOffer() {
               <X className="h-4 w-4" />
             </button>
 
-            <img
-              src={BROCHURE_SRC}
-              alt="Diwali Dhamaka — Khadi Tussar Hand Kantha Stitch, 20% off pre-order booking at Megh Balika"
-              className="w-full rounded-sm shadow-luxe"
-              loading="eager"
-            />
+            <div className="mb-3 grid grid-cols-2 gap-2" aria-label="Diwali offer media">
+              <Button
+                type="button"
+                variant={mediaView === "video" ? "default" : "outline"}
+                size="sm"
+                aria-pressed={mediaView === "video"}
+                onClick={() => setMediaView("video")}
+              >
+                <Video aria-hidden="true" /> Video
+              </Button>
+              <Button
+                type="button"
+                variant={mediaView === "brochure" ? "default" : "outline"}
+                size="sm"
+                aria-pressed={mediaView === "brochure"}
+                onClick={() => setMediaView("brochure")}
+              >
+                <ImageIcon aria-hidden="true" /> Brochure
+              </Button>
+            </div>
+
+            {mediaView === "video" ? (
+              <div className="flex justify-center overflow-hidden rounded-sm bg-ink">
+                <video
+                  src={diwaliVideo.url}
+                  poster={BROCHURE_SRC}
+                  className="block max-h-[min(58svh,34rem)] max-w-full object-contain"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="Megh Balika Diwali saree and handloom video"
+                />
+              </div>
+            ) : (
+              <div className="flex justify-center overflow-hidden rounded-sm bg-ink">
+                <img
+                  src={BROCHURE_SRC}
+                  alt="Diwali Dhamaka — Khadi Tussar Hand Kantha Stitch, 20% off pre-order booking at Megh Balika"
+                  className="block max-h-[min(58svh,34rem)] max-w-full object-contain shadow-luxe"
+                  loading="eager"
+                />
+              </div>
+            )}
 
             <div
               className="mt-4 flex items-center justify-center gap-3 rounded-sm border border-gold-deep/40 bg-card px-4 py-3"
