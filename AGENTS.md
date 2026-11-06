@@ -1,1 +1,2 @@
 Public blog listings merge all published CMS posts with legacy articles by slug, with CMS content taking precedence, so adding a post never hides existing stories.
+Campaign media uses project asset pointers and shares the existing campaign cutoff, so temporary video and brochure content expire together.
