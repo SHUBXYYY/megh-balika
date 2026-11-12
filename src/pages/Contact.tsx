@@ -16,7 +16,6 @@ const Contact = () => {
   const email = get("contact_email", SITE_DEFAULTS.contact_email);
   const phone = get("contact_phone", SITE_DEFAULTS.contact_phone);
   const wa = get("whatsapp_number", SITE_DEFAULTS.whatsapp_number);
-  const waAlt = get("whatsapp_number_alt", SITE_DEFAULTS.whatsapp_number_alt);
   const waMsg = get("whatsapp_default_message", SITE_DEFAULTS.whatsapp_default_message);
 
   return (
@@ -52,7 +51,7 @@ const Contact = () => {
             <div className="font-serif text-2xl mb-2">WhatsApp</div>
             <div className="text-sm text-muted-foreground">Fastest reach for trade enquiries</div>
             <div className="mt-3 space-y-1.5">
-              {[wa, waAlt].map((digits) => (
+              {[wa].map((digits) => (
                 <a
                   key={digits}
                   href={`https://wa.me/${digits}?text=${encodeURIComponent(waMsg)}`}

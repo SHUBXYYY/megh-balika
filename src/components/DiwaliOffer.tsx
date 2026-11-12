@@ -43,12 +43,10 @@ export default function DiwaliOffer() {
   };
 
   const primary = get("whatsapp_number", SITE_DEFAULTS.whatsapp_number);
-  const alt = get("whatsapp_number_alt", SITE_DEFAULTS.whatsapp_number_alt);
   const msg = "Namaste! I saw the Diwali Dhamaka offer — I'd like to pre-book sarees at 20% off.";
 
   const numbers = [
     { digits: primary, label: "WhatsApp enquiry" },
-    { digits: alt, label: "Direct line" },
   ];
 
   return (

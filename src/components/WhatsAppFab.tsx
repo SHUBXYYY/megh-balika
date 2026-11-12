@@ -23,13 +23,11 @@ export default function WhatsAppFab() {
   if (pathname.startsWith("/admin") || pathname.startsWith("/auth")) return null;
 
   const primary = get("whatsapp_number", SITE_DEFAULTS.whatsapp_number);
-  const alt = get("whatsapp_number_alt", SITE_DEFAULTS.whatsapp_number_alt);
   const fallback = get("whatsapp_default_message", SITE_DEFAULTS.whatsapp_default_message);
   const msg = PAGE_MESSAGES[pathname] ?? fallback;
 
   const numbers = [
     { digits: primary, label: "Enquiries" },
-    { digits: alt, label: "Direct line" },
   ];
 
   return (
