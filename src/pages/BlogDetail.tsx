@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import MenuTrigger from "@/components/MenuTrigger";
 import MenuOverlay from "@/components/MenuOverlay";
@@ -8,29 +8,49 @@ import SareeExpert from "@/components/SareeExpert";
 import { blogPosts, type BlogPost } from "./Blog";
 import Seo, { breadcrumbLd, SITE_URL } from "@/components/Seo";
 import ArticleProse from "@/components/ArticleProse";
-import { fetchPublishedBlogPost, type CmsBlogPost } from "@/lib/blog";
+import { blogSlugCandidates, fetchPublishedBlogPost, findBlogPostBySlug, type CmsBlogPost, type BlogPostResolutionStatus } from "@/lib/blog";
+
+type BlogDetailResult = {
+  key: string;
+  post: BlogPost | CmsBlogPost | null;
+  status: "loading" | BlogPostResolutionStatus;
+};
 
 const BlogDetail = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { slug } = useParams();
-  const staticPost = blogPosts.find((p) => p.slug === slug);
-  const [post, setPost] = useState<BlogPost | CmsBlogPost | null>(staticPost ?? null);
-  const [loading, setLoading] = useState(!staticPost);
+  const { pathname } = useLocation();
+  const slugCandidates = blogSlugCandidates(pathname);
+  const slugKey = slugCandidates.join("|");
+  const [result, setResult] = useState<BlogDetailResult>({ key: "", post: null, status: "loading" });
 
   useEffect(() => {
-    if (!slug) return;
     let active = true;
-    fetchPublishedBlogPost(slug).then(({ data }) => {
+    const candidates = slugKey ? slugKey.split("|") : [];
+    const fallbackPost = findBlogPostBySlug(blogPosts, candidates);
+    setResult({ key: slugKey, post: null, status: "loading" });
+
+    fetchPublishedBlogPost(candidates).then(({ data, error }) => {
       if (!active) return;
-      if (data) setPost(data);
-      setLoading(false);
+      setResult({
+        key: slugKey,
+        post: data ?? fallbackPost,
+        status: data || fallbackPost ? "ready" : error ? "error" : "missing",
+      });
+    }).catch(() => {
+      if (!active) return;
+      setResult({ key: slugKey, post: fallbackPost, status: fallbackPost ? "ready" : "error" });
     });
     return () => {
       active = false;
     };
-  }, [slug]);
+  }, [slugKey]);
 
-  if (loading) {
+  const currentResult = result.key === slugKey
+    ? result
+    : { key: slugKey, post: null, status: "loading" as const };
+  const post = currentResult.post;
+
+  if (currentResult.status === "loading") {
     return (
       <main className="bg-background">
         <MenuTrigger onOpen={() => setMenuOpen(true)} />
@@ -40,6 +60,24 @@ const BlogDetail = () => {
             <p className="font-serif text-3xl text-muted-foreground">Loading the journal…</p>
           </div>
         </section>
+      </main>
+    );
+  }
+
+  if (currentResult.status === "error") {
+    return (
+      <main className="bg-background">
+        <MenuTrigger onOpen={() => setMenuOpen(true)} />
+        <MenuOverlay open={menuOpen} onClose={() => setMenuOpen(false)} />
+        <section className="pt-44 pb-28">
+          <div className="container px-6 md:px-12">
+            <Link to="/blog" className="text-xs uppercase tracking-[0.3em] text-gold-deep link-edit">
+              ⟵ Journal
+            </Link>
+            <p className="font-serif text-3xl mt-10 text-muted-foreground">This story couldn’t be loaded right now.</p>
+          </div>
+        </section>
+        <Footer />
       </main>
     );
   }
@@ -54,7 +92,10 @@ const BlogDetail = () => {
             <Link to="/blog" className="text-xs uppercase tracking-[0.3em] text-gold-deep link-edit">
               ⟵ Journal
             </Link>
-            <p className="font-serif text-3xl mt-10 text-muted-foreground">Post not found.</p>
+            <p className="font-serif text-3xl mt-10 text-muted-foreground">This page doesn’t exist.</p>
+            <Link to="/blog" className="inline-block mt-6 text-xs uppercase tracking-[0.3em] text-gold-deep link-edit">
+              Browse the journal
+            </Link>
           </div>
         </section>
         <Footer />

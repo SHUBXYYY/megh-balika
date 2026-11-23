@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { hasDuplicateBlogSlug, mergePublishedBlogPosts, type CmsBlogPost } from "./blog";
+import { blogSlugCandidates, findBlogPostBySlug, hasDuplicateBlogSlug, mergePublishedBlogPosts, normalizeBlogSlug, type CmsBlogPost } from "./blog";
 
 const article = (id: string, slug: string, date: string): CmsBlogPost => ({
   id,
@@ -41,5 +41,23 @@ describe("public blog listing", () => {
     expect(hasDuplicateBlogSlug("a-new-journal-story", [
       "best-traditional-fabrics-for-premium-boutiques",
     ])).toBe(false);
+  });
+
+  it("matches slug casing and removes trailing slashes", () => {
+    expect(normalizeBlogSlug("/My-Saree-Story///")).toBe("my-saree-story");
+    const post = article("cms-1", "my-saree-story", "2026-11-01");
+    expect(findBlogPostBySlug([post], ["MY-SAREE-STORY/"])).toBe(post);
+  });
+
+  it("normalizes spaces and dash variants to the same slug", () => {
+    expect(normalizeBlogSlug("Handloom   Sarees")).toBe("handloom-sarees");
+    expect(normalizeBlogSlug("handloom---sarees")).toBe("handloom-sarees");
+  });
+
+  it("supports nested blog paths by trying the full path and final slug", () => {
+    expect(blogSlugCandidates("/BLOG/craft-guides/Handloom Sarees///")).toEqual([
+      "craft-guides-handloom-sarees",
+      "handloom-sarees",
+    ]);
   });
 });

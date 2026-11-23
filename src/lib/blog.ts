@@ -1,5 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 
+export type BlogPostResolutionStatus = "ready" | "missing" | "error";
+
 export type CmsBlogPost = {
   id: string;
   slug: string;
@@ -49,6 +51,44 @@ export const toCmsBlogPost = (row: BlogRow): CmsBlogPost => ({
 export const hasDuplicateBlogSlug = (slug: string, existingSlugs: string[]) =>
   existingSlugs.includes(slug);
 
+export function normalizeBlogSlug(value: string) {
+  let decoded = value;
+  try {
+    decoded = decodeURIComponent(value);
+  } catch {
+    // Keep the original URL text if it contains malformed escape sequences.
+  }
+
+  const pathText = decoded.split(/[?#]/, 1)[0] ?? "";
+  return pathText
+    .trim()
+    .replace(/^\/+|\/+$/g, "")
+    .replace(/^blog(?:\/|$)/i, "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function blogSlugCandidates(pathname: string) {
+  const withoutQuery = pathname.split(/[?#]/, 1)[0] ?? "";
+  const path = withoutQuery.replace(/^\/+|\/+$/g, "");
+  const blogPath = path.replace(/^blog(?:\/|$)/i, "");
+  const segments = blogPath.split("/").filter(Boolean);
+  const candidates = [
+    normalizeBlogSlug(segments.join("-")),
+    normalizeBlogSlug(segments.at(-1) ?? ""),
+  ];
+
+  return [...new Set(candidates.filter(Boolean))];
+}
+
+export function findBlogPostBySlug(posts: CmsBlogPost[], slugs: string[]) {
+  const candidates = new Set(slugs.map(normalizeBlogSlug).filter(Boolean));
+  return posts.find((post) => candidates.has(normalizeBlogSlug(post.slug))) ?? null;
+}
+
 export function mergePublishedBlogPosts(
   publishedPosts: CmsBlogPost[],
   fallbackPosts: CmsBlogPost[],
@@ -78,17 +118,28 @@ export async function fetchPublishedBlogPosts() {
   };
 }
 
-export async function fetchPublishedBlogPost(slug: string) {
-  const { data, error } = await supabase
-    .from("blog_posts")
-    .select("id, slug, title, excerpt, content, image_url, image_alt, image_title, category, meta_title, meta_description, published_at, created_at")
-    .eq("slug", slug)
-    .eq("published", true)
-    .maybeSingle();
+export async function fetchPublishedBlogPost(slugs: string | string[]) {
+  const candidates = [...new Set((Array.isArray(slugs) ? slugs : [slugs]).map(normalizeBlogSlug).filter(Boolean))];
+  if (candidates.length === 0) return { data: null, error: null };
+
+  const results = await Promise.all(candidates.map(async (slug) => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, slug, title, excerpt, content, image_url, image_alt, image_title, category, meta_title, meta_description, published_at, created_at")
+      .ilike("slug", slug)
+      .eq("published", true)
+      .order("published_at", { ascending: false, nullsFirst: false })
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    return { data, error };
+  }));
+  const match = results.find((result) => result.data);
 
   return {
-    data: data ? toCmsBlogPost(data as BlogRow) : null,
-    error,
+    data: match?.data ? toCmsBlogPost(match.data as BlogRow) : null,
+    error: results.find((result) => result.error)?.error ?? null,
   };
 }
 

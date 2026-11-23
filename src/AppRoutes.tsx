@@ -43,7 +43,7 @@ const AppRoutes = () => (
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/blog" element={<BlogCms />} />
-        <Route path="/blog/:slug" element={<BlogDetail />} />
+        <Route path="/blog/*" element={<BlogDetail />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>

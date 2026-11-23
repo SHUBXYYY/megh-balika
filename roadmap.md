@@ -2,6 +2,7 @@
 - [x] Connect public blog feed and dynamic post route to published database data
 - [x] Fix blog listing to merge published CMS posts with legacy articles, preserve every row, and reject duplicate slugs
 - [x] Fix Product structured data, blog slug routing, and route-specific prerendered SEO
+- [ ] Fix direct blog URL refreshes with host fallbacks, nested routes, and normalized slug lookup
 - [ ] Verify SEO output, imports, and production build
 - [ ] Publish one polished English saree article with a suitable photo
 - [ ] Remove 9088917626 from active website content and any remaining visible media

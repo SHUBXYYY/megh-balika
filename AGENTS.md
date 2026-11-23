@@ -1,2 +1,3 @@
 Public blog listings merge all published CMS posts with legacy articles by slug, with CMS content taking precedence, so adding a post never hides existing stories.
 Campaign media uses project asset pointers and shares the existing campaign cutoff, so temporary video and brochure content expire together.
+Keep deep blog URLs supported by both host-level SPA fallbacks and the React Router blog wildcard; normalize slugs before CMS and legacy lookup so direct visits and in-app links resolve consistently.
